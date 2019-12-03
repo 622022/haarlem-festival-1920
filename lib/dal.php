@@ -45,5 +45,22 @@
                 return true;
             }
         }
+
+        public function getHashedPass($email) {
+            $this->conn->escape_string($email);
+
+            $result = $this->conn->query("SELECT password FROM `user` WHERE `email` = '$email'");
+
+            if (!$result) {
+                $error = $this->conn->error;
+                throw new Exception("Database error: '$error'");
+            } else {
+                if ($result->num_rows > 0) {
+                    return $result->fetch_row()[0];
+                } else {
+                    return false;
+                }
+            }
+        }
     }
 ?>

@@ -30,5 +30,14 @@
                 throw new Exception("Invalid email format");
             }
         }
+
+        public function login($email, $password) {
+            $hashedPass = $this->dal->getHashedPass($email);
+
+            if ($hashedPass && password_verify($password, $hashedPass)) {
+                $_SESSION['USER'] = $email;
+                session_commit();
+            }
+        }
     }
 ?>

@@ -8,10 +8,10 @@
     <body>
         <div class="form">
             <h1>Log In</h1>
-            <form action="controller/user-controller.php" method="post" name="login">
+            <form action="controller/user-controller.php" method="post" name="login-form">
                 <input type="text" name="email" placeholder="Email" required />
                 <input type="password" name="password" placeholder="Password" required />
-                <input name="submit" type="submit" value="Login" />
+                <input name="login-button" type="submit" value="Login" />
             </form>
             <p>Not registered yet? <a href='registration.php'>Register Here</a></p>
     </body>

@@ -1,4 +1,4 @@
-<?php include("auth.php"); ?>
+<?php session_start() ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,7 +8,7 @@
     </head>
     <body>
         <div class="form">
-            <p>Welcome <?php echo $_SESSION['username']; ?>!</p>
+            <p>Welcome <?php echo($_SESSION['USER']); ?>!</p>
             <p>This is a secure area.</p>
             <p><a href="dashboard.php">Dashboard</a></p>
             <a href="logout.php">Logout</a>
