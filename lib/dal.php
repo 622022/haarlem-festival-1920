@@ -15,10 +15,10 @@
         }
 
         public function doesUserExist($email) {
-            $email = $this->conn->escape_string($email);
-            
-            $query = "SELECT `email` FROM `user` WHERE `email` = '$email'";
-            $result = $this->conn->query($query);
+            $query = $this->conn->prepare("SELECT email FROM user WHERE email = ?");
+            $query->bind_param('s', $email);
+            $query->execute();
+            $result = $query->get_result();
 
             if (!$result) {
                 $error = $this->conn->error;
@@ -29,27 +29,19 @@
         }
 
         public function registerUser($user) {
-            $email = $this->conn->escape_string($user->email);
-            $fullname = $this->conn->escape_string($user->fullname);
-            $password = password_hash($user->password, PASSWORD_DEFAULT);
-            $password = $this->conn->escape_string($password);
+            $user->password = password_hash($user->password, PASSWORD_DEFAULT);
+            $query = $this->conn->prepare("INSERT INTO user (full_name, email, password) VALUES (?, ?, ?)");
+            $query->bind_param('sss', $user->fullname, $user->email, $user->password);
+            $query->execute();
 
-            $query = "INSERT INTO `user` (`full_name`, `email`, `password`) ";
-            $query .= "VALUES ('$fullname', '$email', '$password')";
-            $result = $this->conn->query($query);
-
-            if (!$result) {
-                $error = $this->conn->error;
-                throw new Exception("Database error: '$error'");
-            } else {
-                return true;
-            }
+            return $query->affected_rows == 0;
         }
 
         public function getHashedPass($email) {
-            $this->conn->escape_string($email);
-
-            $result = $this->conn->query("SELECT password FROM `user` WHERE `email` = '$email'");
+            $query = $this->conn->prepare("SELECT password FROM user WHERE email = ?");
+            $query->bind_param('s', $email);
+            $query->execute();
+            $result = $query->get_result();
 
             if (!$result) {
                 $error = $this->conn->error;
