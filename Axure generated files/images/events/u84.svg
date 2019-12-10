@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180" height="56" viewBox="0 0 180 56">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="180" height="56" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Dividers" clip-path="url(#clip-path)">
+    <g transform="translate(-30 -60.5)">
+      <line id="Line_3" data-name="Line 3" x2="180" transform="translate(30 61)" fill="none" stroke="#ccc" stroke-width="1"/>
+    </g>
+    <g transform="translate(-30 -5.5)">
+      <line id="Line_3-2" data-name="Line 3" x2="180" transform="translate(30 61)" fill="none" stroke="#ccc" stroke-width="1"/>
+    </g>
+  </g>
+</svg>
