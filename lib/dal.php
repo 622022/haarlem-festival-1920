@@ -30,7 +30,7 @@
 
         public function registerUser($user) {
             $user->password = password_hash($user->password, PASSWORD_DEFAULT);
-            $query = $this->conn->prepare("INSERT INTO user (full_name, email, password) VALUES (?, ?, ?)");
+            $query = $this->conn->prepare("INSERT INTO user (fullName, email, password, isAdmin) VALUES (?, ?, ?, 0)");
             $query->bind_param('sss', $user->fullname, $user->email, $user->password);
             $query->execute();
 

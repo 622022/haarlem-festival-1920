@@ -23,4 +23,4 @@
 * Make simple frontend pages first then bother with functionality
 * Make section folder for repeatable interface sections (php include 'em) 
 
-✓ = Finito
++ = Finito
