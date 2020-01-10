@@ -13,13 +13,7 @@
       <a href="#FOOD">FOOD</a>
     </div>
 
-    <div class="row">
-        <div class="col-xl">
-        <h2>TITLE HEADING</h2>
-        <button type="button" class="btn btn-primary"> Add </button>
-        <div class="col"></div>
-        <div class="col"></div>
-    </div>
+    
 
     <!-- <?php
     function generateProjectCard($projectName, $projectDescription, $projectLanguage)
