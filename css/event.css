@@ -3,9 +3,9 @@
 
 .navbar {
   background-color: blue;
-    overflow: hidden;
-    left: 38%;
-    position: fixed;
+  overflow: hidden;
+  left: 38%;
+  position: fixed;
 
 }
 .navbar a{
@@ -16,6 +16,7 @@
 }
 .All-access{
 
+  
 }
 
 

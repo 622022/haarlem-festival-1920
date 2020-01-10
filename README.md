@@ -34,7 +34,7 @@
 
 Returns the existing instance of the dataLayer. If this does not exist already it will create one and return that instead.
 
-**Returns:** `dataLayer` – The existing or newly created instance of this `dataLayer`
+**Returns:** `dataLayer` – The existing or newly created instance of this dataLayer.
 
 #### dataLayer.doesUserExist(string *email*)
 

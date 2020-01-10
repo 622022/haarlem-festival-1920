@@ -1,12 +1,12 @@
 :root {
-	--jazz-main-color: #F00;
-	--dance-main-color: #00F;
-	--food-main-color: #0F0;
-    --main-bg-color: #FFF;
-    --secondary-bg-color: #AAA;
-    --main-theme-color: #F00;
-    --secondary-theme-color: #900;
-    --tertiary-theme-color: #500;
-    --main-text-color: #000;
-    --secondary-text-color: #222;
+	--jazz-main: #F00;
+	--dance-main: #00F;
+	--food-main: #0F0;
+    --main-bg: #FFF;
+    --secondary-bg: #AAA;
+    --main-theme: #F00;
+    --secondary-theme: #900;
+    --tertiary-theme: #500;
+    --primary-text: #111;
+    --secondary-text: #222;
 }
