@@ -7,10 +7,15 @@
     <title>Dance event</title>
   </head>
   <body>
+    
     <div class="navbar">
       <a href="#DANCE">DANCE</a>
       <a href="#JAZZ">JAZZ</a>
       <a href="#FOOD">FOOD</a>
+    </div>
+
+    <div class ="All-access">
+    <h2>You can save upto *50% off if you buy an all access-pass.</h2>
     </div>
 
     
