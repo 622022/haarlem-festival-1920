@@ -8,11 +8,9 @@
   </head>
   <body>
     <div class="navbar">
-      <ul>
-      <li><a href="JAZZ">JAZZ</a></li>
-      <li><a href="DANCE">DANCE</a></li>
-      <li><a href="FOOD">FOOD</a></li>
-      </ul>
+      <a href="#DANCE">DANCE</a>
+      <a href="#JAZZ">JAZZ</a>
+      <a href="#FOOD">FOOD</a>
     </div>
 
     <div class="row">
