@@ -68,6 +68,8 @@ input[type=text], input[type=password] {
     margin: 24px 0px;
     border: none;
     border-bottom: 2px solid #CCC;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
 }
 
 input[type=text]:focus, input[type=password]:focus {
@@ -79,7 +81,6 @@ input[type=text]:focus, input[type=password]:focus {
     left: 0px;
     font-size: 0.9vw;
     color: var(--text-secondary);
-    vertical-align: middle;
 }
 
 input[type=checkbox] {
@@ -98,6 +99,7 @@ input[type=checkbox]:checked {
 #login-section-controls-passreset {
     position: absolute;
     right: 0;
+    color: var(--cms-primary);
 }
 
 input[type=button] {
@@ -125,3 +127,4 @@ input[type=button], input[type=submit] {
     font-weight: 600;
     box-shadow: 0px 0px 8px 0px var(--shadow);
 }
+
