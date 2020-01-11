@@ -1,22 +1,106 @@
 @import 'main.css';
 
+:root{
+  --jazz-main: #F00;
+	--dance-main: #00F;
+	--food-main: #0F0;
+  --main-bg: #FFF;
+  --secondary-bg: #AAA;
+  --main-theme: #F00;
+  --secondary-theme: #900;
+  --tertiary-theme: #500;
+  --text-primary: #111;
+  --text-secondary: #666;
+  --shadow: rgba(0, 0, 0, 0.25);;
+}
 
-.navbar {
-  background-color: blue;
+body  {
+  margin: 0 auto;
+  text-align: center;
+}
+.navbarlist {
+  list-style-type: none;
+  margin: 0 auto;
+  padding: 0;
   overflow: hidden;
-  left: 38%;
-  position: fixed;
+  text-align:center;
+}
+
+.navbaritems{
+	display: inline-block;
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 0px 0 20px 20px;
+  background-color: white;
 
 }
-.navbar a{
-    padding: 18px 20px;
-    border: 1px solid #555;
-    font-size: x-large;
-    display: inline-block;
-}
-.All-access{
 
-  
+.navbaritems a {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-bottom: 20px;
 }
+
+.navbaritems a:hover {
+  background-color: var(--jazz-main);
+}
+.active {
+  background-color: var(--dance-main);
+  color: white;
+}
+#jazz{
+  color: var(--jazz-main);
+}
+#food{
+  color: var(--food-main);
+}
+span{
+  color: green;
+}
+#all-accessbtn{
+  background-color: var(--dance-main);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  margin-top: 30px;
+}
+.all-access h2{
+  text-align: center;
+  margin-top: 100px;
+
+}
+.events h3{
+  margin-top: 0px;
+}
+hr {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+  margin-top: 100px;
+  margin-bottom: 0px;
+  border-bottom-width: 0px;
+
+}
+.flex-container {
+  display: flex;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+
+
 
 

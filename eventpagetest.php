@@ -2,21 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/event.css">
     <title>Dance event</title>
   </head>
   <body>
-    
-    <div class="navbar">
-      <a href="#DANCE">DANCE</a>
-      <a href="#JAZZ">JAZZ</a>
-      <a href="#FOOD">FOOD</a>
-    </div>
+    <header>
+      <nav>
+        <ul class="navbarlist">
+          <li class="navbaritems"><a class="active" href="#dance">DANCE</a></li>
+          <li class="navbaritems"><a div id= "jazz" href="#jazz">JAZZ</a></li>
+          <li class="navbaritems"><a div id= "food" href="#food">FOOD</a></li>
+        </ul>
+      </nav>  
+    </header>
 
-    <div class ="All-access">
-    <h2>You can save upto *50% off if you buy an all access-pass.</h2>
-    </div>
+    <section class = "all-access">
+      <h2>You can save upto <span>*50%</span> off if you buy an all-access pass </h2>
+      <button div id="all-accessbtn" type="button">All-access pass</button>
+      <h3>or</h3>
+      <h4>order-seperately</h4>
+    </section>
+
+    <section class="events">
+      <hr>
+      <h3>July 27th</h3>
+      <div class="flex-container">
+        <div class="image"><img src="download (4).jpg" alt="food"></div>
+        <div class="eventname">Back2Back By Nicky Romero</div>
+        <div class="eventprice">$60</div>
+        <div class="evenlocation">lichtfabriek</div>
+        <div class="eventtime">22:00-2:00</div>
+      </div>
+
+   
 
     
 
