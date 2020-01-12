@@ -102,14 +102,18 @@ input[type=checkbox]:checked {
     color: var(--cms-primary);
 }
 
-input[type=button] {
+input[type=button], input[name=register-button] {
     left: 0;
     border: 2px solid var(--cms-primary);
     color: var(--cms-primary);
     background-color: white;
 }
 
-input[type=submit] {
+input[name=register-button] {
+    margin: 0 auto;
+}
+
+input[name=login-button] {
     right: 0;
     border: none;
     background-color: var(--cms-primary);

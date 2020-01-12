@@ -14,8 +14,11 @@
 
     if (isset($_POST["register-button"])) {
         try {
-            $loginService->register($_POST['reg_email'], $_POST['reg_fullname'], $_POST['reg_password']);
-            //header("Location: ../index.php");
+            if ($loginService->register($_POST['email'], $_POST['fullname'], $_POST['password'])) {
+                echo("You were succesfully registered, please wait for an admin to approve your registration");
+            } else {
+                echo("This user already exists, try logging in or request a password reset");
+            }
         } catch(Exception $e) {
             echo($e);
         }
