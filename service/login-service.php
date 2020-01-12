@@ -19,9 +19,7 @@
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 if (!$this->dal->doesUserExist($email)) {
                     try {
-                        if ($this->dal->registerUser(new User($email, $fullname, $password))) {
-                            echo("User succesfully registered");
-                        }
+                        return $this->dal->registerUser(new User($email, $fullname, $password));
                     } catch(Exception $e) {
                         echo($e);
                     }

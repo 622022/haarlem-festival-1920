@@ -34,7 +34,7 @@
             $query->bind_param('sss', $user->fullname, $user->email, $user->password);
             $query->execute();
 
-            return $query->affected_rows == 0;
+            return $query->affected_rows == 1;
         }
 
         public function getHashedPass($email) {
