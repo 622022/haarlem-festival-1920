@@ -32,11 +32,13 @@
         }
 
         public function login($email, $password) {
-            $hashedPass = $this->dal->getHashedPass($email);
+            $hashedPass = $this->dal->getHashedPass(strtolower($email));
 
             if ($hashedPass && password_verify($password, $hashedPass)) {
+                session_start();
                 $_SESSION['USER'] = $email;
-                session_commit();
+            } else {
+                echo("bad login");
             }
         }
     }

@@ -2,7 +2,7 @@
 <html>
     <body>
         <a href="foodtext.php">
-            <img src="download (4).jpg" alt="Click here for info about the event!">
+            <img src="img/events/food-image.jpg" alt="Image of food">
         </a>
         <h2>Ratatouille!<h2>
         <h4>Time open: 16:00 - 17:00<h4>
