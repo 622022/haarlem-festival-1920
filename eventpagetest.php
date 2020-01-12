@@ -23,17 +23,18 @@
       <h3>or</h3>
       <h4>order-seperately</h4>
     </section>
-
-    <section class="events">
-      <hr>
-      <h3>July 27th</h3>
-      <div id="u1477" class="ax_default box_1">
-          <div id="u1477_div" class=""></div>
-          <div id="u1477_text" class="text " style="display:none; visibility: hidden">
-            <p>yo whataipbj</p>
-          </div>
-        </div>
-      </div>
+    <hr>
+    <h3>July 27th</h3>
+    <section class="eventcard">
+      <div id = "box-container">
+        <img src="img/events/food-image.jpg" alt="tasty food">
+        <h2>€75</h2>
+        <button div id="addbtn" type="button">ADD</button>
+        <h3>BACK2BACK by Nicky Romero and AfroJack</h3>
+        <h4>Lichtfabriek</h4>
+        <h4>22:00-2:00</h4>
+      
+    </section>
 
    
 
