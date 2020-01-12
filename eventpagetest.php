@@ -27,12 +27,12 @@
     <section class="events">
       <hr>
       <h3>July 27th</h3>
-      <div class="flex-container">
-        <div class="image"><img src="download (4).jpg" alt="food"></div>
-        <div class="eventname">Back2Back By Nicky Romero</div>
-        <div class="eventprice">$60</div>
-        <div class="evenlocation">lichtfabriek</div>
-        <div class="eventtime">22:00-2:00</div>
+      <div id="u1477" class="ax_default box_1">
+          <div id="u1477_div" class=""></div>
+          <div id="u1477_text" class="text " style="display:none; visibility: hidden">
+            <p>yo whataipbj</p>
+          </div>
+        </div>
       </div>
 
    
