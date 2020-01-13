@@ -1,3 +1,19 @@
+<?php session_start(); ?>
+<div id="sidebar-top">
+    <div id="sidebar-navigator">Dashboard</div>
+    <div id="sidebar-account">
+        <?php 
+            require('../service/login-service.php');
+            $user = loginService::getInstance()->getFullName($_SESSION['USER']);
+            if ($user != null) {
+                echo($user);
+            } else {
+                session_destroy();
+                header('location: ./login.php');
+            }
+        ?>
+    </div>  
+</div>
 <div id="sidebar">
     <h1>Haarlem Festival</h1>
     <h2>Content Management System</h2>
@@ -25,7 +41,7 @@
         <img src="../../img/cms/receipt.svg">
         Invoices
     </a>
-
+    <!-- Translations footer -->
     <div id="sidebar-translations">
         <img src="../../img/cms/translate.svg">
         English

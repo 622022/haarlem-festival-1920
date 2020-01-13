@@ -197,3 +197,37 @@ input[type=button], input[type=submit] {
     margin-bottom: 8px;
     margin-top: 0;
 }
+
+#sidebar-top {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 64px;
+    background-color: #413636;
+}
+
+#sidebar-account {
+    position: absolute;
+    right: 16px;
+    top: 0;
+    height: 100%;
+    width: 256px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    text-decoration: none;
+    font-size: 1.4rem;
+    padding-top: 16px;
+    text-align: right;
+}
+
+#sidebar-navigator {
+    position: absolute;
+    left: 336px;
+    top: 0;
+    height: 100%;
+    width: 256px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 1.4rem;
+    padding-top: 16px;
+}

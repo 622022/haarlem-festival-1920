@@ -54,5 +54,23 @@
                 }
             }
         }
+
+        public function getFullName($email) {
+            $query = $this->conn->prepare("SELECT fullName FROM user WHERE email = ?");
+            $query->bind_param('s', $email);
+            $query->execute();
+            $result = $query->get_result();
+
+            if (!$result) {
+                $error = $this->conn->error;
+                throw new Exception("Database error: '$error'");
+            } else {
+                if ($result->num_rows > 0) {
+                    return $result->fetch_row()[0];
+                } else {
+                    return false;
+                }
+            }
+        }
     }
 ?>

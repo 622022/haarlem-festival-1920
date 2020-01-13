@@ -39,5 +39,9 @@
                 echo("bad login");
             }
         }
+
+        public function getFullName($email) {
+            return $this->dal->getFullName($email);
+        }
     }
 ?>

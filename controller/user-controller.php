@@ -6,7 +6,7 @@
     if (isset($_POST["login-button"])) {
         try {
             $loginService->login($_POST['email'], $_POST['password']);
-            header("Location: ../login.php");
+            header("Location: ../cms/events.php");
         } catch(Exception $e) {
             echo($e);
         }
