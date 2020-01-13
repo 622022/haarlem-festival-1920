@@ -21,7 +21,7 @@
                     <input type="password" name="password" placeholder="Password" required>
                     <input type="submit" name="register-button" value="Register">
                 </form>
-            <div>
+            </div>
         </div>
     </body>
 </html>

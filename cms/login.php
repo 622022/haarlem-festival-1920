@@ -28,7 +28,7 @@
                     </a>
                     <input type="submit" name="login-button" value="Login">
                 </form>
-            <div>
+            </div>
         </div>
     </body>
 </html>

@@ -3,6 +3,7 @@
 :root {
 	--cms-primary: #C31F39;
     --cms-secondary: #EB4E61;
+    --sidebar-border: #735E5E;
 }
 
 body  {
@@ -132,3 +133,67 @@ input[type=button], input[type=submit] {
     box-shadow: 0px 0px 8px 0px var(--shadow);
 }
 
+#sidebar {
+    background-color: #5A4A4A;
+    width: 320px;
+    height: 100%;
+    position: relative;
+}
+
+.sidebar-item img, #sidebar-translations img {
+    width: 32px;
+    height: 32px;
+    margin: 8px 8px 8px 16px;
+    vertical-align: middle;
+}
+
+.sidebar-item {
+    display: flex;
+    height: 64px;
+    width: 100%;
+    border-top: 1px solid var(--sidebar-border);
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#sidebar-translations {
+    display: flex;
+    height: 64px;
+    width: 100%;
+    background-color: #4C3E3E;
+    position: absolute;
+    bottom: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#sidebar h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: 2rem;
+    text-align: center;
+    margin: 0;
+}
+
+#sidebar h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    text-decoration: none;
+    font-weight: lighter;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 8px;
+    margin-top: 0;
+}
