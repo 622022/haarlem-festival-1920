@@ -1,6 +1,11 @@
 <?php session_start(); ?>
 <div id="sidebar-top">
-    <div id="sidebar-navigator">Dashboard</div>
+    <div id="sidebar-navigator">
+        <?php 
+            preg_match('/\/cms\/(\w+)\.php/i', $_SERVER['REQUEST_URI'], $matches);
+            echo(ucfirst($matches[1]));
+        ?>
+    </div>
     <div id="sidebar-account">
         <?php 
             require('../service/login-service.php');
