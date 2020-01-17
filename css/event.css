@@ -18,7 +18,14 @@ body  {
   border-width: 3px;
   border-radius: 0px 0 20px 20px;
   background-color: white;
+}
 
+li.navbaritems.jazz{
+  border-color:  var(--jazz-main);
+}
+
+li.navbaritems.food{
+  border-color: var(--food-main);
 }
 
 .navbaritems a {
@@ -37,9 +44,10 @@ body  {
 .active {
   background-color: var(--dance-main);
   color: white;
+  border-radius: 0px 0 15px 15px;
 }
 #jazz{
-  color: blue;
+  color: var(--jazz-main);
 }
 #food{
   color: var(--food-main);
@@ -87,6 +95,7 @@ hr {
   margin: auto;
   border-radius: 20px 20px 20px 20px;
   position: relative;
+  border-color: var(--dance-main);
 }
 #box-container h3{
   position: relative;
@@ -125,6 +134,85 @@ hr {
   top: 40px;
   border-radius: 20px;
 }
+
+.filter{
+  float: left;
+  display: block;
+  padding-left: 20px;
+  width: 210px;
+  height: 427px;
+  border-radius: 20px;
+  border: 2px solid;
+  border-color: var(--dance-main);
+}
+
+.filter h3{
+  width: 69px;
+  height: 32px;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  font-family: 'Arial Regular', 'Arial';
+  font-weight: 700;
+  color: #000000;
+  text-align: left;
+  padding-left: 60px;
+}
+
+.filter #Artist{
+  width: 87px;
+  height: 25px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  font-family: 'Arial Regular', 'Arial';
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
+  line-height: normal;
+}
+
+.filter label{
+  float: left;
+  background-color: #ffffff;
+  display: block;
+  padding-right: 80px;
+}
+
+.filter #Location{
+  background-color: #ffffff;
+  box-sizing: border-box;
+  font-family: 'Arial Regular', 'Arial';
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
+  line-height: normal;
+  padding-top: 0px;
+  border-top-width: 25px;
+  margin-top: 125px;
+
+}
+
+.Sort{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Sort table{
+  padding-left: 200px;
+  padding-top: 420px;
+  border-color: royalblue;
+}
+
+.Sort #product{
+  width: 101.988636px;
+  border-radius: 20px;
+  border-color: var(--dance-main);
+}
+
+.Sort td{
+  color: blue;
+}
+
 
 
 

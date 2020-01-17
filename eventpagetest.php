@@ -11,8 +11,8 @@
       <nav>
         <ul class="navbarlist">
           <li class="navbaritems"><a class="active" href="#dance">DANCE</a></li>
-          <li class="navbaritems"><a div id= "jazz" href="#jazz">JAZZ</a></li>
-          <li class="navbaritems"><a div id= "food" href="#food">FOOD</a></li>
+          <li class="navbaritems jazz"><a div id= "jazz" href="#jazz">JAZZ</a></li>
+          <li class="navbaritems food"><a div id= "food" href="#food">FOOD</a></li>
         </ul>
       </nav>  
     </header>
@@ -33,26 +33,52 @@
         <h3>BACK2BACK by Nicky Romero and AfroJack</h3>
         <h4>Lichtfabriek</h4>
         <h4>22:00-2:00</h4>
-      
+
     </section>
 
-   
+    <div class="filter">
+      <h3>Filters</h3>
+      <h4 div id="Artist">Artists</h4>
+        <div class="checkbox">
+          <label><input type="checkbox" rel="Nicky Romero" onchange="change()"/>Nicky romero</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" rel="Afrojack" onchange="change()"/>Afrojack</label>
+       </div>
+        <div class="checkbox">
+          <label><input type="checkbox" rel="Tiesto" onchange="change()"/>Tiesto</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" rel="Hardwell" onchange="change()"/>Hardwell</label>
+        </div>
+      <h4 div id="Location">Locations</h4>
+        <div class="checkbox">
+          <label><input type="checkbox" rel="Nicky Romero" onchange="change()"/>Lichtfabriek</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" rel="Afrojack" onchange="change()"/>Club Stalker</label>
+       </div>
+        <div class="checkbox">
+          <label><input type="checkbox" rel="Tiesto" onchange="change()"/>Jopenkerk</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" rel="Hardwell" onchange="change()"/>XO the Club</label>
+        </div>   
+    </div>
 
-    
+    <div class="Sort">
+      <table>
+        <tr>
+          <td>Sorting by</td>
+          <td><select name="product" id="product">
+            <option></option>
+            <option id="Time">Time</option>
+            <option id="Price asc">Price asc.</option>
+            <option id="Price desc">Price desc.</option>
+          </select></td>
+        </tr>
+      </table>
+    </div>
 
-    <!-- <?php
-    function generateProjectCard($projectName, $projectDescription, $projectLanguage)
-    {
-        $projectLink = preg_replace("/[^a-zA-Z]/", "", strtolower(preg_replace("/\|.*/", "", $projectName)));
-        $projectName = preg_replace("/\|/", "", $projectName);
-        echo
-            '<a href="projects/'.$projectLink.'.php" class="project-card">
-                <img src="i/a/pro/'.$projectLink.'-banner.png" alt="'.$projectName.' screenshot">
-                <h2>'.$projectName.'</h2>
-                <p>'.$projectDescription.'</p>
-                <img src="i/a/ico/'.$projectLanguage.'.svg" alt="'.$projectLanguage.' Logo" class="project-card-lang">
-            </a>';
-    }
-    ?> 
   </body>
 </html>
