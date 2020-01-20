@@ -5,7 +5,7 @@
         private static $instance;
         private $conn;
 
-        public function __construct() {
+        private function __construct() {
             $this->conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DB, DB_PORT);
         }
 
