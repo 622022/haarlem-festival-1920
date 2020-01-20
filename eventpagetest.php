@@ -1,36 +1,6 @@
 <?php
-require_once("../model/event-model.php");
-require_once("../model/programmeItem-model.php");
-    function generateEventCard($artist, $price, $location, $startTime, $endTime, $imageUrl, $imageDescription) {
-      echo ("
-      <section class=\"eventcard\">
-        <div id = \"box-container\">
-          <img src=\"{$imageUrl}\" alt=\"$imageDescription\">
-          <h2>€{$price}</h2>
-          <button div id=\"addbtn\" type=\"button\">ADD</button>
-          <h3>BACK2BACK by {$artist}</h3>
-          <h4>{$location}</h4>
-          <h4>{$startTime}-{$endTime}</h4>
-      </section>
-      ");
-    }
-
-    require_once("../lib/dal.php");
-    $dal = dataLayer::getInstance();
-
-    function generateEventCards($eventType) {
-      $events = $dal->getEvents($eventType);
-
-      foreach($events as &$event) {
-        generateEventCard(
-          $event->artist,
-          $event->price,
-          $event->programmeItem->location,
-          $event->programmeItem->startsAt,
-          $event->programmeItem->endsAt
-        );
-      } 
-    }
+  require_once("service/event-service.php");
+  $eventService = eventService::getInstance();
 ?>
 
 
@@ -62,7 +32,7 @@ require_once("../model/programmeItem-model.php");
     <hr>
     <h3>July 27th</h3>
 
-    <?php EventCard() ?>
+    <?php $eventService->generateEventCards(1); // PARAMETER IS PLACEHOLDER ?>
 
     <div class="filter">
       <h3>Filters</h3>
