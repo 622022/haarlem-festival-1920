@@ -6,7 +6,7 @@
         private static $instance;
         private $conn;
 
-        public function __construct() {
+        private function __construct() {
             $this->conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DB, DB_PORT);
         }
 
@@ -59,6 +59,23 @@
         public function getFullName($email) {
             $query = $this->conn->prepare("SELECT fullName FROM user WHERE email = ?");
             $query->bind_param('s', $email);
+            $query->execute();
+            $result = $query->get_result(); 
+
+            if (!$result) {
+                $error = $this->conn->error;
+                throw new Exception("Database error: '$error'");
+            } else {
+                if ($result->num_rows > 0) {
+                    return $result->fetch_row()[0];
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        public function getAllEvents() { // UNFINISHED
+            $query = $this->conn->prepare("SELECT artist, price, event.eventTypeId, location, startsAt, endsAt FROM event JOIN programme ON event.programmeId = programme.id");
             $query->execute();
             $result = $query->get_result();
 
