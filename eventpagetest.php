@@ -1,3 +1,39 @@
+<?php
+require_once("../model/event-model.php");
+require_once("../model/programmeItem-model.php");
+    function generateEventCard($artist, $price, $location, $startTime, $endTime, $imageUrl, $imageDescription) {
+      echo ("
+      <section class=\"eventcard\">
+        <div id = \"box-container\">
+          <img src=\"{$imageUrl}\" alt=\"$imageDescription\">
+          <h2>€{$price}</h2>
+          <button div id=\"addbtn\" type=\"button\">ADD</button>
+          <h3>BACK2BACK by {$artist}</h3>
+          <h4>{$location}</h4>
+          <h4>{$startTime}-{$endTime}</h4>
+      </section>
+      ");
+    }
+
+    require_once("../lib/dal.php");
+    $dal = dataLayer::getInstance();
+
+    function generateEventCards($eventType) {
+      $events = $dal->getEvents($eventType);
+
+      foreach($events as &$event) {
+        generateEventCard(
+          $event->artist,
+          $event->price,
+          $event->programmeItem->location,
+          $event->programmeItem->startsAt,
+          $event->programmeItem->endsAt
+        );
+      } 
+    }
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -25,16 +61,8 @@
     </section>
     <hr>
     <h3>July 27th</h3>
-    <section class="eventcard">
-      <div id = "box-container">
-        <img src="img/events/food-image.jpg" alt="tasty food">
-        <h2>€75</h2>
-        <button div id="addbtn" type="button">ADD</button>
-        <h3>BACK2BACK by Nicky Romero and AfroJack</h3>
-        <h4>Lichtfabriek</h4>
-        <h4>22:00-2:00</h4>
 
-    </section>
+    <?php EventCard() ?>
 
     <div class="filter">
       <h3>Filters</h3>
