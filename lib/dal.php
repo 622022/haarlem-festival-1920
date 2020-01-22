@@ -1,6 +1,7 @@
 <?php
-    require_once("../config/credentials.php");
-    require_once("../model/event-model.php"); require_once("../model/programmeItem-model.php");
+    require_once("./config/credentials.php");
+    require_once("./model/event-model.php"); 
+    require_once("./model/programmeItem-model.php");
 
     class dataLayer {
         private static $instance;
@@ -11,6 +12,7 @@
         }
 
         // Initialize instance if not already intitialized. Then returns that instance.
+        //if this self instance then return new data layer otherwise ::(references constants or statics) do this
         public static function getInstance() {
             return !self::$instance ? new dataLayer() : self::$instance;
         }

@@ -13,8 +13,8 @@
         public function __construct($id, $artist, $price, $ticketsLeft, $programmeItem, $eventTypeId, $imageId, $description, $more) {
             $this->id = $id;
             $this->artist = $artist;
-			$this->price = $price
-			$this->ticketsLeft = $ticketsLeft
+			$this->price = $price;
+			$this->ticketsLeft = $ticketsLeft;
 			$this->programmeItem = $programmeItem;
 			$this->eventTypeId = $eventTypeId;
 			$this->imageId = $imageId;

@@ -1,6 +1,6 @@
 <?php 
     class ProgrammeItem {
-        public $id
+        public $id;
         public $startsAt;
         public $endsAt;
 		public $location;
