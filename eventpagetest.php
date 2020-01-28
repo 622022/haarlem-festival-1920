@@ -1,5 +1,5 @@
 <?php
-  require_once("service/event-service.php");
+  require_once("./service/event-service.php");
   $eventService = eventService::getInstance();
 ?>
 

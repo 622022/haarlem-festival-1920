@@ -1,7 +1,7 @@
 <?php
-    require_once("../config/credentials.php");
-    require_once("../model/event-model.php"); 
-    require_once("../model/programmeItem-model.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/config/credentials.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/event-model.php"); 
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/programmeItem-model.php");
 
     class dataLayer {
         private static $instance;
@@ -94,13 +94,14 @@
         }
 
         public function getEvents($eventType) {
+            $eventType = intval($eventType);
             $query = $this->conn->prepare(
-                "SELECT `E.id`, `E.artist`, `E.price`, `E.ticketsLeft`, `E.programmeId`, `E.imageId`, `E.description`, `E.more`," .
-                "`P.id`, `P.startsAt`, `P.endsAt`, `P.location`". 
-                "FROM `event` AS `E`" .
-                "WHERE `eventTypeId` = ?" .
-                "JOIN `programme` AS `P`" .
-                "ON `E.programmeId` = `P.id`"
+                "SELECT E.id, E.artist, E.price, E.ticketsLeft, E.programmeId, E.imageId, E.description, E.more, " .
+                "P.id, P.startsAt, P.endsAt, P.location " . 
+                "FROM `event` AS `E` " .
+                "JOIN `programme` AS `P` " .
+                "ON E.programmeId = P.id " .
+                "WHERE E.eventTypeId = ? "
             );
             $query->bind_param('i', $eventType);
             $query->execute();
@@ -117,10 +118,10 @@
                     while($row = $result->fetch_assoc())
                     {
                         $programmeItem = new ProgrammeItem(
-                            $row["P.id"],
-                            $row["P.startsAt"],
-                            $row["P.endsAt"],
-                            $row["P.location"]
+                            $row["id"],
+                            $row["startsAt"],
+                            $row["endsAt"],
+                            $row["location"]
                         );
 
                         $event = new Event(
@@ -189,6 +190,7 @@
                         array_push($events, $event);
                     }
                     return $events;
+                    // This should return some kind of array with one single event page
                 } else {
                     return false;
                 }

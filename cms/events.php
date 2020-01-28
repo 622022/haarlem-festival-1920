@@ -11,9 +11,10 @@
         <div id="event-container">
             <?php 
                 include('../service/event-service.php');
-            for ($i=0; $i < 9; $i++) { 
-                include('./parts/event-card.php'); 
-            }
+                $events = eventService::getInstance()->getAllEvents(0);
+                for ($i=0; $i < count($events); $i++) { 
+                    include('./parts/event-card.php'); 
+                }
             ?>
         </div>
     </body>

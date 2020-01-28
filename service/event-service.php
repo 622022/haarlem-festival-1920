@@ -1,7 +1,7 @@
 <?php
-    require_once("../lib/dal.php");
-    require_once("../model/event-model.php");
-	require_once("../model/programmeItem-model.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/lib/dal.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/event-model.php");
+	require_once($_SERVER['DOCUMENT_ROOT'] . "/model/programmeItem-model.php");
 
     class eventService {
         private static $instance;
@@ -17,7 +17,7 @@
 		}
 		
 		public function generateEventCards($eventType) {
-			$events = $this->dal->getEvents($eventType);
+			$events = $this->getAllEvents($eventType);
 	  
 			foreach($events as &$event) {
 			  $this->generateEventCard(
@@ -44,6 +44,10 @@
 				<h4>{$startTime}-{$endTime}</h4>
 			</section>
 			");
+		}
+
+		public function getAllEvents($eventType) {
+			return $this->dal->getEvents($eventType);
 		}
 	}
 ?>
