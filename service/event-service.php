@@ -1,13 +1,13 @@
 <?php
-    require_once("./lib/dal.php");
-    require_once("./model/event-model.php");
-	require_once("./model/programmeItem-model.php");
+    require_once("../lib/dal.php");
+    require_once("../model/event-model.php");
+	require_once("../model/programmeItem-model.php");
 
     class eventService {
         private static $instance;
         private $dal;
 
-        private function __construct() {
+        public function __construct() {
             $this->dal = dataLayer::getInstance();
 		}
 

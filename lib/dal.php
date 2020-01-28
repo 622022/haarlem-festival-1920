@@ -1,13 +1,13 @@
 <?php
-    require_once("./config/credentials.php");
-    require_once("./model/event-model.php"); 
-    require_once("./model/programmeItem-model.php");
+    require_once("../config/credentials.php");
+    require_once("../model/event-model.php"); 
+    require_once("../model/programmeItem-model.php");
 
     class dataLayer {
         private static $instance;
         private $conn;
 
-        private function __construct() {
+        public function __construct() {
             $this->conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DB, DB_PORT);
         }
 
@@ -94,6 +94,57 @@
         }
 
         public function getEvents($eventType) {
+            $query = $this->conn->prepare(
+                "SELECT `E.id`, `E.artist`, `E.price`, `E.ticketsLeft`, `E.programmeId`, `E.imageId`, `E.description`, `E.more`," .
+                "`P.id`, `P.startsAt`, `P.endsAt`, `P.location`". 
+                "FROM `event` AS `E`" .
+                "WHERE `eventTypeId` = ?" .
+                "JOIN `programme` AS `P`" .
+                "ON `E.programmeId` = `P.id`"
+            );
+            $query->bind_param('i', $eventType);
+            $query->execute();
+            $result = $query->get_result();
+            
+
+            if (!$result) {
+                $error = $this->conn->error;
+                throw new Exception("Database error: '$error'");
+            } else {
+                if ($result->num_rows > 0) {           
+                    $events = [];
+
+                    while($row = $result->fetch_assoc())
+                    {
+                        $programmeItem = new ProgrammeItem(
+                            $row["P.id"],
+                            $row["P.startsAt"],
+                            $row["P.endsAt"],
+                            $row["P.location"]
+                        );
+
+                        $event = new Event(
+                            $row["E.id"],
+                            $row["E.artist"],
+                            $row["E.price"],
+                            $row["E.ticketsLeft"],
+                            $programmeItem,
+                            $eventType,
+                            $row["E.imageId"],
+                            $row["E.description"],
+                            $row["E.more"]
+                        );
+
+                        array_push($events, $event);
+                    }
+                    return $events;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        public function getEventPage($eventType) { // Someone write this cursed query lol
             $query = $this->conn->prepare(
                 "SELECT `E.id`, `E.artist`, `E.price`, `E.ticketsLeft`, `E.programmeId`, `E.imageId`, `E.description`, `E.more`," .
                 "`P.id`, `P.startsAt`, `P.endsAt`, `P.location`". 
