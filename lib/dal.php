@@ -1,7 +1,7 @@
 <?php
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/config/credentials.php");
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/event-model.php"); 
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/programmeItem-model.php");
+    require_once("../config/credentials.php");
+    require_once("../model/event-model.php"); 
+    require_once("../model/programmeItem-model.php");
 
     class dataLayer {
         private static $instance;
