@@ -8,7 +8,7 @@
 </div>
 
 <?php 
-    public function setCurrentEvent($event) {
+    function setCurrentEvent($event) {
         $currentEvent = $event;
     }
 ?>
