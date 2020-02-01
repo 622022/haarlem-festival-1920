@@ -25,7 +25,9 @@
             $stmt->execute();
 
             $error = $this->conn->error;
-            throw new Exception("Database error: '$error'");
+            if ($error) {
+                throw new Exception("Database error: '$error'");
+            }
 
             return $stmt;
         }
