@@ -78,17 +78,6 @@
             return $this->executeSelectQuery($query, 's', $email)[0]["fullName"];
         }
 
-        public function getAllEvents() { // UNFINISHED
-            $query = "
-                SELECT artist, price, event.eventTypeId, location, startsAt, endsAt
-                FROM event
-                JOIN programme
-                ON event.programmeId = programme.id
-            ";
-
-            return [];
-        }
-
         public function getEvents($eventType) {
             $query = "
                 SELECT E.id, E.artist, E.price, E.ticketsLeft, E.programmeId, E.imageId, E.description, E.more, P.id, P.startsAt, P.endsAt, P.location
@@ -99,8 +88,9 @@
             ";
    
             $events = [];
+            $results = $this->executeSelectQuery($query, 'i', intval($eventType));
 
-            while($row = $this->executeSelectQuery($query, 'i', intval($eventType))) {
+            foreach ($results as $row) {
                 $programmeItem = new ProgrammeItem(
                     $row["id"],
                     $row["startsAt"],

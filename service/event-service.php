@@ -47,7 +47,10 @@
 		}
 
 		public function getAllEvents($eventType) {
-			return $this->dal->getEvents($eventType);
+			$danceEvents = $this->dal->getEvents(1);
+			$jazzEvents = $this->dal->getEvents(2);
+			$foodEvents = $this->dal->getEvents(3);
+			return array_merge($danceEvents, $jazzEvents, $foodEvents);
 		}
 	}
 ?>
