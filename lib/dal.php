@@ -12,189 +12,123 @@
         }
 
         // Initialize instance if not already intitialized. Then returns that instance.
-        //if this self instance then return new data layer otherwise ::(references constants or statics) do this
+        // if this self instance then return new data layer otherwise ::(references constants or statics) do this
         public static function getInstance() {
             return !self::$instance ? new dataLayer() : self::$instance;
         }
 
-        public function doesUserExist($email) {
-            $query = $this->conn->prepare("SELECT email FROM user WHERE email = ?");
-            $query->bind_param('s', $email);
-            $query->execute();
-            $result = $query->get_result();
-
-            if (!$result) {
-                $error = $this->conn->error;
-                throw new Exception("Database error: '$error'");
-            } else {
-                return $result->num_rows > 0;
+        private function executeQuery($query, $params, ...$variables) {
+            $stmt = $this->conn->prepare($query);
+            if (isset($params) && count($variables) > 0) {
+                $stmt->bind_param($params, ...$variables);
             }
+            $stmt->execute();
+
+            $error = $this->conn->error;
+            throw new Exception("Database error: '$error'");
+
+            return $stmt;
+        }
+
+        private function executeSelectQuery($query, $params, ...$variables) {
+            return $this->executeQuery($query, $params, ...$variables)->get_result()->fetch_all(MYSQLI_ASSOC);
+        }
+
+        private function executeEditQuery($query, $params, ...$variables) {
+            return $this->executeQuery($query, $params, ...$variables)->affected_rows;
+        }
+
+        public function doesUserExist($email) {
+            $query = "
+                SELECT email
+                FROM user
+                WHERE email = ?
+            ";
+            return $this->executeSelectQuery($query, 's', $email)[0]["email"] == $email;
         }
 
         public function registerUser($user) {
-            $user->password = password_hash($user->password, PASSWORD_DEFAULT);
-            $query = $this->conn->prepare("INSERT INTO user (fullName, email, password, isAdmin) VALUES (?, ?, ?, 0)");
-            $query->bind_param('sss', $user->fullname, $user->email, $user->password);
-            $query->execute();
+            $query = "
+                INSERT INTO user (fullName, email, password, isAdmin)
+                VALUES (?, ?, ?, 0)
+            ";
 
-            return $query->affected_rows == 1;
+            return $this->executeEditQuery($query, 'sss', $user->fullname, $user->email, $user->password) == 1;
         }
 
         public function getHashedPass($email) {
-            $query = $this->conn->prepare("SELECT password FROM user WHERE email = ?");
-            $query->bind_param('s', $email);
-            $query->execute();
-            $result = $query->get_result();
+            $query = "
+                SELECT password
+                FROM user
+                WHERE email = ?
+            ";
 
-            if (!$result) {
-                $error = $this->conn->error;
-                throw new Exception("Database error: '$error'");
-            } else {
-                if ($result->num_rows > 0) {
-                    return $result->fetch_row()[0];
-                } else {
-                    return false;
-                }
-            }
+            return $this->executeSelectQuery($query, 's', $email)[0]["password"];
         }
 
         public function getFullName($email) {
-            $query = $this->conn->prepare("SELECT fullName FROM user WHERE email = ?");
-            $query->bind_param('s', $email);
-            $query->execute();
-            $result = $query->get_result(); 
+            $query = "
+                SELECT fullName
+                FROM user
+                WHERE email = ?
+            ";
 
-            if (!$result) {
-                $error = $this->conn->error;
-                throw new Exception("Database error: '$error'");
-            } else {
-                if ($result->num_rows > 0) {
-                    return $result->fetch_row()[0];
-                } else {
-                    return false;
-                }
-            }
+            return $this->executeSelectQuery($query, 's', $email)[0]["fullName"];
         }
 
         public function getAllEvents() { // UNFINISHED
-            $query = $this->conn->prepare("SELECT artist, price, event.eventTypeId, location, startsAt, endsAt FROM event JOIN programme ON event.programmeId = programme.id");
-            $query->execute();
-            $result = $query->get_result();
+            $query = "
+                SELECT artist, price, event.eventTypeId, location, startsAt, endsAt
+                FROM event
+                JOIN programme
+                ON event.programmeId = programme.id
+            ";
 
-            if (!$result) {
-                $error = $this->conn->error;
-                throw new Exception("Database error: '$error'");
-            } else {
-                if ($result->num_rows > 0) {
-                    return $result->fetch_row()[0];
-                } else {
-                    return false;
-                }
-            }
+            return [];
         }
 
         public function getEvents($eventType) {
-            $eventType = intval($eventType);
-            $query = $this->conn->prepare(
-                "SELECT E.id, E.artist, E.price, E.ticketsLeft, E.programmeId, E.imageId, E.description, E.more, " .
-                "P.id, P.startsAt, P.endsAt, P.location " . 
-                "FROM `event` AS `E` " .
-                "JOIN `programme` AS `P` " .
-                "ON E.programmeId = P.id " .
-                "WHERE E.eventTypeId = ? "
-            );
-            $query->bind_param('i', $eventType);
-            $query->execute();
-            $result = $query->get_result();
-            
+            $query = "
+                SELECT E.id, E.artist, E.price, E.ticketsLeft, E.programmeId, E.imageId, E.description, E.more, P.id, P.startsAt, P.endsAt, P.location
+                FROM event AS E
+                JOIN programme AS P
+                ON E.programmeId = P.id
+                WHERE E.eventTypeId = ?
+            ";
+   
+            $events = [];
 
-            if (!$result) {
-                $error = $this->conn->error;
-                throw new Exception("Database error: '$error'");
-            } else {
-                if ($result->num_rows > 0) {           
-                    $events = [];
+            while($row = $this->executeSelectQuery($query, 'i', intval($eventType))) {
+                $programmeItem = new ProgrammeItem(
+                    $row["id"],
+                    $row["startsAt"],
+                    $row["endsAt"],
+                    $row["location"]
+                );
 
-                    while($row = $result->fetch_assoc())
-                    {
-                        $programmeItem = new ProgrammeItem(
-                            $row["id"],
-                            $row["startsAt"],
-                            $row["endsAt"],
-                            $row["location"]
-                        );
+                $event = new Event(
+                    $row["E.id"],
+                    $row["E.artist"],
+                    $row["E.price"],
+                    $row["E.ticketsLeft"],
+                    $programmeItem,
+                    $eventType,
+                    $row["E.imageId"],
+                    $row["E.description"],
+                    $row["E.more"]
+                );
 
-                        $event = new Event(
-                            $row["E.id"],
-                            $row["E.artist"],
-                            $row["E.price"],
-                            $row["E.ticketsLeft"],
-                            $programmeItem,
-                            $eventType,
-                            $row["E.imageId"],
-                            $row["E.description"],
-                            $row["E.more"]
-                        );
-
-                        array_push($events, $event);
-                    }
-                    return $events;
-                } else {
-                    return false;
-                }
+                array_push($events, $event);
             }
+            return $events;
         }
 
-        public function getEventPage($eventType) { // Someone write this cursed query lol
-            $query = $this->conn->prepare(
-                "SELECT `E.id`, `E.artist`, `E.price`, `E.ticketsLeft`, `E.programmeId`, `E.imageId`, `E.description`, `E.more`," .
-                "`P.id`, `P.startsAt`, `P.endsAt`, `P.location`". 
-                "FROM `event` AS `E`" .
-                "WHERE `eventTypeId` = ?" .
-                "JOIN `programme` AS `P`" .
-                "ON `E.programmeId` = `P.id`"
-            );
-            $query->bind_param('i', $eventType);
-            $query->execute();
-            $result = $query->get_result();
+        public function getEventPage($eventType) {
+            $query = "
+                someone write this cursed query please lol
+            ";
             
-
-            if (!$result) {
-                $error = $this->conn->error;
-                throw new Exception("Database error: '$error'");
-            } else {
-                if ($result->num_rows > 0) {           
-                    $events = [];
-
-                    while($row = $result->fetch_assoc())
-                    {
-                        $programmeItem = new ProgrammeItem(
-                            $row["P.id"],
-                            $row["P.startsAt"],
-                            $row["P.endsAt"],
-                            $row["P.location"]
-                        );
-
-                        $event = new Event(
-                            $row["E.id"],
-                            $row["E.artist"],
-                            $row["E.price"],
-                            $row["E.ticketsLeft"],
-                            $programmeItem,
-                            $eventType,
-                            $row["E.imageId"],
-                            $row["E.description"],
-                            $row["E.more"]
-                        );
-
-                        array_push($events, $event);
-                    }
-                    return $events;
-                    // This should return some kind of array with one single event page
-                } else {
-                    return false;
-                }
-            }
+            return $this->executeSelectQuery($query, 'i', intval($eventType));
         }
     }
 ?>
