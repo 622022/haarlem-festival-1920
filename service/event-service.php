@@ -19,17 +19,18 @@
 		public function generateEventCards($eventType) {
 			$events = $this->getAllEvents($eventType);
 	  
+			$eventCards = [];
+
 			foreach($events as &$event) {
-			  $this->generateEventCard(
-				$event->artist,
-				$event->price,
-				$event->programmeItem->location,
-				$event->programmeItem->startsAt,
-				$event->programmeItem->endsAt,
-				"imageUrl", // PLACEHOLDER
-				"imageDescription" // PLACEHOLDER
-			  );
-			} 
+				array_push($eventCards, 
+					$this->generateEventCard(
+						$event->artist,
+						$event->price,
+						$event->programmeItem->location,
+						$event->programmeItem->startsAt,
+						$event->programmeItem->endsAt,
+						"imageUrl", // PLACEHOLDER
+						"imageDescription" // PLACEHOLDER
 		}
 
 		private function generateEventCard($artist, $price, $location, $startTime, $endTime, $imageUrl, $imageDescription) {
@@ -44,6 +45,7 @@
 				<h4>{$startTime}-{$endTime}</h4>
 			</section>
 			");
+			";
 		}
 
 		public function getAllEvents($eventType) {
