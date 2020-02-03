@@ -1,11 +1,17 @@
+<?php 
+    if (require_once('./includes/admin-check.php')) {
+?>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/cms.css" />
+        <?php include('./includes/header.php'); ?>
         <title>CMS – Tickets</title>
     </head>
     <body>
-        <?php include('./parts/sidebar.php'); ?>
+        <?php include('./includes/sidebar.php'); ?>
     </body>
 </html>
+<?php 
+    } else {
+        echo("You do not have access to view this page");
+    }
+?>

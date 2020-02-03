@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once("../service/login-service.php");
-    $loginService = new loginService();
+    $loginService = loginService::getInstance();
 
     if (isset($_POST["login-button"])) {
         try {

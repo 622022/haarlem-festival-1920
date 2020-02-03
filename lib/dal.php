@@ -46,7 +46,8 @@
                 FROM user
                 WHERE email = ?
             ";
-            return $this->executeSelectQuery($query, 's', $email)[0]["email"] == $email;
+
+            return count($this->executeSelectQuery($query, 's', $email)) == 1;
         }
 
         public function registerUser($user) {
@@ -121,6 +122,16 @@
             ";
             
             return $this->executeSelectQuery($query, 'i', intval($eventType));
+        }
+
+        public function userIsAdmin($email) {
+            $query = "
+                SELECT isAdmin
+                FROM user
+                WHERE email = ?
+            ";
+
+            return $this->executeSelectQuery($query, 's', $email)[0]["isAdmin"];
         }
     }
 ?>

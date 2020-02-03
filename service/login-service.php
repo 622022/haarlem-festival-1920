@@ -19,7 +19,7 @@
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 if (!$this->dal->doesUserExist($email)) {
                     try {
-                        return $this->dal->registerUser(new User($email, $fullname, $password));
+                        return $this->dal->registerUser(new User($email, $fullname, password_hash($password, PASSWORD_BCRYPT)));
                     } catch(Exception $e) {
                         echo($e);
                     }
@@ -42,6 +42,11 @@
 
         public function getFullName($email) {
             return $this->dal->getFullName($email);
+        }
+
+        public function userIsAdmin($email) {
+            return $this->dal->userIsAdmin($email);
+
         }
     }
 ?>

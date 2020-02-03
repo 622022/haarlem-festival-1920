@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php isset($_SESSION) || session_start(); ?>
 <div id="sidebar-top">
     <div id="sidebar-navigator">
         <?php 
@@ -8,7 +8,7 @@
     </div>
     <div id="sidebar-account">
         <?php 
-            require('../service/login-service.php');
+            require_once('../service/login-service.php');
             $user = loginService::getInstance()->getFullName($_SESSION['USER']);
             if ($user != null) {
                 echo($user);
@@ -17,6 +17,7 @@
                 header('location: ./login.php');
             }
         ?>
+        <a href="../controller/logout.php">Log Out</a>
     </div>  
 </div>
 <div id="sidebar">
