@@ -31,10 +31,15 @@
 						$event->programmeItem->endsAt,
 						"imageUrl", // PLACEHOLDER
 						"imageDescription" // PLACEHOLDER
+					)
+				);
+			}
+
+			return $eventCards;
 		}
 
 		private function generateEventCard($artist, $price, $location, $startTime, $endTime, $imageUrl, $imageDescription) {
-			echo ("
+			return "
 			<section class=\"eventcard\">
 			  <div id = \"box-container\">
 				<img src=\"{$imageUrl}\" alt=\"$imageDescription\">
@@ -44,7 +49,6 @@
 				<h4>{$location}</h4>
 				<h4>{$startTime}-{$endTime}</h4>
 			</section>
-			");
 			";
 		}
 
