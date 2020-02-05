@@ -81,10 +81,12 @@
 
         public function getEvents($eventType) {
             $query = "
-                SELECT E.id AS eventId, E.artist, E.price, E.ticketsLeft, E.programmeId, E.imageId, E.description, E.more, P.id, P.startsAt, P.endsAt, P.location
+                SELECT E.id AS eventId, E.artist, E.price, E.ticketsLeft, E.programmeId, url, E.description, E.more, P.id, P.startsAt, P.endsAt, P.location
                 FROM event AS E
                 JOIN programme AS P
                 ON E.programmeId = P.id
+                JOIN image AS I
+                ON E.imageId = I.id
                 WHERE E.eventTypeId = ?
             ";
    
@@ -107,7 +109,7 @@
                     $row["ticketsLeft"],
                     $programmeItem,
                     $eventType,
-                    $row["imageId"],
+                    $row["url"],
                     $row["description"],
                     $row["more"]
                 );

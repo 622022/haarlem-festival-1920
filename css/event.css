@@ -144,6 +144,7 @@ hr {
   border-radius: 20px;
   border: 2px solid;
   border-color: var(--dance-main);
+  position: fixed;
 }
 
 .filter h3{

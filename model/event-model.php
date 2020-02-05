@@ -6,19 +6,19 @@
         public $ticketsLeft;
         public $programmeItem;
         public $eventTypeId;
-        public $imageId;
+        public $imageUrl;
         public $description;
         public $more;
         // TODO: Start and end time
 		
-        public function __construct($id, $artist, $price, $ticketsLeft, $programmeItem, $eventTypeId, $imageId, $description, $more) {
+        public function __construct($id, $artist, $price, $ticketsLeft, $programmeItem, $eventTypeId, $imageUrl, $description, $more) {
             $this->id = $id;
             $this->artist = $artist;
 			$this->price = $price;
 			$this->ticketsLeft = $ticketsLeft;
 			$this->programmeItem = $programmeItem;
 			$this->eventTypeId = $eventTypeId;
-			$this->imageId = $imageId;
+			$this->imageUrl = $imageUrl;
             $this->description = $description;
             $this->more = $more;
         }

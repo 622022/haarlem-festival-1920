@@ -29,7 +29,7 @@
 						$event->programmeItem->location,
 						$event->programmeItem->startsAt,
 						$event->programmeItem->endsAt,
-						"imageUrl", // PLACEHOLDER
+						$event->imageUrl,
 						"imageDescription" // PLACEHOLDER
 					)
 				);
