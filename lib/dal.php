@@ -81,7 +81,7 @@
 
         public function getEvents($eventType) {
             $query = "
-                SELECT E.id, E.artist, E.price, E.ticketsLeft, E.programmeId, E.imageId, E.description, E.more, P.id, P.startsAt, P.endsAt, P.location
+                SELECT E.id AS eventId, E.artist, E.price, E.ticketsLeft, E.programmeId, E.imageId, E.description, E.more, P.id, P.startsAt, P.endsAt, P.location
                 FROM event AS E
                 JOIN programme AS P
                 ON E.programmeId = P.id
@@ -101,15 +101,15 @@
                 );
 
                 $event = new Event(
-                    $row["E.id"],
-                    $row["E.artist"],
-                    $row["E.price"],
-                    $row["E.ticketsLeft"],
+                    $row["eventId"],
+                    $row["artist"],
+                    $row["price"],
+                    $row["ticketsLeft"],
                     $programmeItem,
                     $eventType,
-                    $row["E.imageId"],
-                    $row["E.description"],
-                    $row["E.more"]
+                    $row["imageId"],
+                    $row["description"],
+                    $row["more"]
                 );
 
                 array_push($events, $event);

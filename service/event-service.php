@@ -17,7 +17,7 @@
 		}
 		
 		public function generateEventCards($eventType) {
-			$events = $this->getAllEvents($eventType);
+			$events = $this->getAllEvents(1);
 	  
 			$eventCards = [];
 

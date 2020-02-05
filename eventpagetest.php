@@ -32,7 +32,12 @@
     <hr>
     <h3>July 27th</h3>
 
-    <?php $eventService->generateEventCards(1); // PARAMETER IS PLACEHOLDER ?>
+    <?php
+      $events = $eventService->generateEventCards(1);
+      foreach ($events as &$event) {
+        echo $event;
+      }
+    ?>
 
     <div class="filter">
       <h3>Filters</h3>
