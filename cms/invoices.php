@@ -1,13 +1,13 @@
 <?php 
-    if (require_once('./includes/admin-check.php')) {
+    if (require_once(__DIR__ . '/includes/admin-check.php')) {
 ?>
 <html lang="en">
     <head>
-        <?php include('./includes/header.php'); ?>
+        <?php include(__DIR__ . '/includes/header.php'); ?>
         <title>CMS – Events</title>
     </head>
     <body>
-        <?php include('./includes/sidebar.php'); ?>
+        <?php include(__DIR__ . '/includes/sidebar.php'); ?>
     </body>
 </html>
 <?php 

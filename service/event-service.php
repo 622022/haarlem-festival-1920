@@ -1,7 +1,7 @@
 <?php
-    require_once("../lib/dal.php");
-    require_once("../model/event-model.php");
-	require_once("../model/programmeItem-model.php");
+    require_once(__DIR__ . "/../lib/dal.php");
+    require_once(__DIR__ . "/../model/event-model.php");
+	require_once(__DIR__ . "/../model/programmeItem-model.php");
 
     class eventService {
         private static $instance;

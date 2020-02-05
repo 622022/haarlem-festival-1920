@@ -1,7 +1,7 @@
 <?php
-    require_once("../config/credentials.php");
-    require_once("../model/event-model.php"); 
-    require_once("../model/programmeItem-model.php");
+    require_once(__DIR__ . "/../config/credentials.php");
+    require_once(__DIR__ . "/../model/event-model.php"); 
+    require_once(__DIR__ . "/../model/programmeItem-model.php");
 
     class dataLayer {
         private static $instance;
@@ -96,7 +96,8 @@
                     $row["id"],
                     $row["startsAt"],
                     $row["endsAt"],
-                    $row["location"]
+                    $row["location"],
+                    $eventType
                 );
 
                 $event = new Event(

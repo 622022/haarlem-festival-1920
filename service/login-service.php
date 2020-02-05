@@ -1,6 +1,6 @@
 <?php
-    require_once("../lib/dal.php");
-    require_once("../model/user-model.php");
+    require_once(__DIR__ . "/../lib/dal.php");
+    require_once(__DIR__ . "/../model/user-model.php");
 
     class loginService {
         private static $instance;
