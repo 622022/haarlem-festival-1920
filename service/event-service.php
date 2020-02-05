@@ -41,7 +41,7 @@
 		private function generateEventCard($artist, $price, $location, $startTime, $endTime, $imageUrl, $imageDescription) {
 			return "
 			<section class=\"eventcard\">
-			  <div id = \"box-container\">
+			  <div class = \"box-container\">
 				<img src=\"{$imageUrl}\" alt=\"$imageDescription\">
 				<h2>€{$price}</h2>
 				<button div id=\"addbtn\" type=\"button\">ADD</button>

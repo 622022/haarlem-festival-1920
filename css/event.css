@@ -88,7 +88,7 @@ hr {
   border-bottom-width: 0px;
 
 }
-#box-container{
+.box-container{
   width: 850px;
   height: 150px;
   border:1px solid #000;
@@ -96,28 +96,30 @@ hr {
   border-radius: 20px 20px 20px 20px;
   position: relative;
   border-color: var(--dance-main);
+  margin-top: 10px;
+  margin-bottom: 35px;
 }
-#box-container h3{
+.box-container h3{
   position: relative;
   padding-right: 100px;
   margin-bottom: 25px;
   top: 10px;
 }
-#box-container img{
+.box-container img{
   float: left;
   max-width: 100%;
   max-height: 100%;
   display: block;
   border-radius: 20px;
 }
-#box-container h4{
+.box-container h4{
   
   padding-right: 400px;
   padding-top: 0px;
   margin-top: 10px;
 
 }
-#box-container h2{
+.box-container h2{
   float: right;
   padding-top: 35px;
   padding-right: 190px;
@@ -214,7 +216,11 @@ hr {
   color: blue;
 }
 
-
+.box-container img {
+  width: 200px;
+  height: 100%;
+  object-fit: cover;
+}
 
 
 
