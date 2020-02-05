@@ -1,0 +1,27 @@
+#header img
+{
+    width: 1930px;
+    height: 600px;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+#hf-logo img
+{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 550px;
+    height: 500px;
+}
+
+#haarlemtext
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
