@@ -1,10 +1,11 @@
+@import 'main.css';
+
 #header img
 {
-    width: 1930px;
-    height: 600px;
     position: relative;
     text-align: center;
-    color: white;
+    width: 1930px;
+    height: 600px; 
 }
 
 #hf-logo img
@@ -20,8 +21,68 @@
 #haarlemtext
 {
     position: absolute;
-    top: 50%;
+    top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
+}
+
+#year2020
+{
+    position: absolute;
+    top: 44%;
+    left: 56%;
+    color: var(--logo-colour);
+}
+
+nav
+{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin: 0 auto;
+    width: 1020px;
+}
+
+#navdance
+{
+    text-align: center;
+    width: 340px;
+    height: 120px;
+    background-color: var(--dance-main);
+    color:white;
+    border-bottom-left-radius: 25px;
+}
+
+#navjazz
+{
+    text-align: center;
+    width: 340px;
+    height: 120px;
+    background-color: var(--jazz-main);
+    color:white;
+}
+
+#navfood
+{
+    text-align: center;
+    width: 340px;
+    height: 120px;
+    background-color: var(--food-main);
+    color:white;
+    border-bottom-right-radius: 25px;
+}
+
+h3
+{
+    margin-top: 40px;
+    margin-bottom: 90px;
+    font-size: 45px;
+}
+
+.navshadow
+{
+    -webkit-box-shadow: inset 0 8px 10px 5px var(--shadow);
+    -moz-box-shadow: inset 0 8px 10px 5px var(--shadow);
+         box-shadow: inset 0 8px 10px 5px var(--shadow);
 }

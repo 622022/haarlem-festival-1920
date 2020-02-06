@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 :root {
-	--jazz-main: #F00;
-	--dance-main: #00F;
-	--food-main: #0F0;
+	--jazz-main: #e72e2e;
+	--dance-main: #007aff;
+	--food-main: #14ff00;
     --main-bg: #FFF;
     --secondary-bg: #AAA;
     --main-theme: #F00;
@@ -12,6 +12,7 @@
     --text-primary: #111;
     --text-secondary: #666;
     --shadow: rgba(0, 0, 0, 0.25);
+    --logo-colour:#c31f39;
 }
 
 body {
