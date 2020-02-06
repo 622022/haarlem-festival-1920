@@ -33,9 +33,9 @@
     <h3>July 27th</h3>
 
     <?php
-      $events = $eventService->generateEventCards(1);
-      foreach ($events as &$event) {
-        echo $event;
+      $eventCards = $eventService->generateEventCards(1);
+      foreach ($eventCards as &$eventCard) {
+        echo $eventCard;
       }
     ?>
 
@@ -82,6 +82,10 @@
         </tr>
       </table>
     </div>
+
+    <section class="shopping cart">
+
+    </section>
 
   </body>
 </html>

@@ -23,31 +23,23 @@
 
 			foreach($events as &$event) {
 				array_push($eventCards, 
-					$this->generateEventCard(
-						$event->artist,
-						$event->price,
-						$event->programmeItem->location,
-						$event->programmeItem->startsAt,
-						$event->programmeItem->endsAt,
-						$event->imageUrl,
-						"imageDescription" // PLACEHOLDER
-					)
+					$this->generateEventCard($event)
 				);
 			}
 
 			return $eventCards;
 		}
 
-		private function generateEventCard($artist, $price, $location, $startTime, $endTime, $imageUrl, $imageDescription) {
+		private function generateEventCard($event) {
 			return "
 			<section class=\"eventcard\">
 			  <div class = \"box-container\">
-				<img src=\"{$imageUrl}\" alt=\"$imageDescription\">
-				<h2>€{$price}</h2>
-				<button div id=\"addbtn\" type=\"button\">ADD</button>
-				<h3>BACK2BACK by {$artist}</h3>
-				<h4>{$location}</h4>
-				<h4>{$startTime}-{$endTime}</h4>
+				<img src=\"{$event->imageUrl}\" alt=\"$event->imageDescription\">
+				<h2>€{$event->price}</h2>
+				<button div id=\"addbtn\" type=\"button\" name=\"add-$event->id\"action=\"controller/cart-controller.php?eventId=$event->id\">ADD</button>
+				<h3>BACK2BACK by {$event->artist}</h3>
+				<h4>{$event->programmeItem->location}</h4>
+				<h4>{$event->programmeItem->startTime}-{$event->programmeItem->endTime}</h4>
 			</section>
 			";
 		}
@@ -58,5 +50,6 @@
 			$foodEvents = $this->dal->getEvents(3);
 			return array_merge($danceEvents, $jazzEvents, $foodEvents);
 		}
+
 	}
 ?>
