@@ -10,13 +10,11 @@ if($_GET){
         // $_SESSION["cart"]["items"][0]["event"];
         // $_SESSION["cart"]["items"][0]["count"];
         for($i = 0; $i < count($_SESSION["cart"]["items"]); $i++) {
-            if($_SESSION["cart"]["items"]["event"]->id === $event->id) {
-                $_SESSION["cart"]["items"]["count"]++;
+            if($_SESSION["cart"]["items"][i]["event"]->id === $event->id) {
+                $_SESSION["cart"]["items"][i]["count"]++;
                 break;
             } else if ($i === count($_SESSION["cart"]["items"])) {
-                $_SESSION["cart"]["items"] = array(
-                    array("event" = $event, "count" = 1)
-                )
+                array_push($_SESSION["cart"]["items"], array("event" = $event, "count" = 1));
             }
         }
     }
