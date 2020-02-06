@@ -13,5 +13,9 @@
         public static function getInstance() {
             return !self::$instance ? new cartService() : self::$instance;
         }
+
+        public function getEventById($eventId) {
+            return $dal->getEventById($eventId);
+        }
     }
 ?>

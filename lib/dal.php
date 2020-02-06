@@ -119,6 +119,42 @@
             return $events;
         }
 
+        public function getEventById($eventId) {
+            $query = "
+                SELECT E.artist, E.price, E.ticketsLeft, E.programmeId, I.url, E.description, E.more, P.id, P.startsAt, P.endsAt, P.location
+                FROM event AS E
+                JOIN programme AS P
+                ON E.programmeId = P.id
+                JOIN image AS I
+                ON E.imageId = I.id
+                WHERE E.id = ?
+            ";
+
+            $row = $this->executeSelectQuery($query, 'i', intval($eventId))[0];
+
+            $programmeItem = new ProgrammeItem(
+                $row["id"],
+                $row["startsAt"],
+                $row["endsAt"],
+                $row["location"],
+                $row["eventTypeId"]
+            );
+
+            $event = new Event(
+                $eventId,
+                $row["artist"],
+                $row["price"],
+                $row["ticketsLeft"],
+                $programmeItem,
+                $row["eventTypeId"],
+                $row["url"],
+                $row["description"],
+                $row["more"]
+            );
+
+            return $event;
+        }
+
         public function getEventPage($eventType) {
             $query = "
                 someone write this cursed query please lol
