@@ -18,9 +18,9 @@
 
 ## Random fricking ideas
 
-* Unique ID/Barcode linked to ticket
-* Need customer with first name and email
-* Only one event page
-* Make simple frontend pages first then bother with functionality
-* Make section folder for repeatable interface sections (php include 'em)
-
+* Unique ID/Barcode linked to ticket.
+* Need customer with first name and email.
+* Only one event page.
+* Make simple frontend pages first then bother with functionality.
+* Make section folder for repeatable interface sections. (php include 'em)
+* Online section in CMS showing all online users.
