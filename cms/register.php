@@ -19,6 +19,7 @@
                     <input type="text" name="fullname" placeholder="Full Name" required>
                     <input type="password" name="password" placeholder="Password" required>
                     <input type="submit" name="register-button" value="Register">
+                    <!-- Checkbox input for admin bool here? -->
                 </form>
             </div>
         </div>

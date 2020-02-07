@@ -1,6 +1,22 @@
 <?php
   require_once(__DIR__ . "/service/event-service.php");
   $eventService = eventService::getInstance();
+
+  function generateEventCard($event) {
+    return "
+    <section class=\"eventcard\">
+      <div class = \"box-container\">
+      <img src=\"{$event->image->url}\" alt=\"{$event->image->description}\">
+      <h2>€{$event->price}</h2>
+      <button div id=\"addbtn\" type=\"button\" name=\"add-{$event->id}\"action=\"controller/cart-controller.php?eventId={$event->id}\">ADD</button>
+      <h3>{$event->more} {$event->artist}</h3>
+      <h4>{$event->programmeItem->location}</h4>
+      <h4>{$event->programmeItem->startsAt}-{$event->programmeItem->endsAt}</h4>
+    </section>
+    ";
+  }
+
+  $events = $eventService->getAllEvents(1);
 ?>
 
 
@@ -33,10 +49,7 @@
     <h3>July 27th</h3>
 
     <?php
-      $eventCards = $eventService->generateEventCards(1);
-      foreach ($eventCards as &$eventCard) {
-        echo $eventCard;
-      }
+      foreach($events as &$event) { echo generateEventCard($event); }
     ?>
 
     <div class="filter">

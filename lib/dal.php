@@ -2,6 +2,7 @@
     require_once(__DIR__ . "/../config/credentials.php");
     require_once(__DIR__ . "/../model/event-model.php"); 
     require_once(__DIR__ . "/../model/programmeItem-model.php");
+    require_once(__DIR__ . "/../model/image-model.php");
 
     class dataLayer {
         private static $instance;
@@ -81,7 +82,9 @@
 
         public function getEvents($eventType) {
             $query = "
-                SELECT E.id AS eventId, E.artist, E.price, E.ticketsLeft, E.programmeId, url, E.description, E.more, P.id, P.startsAt, P.endsAt, P.location
+                SELECT E.id , E.artist, E.price, E.ticketsLeft, E.description, E.more, 
+                P.id AS programmeId, P.startsAt, P.endsAt, P.location,
+                I.id AS imageId, I.url, I.description AS imageDescription
                 FROM event AS E
                 JOIN programme AS P
                 ON E.programmeId = P.id
@@ -89,27 +92,33 @@
                 ON E.imageId = I.id
                 WHERE E.eventTypeId = ?
             ";
-   
-            $events = [];
+     
             $results = $this->executeSelectQuery($query, 'i', intval($eventType));
+            $events = [];
 
             foreach ($results as $row) {
                 $programmeItem = new ProgrammeItem(
-                    $row["id"],
+                    $row["programmeId"],
                     $row["startsAt"],
                     $row["endsAt"],
                     $row["location"],
                     $eventType
                 );
 
+                $image = new Image(
+                    $row["imageId"],
+                    $row["url"],
+                    $row["imageDescription"]
+                );
+
                 $event = new Event(
-                    $row["eventId"],
+                    $row["id"],
                     $row["artist"],
                     $row["price"],
                     $row["ticketsLeft"],
                     $programmeItem,
+                    $image,
                     $eventType,
-                    $row["url"],
                     $row["description"],
                     $row["more"]
                 );
@@ -121,7 +130,9 @@
 
         public function getEventById($eventId) {
             $query = "
-                SELECT E.artist, E.price, E.ticketsLeft, E.programmeId, I.url, E.description, E.more, P.id, P.startsAt, P.endsAt, P.location
+                SELECT E.artist, E.price, E.ticketsLeft, E.eventTypeId, E.description, E.more,
+                P.id AS programmeId, P.startsAt, P.endsAt, P.location,
+                I.id as imageId, I.url, I.description AS imageDescription
                 FROM event AS E
                 JOIN programme AS P
                 ON E.programmeId = P.id
@@ -133,11 +144,17 @@
             $row = $this->executeSelectQuery($query, 'i', intval($eventId))[0];
 
             $programmeItem = new ProgrammeItem(
-                $row["id"],
+                $row["programmeId"],
                 $row["startsAt"],
                 $row["endsAt"],
                 $row["location"],
                 $row["eventTypeId"]
+            );
+
+            $image = new Image(
+                $row["imageId"],
+                $row["url"],
+                $row["imageDescription"]
             );
 
             $event = new Event(
@@ -146,8 +163,8 @@
                 $row["price"],
                 $row["ticketsLeft"],
                 $programmeItem,
+                $image,
                 $row["eventTypeId"],
-                $row["url"],
                 $row["description"],
                 $row["more"]
             );

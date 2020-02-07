@@ -15,13 +15,13 @@
             return !self::$instance ? new loginService() : self::$instance;
         }
 
-        public function register($email, $fullname, $password) {
+        public function register($email, $fullName, $password) {
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 if (!$this->dal->doesUserExist($email)) {
                     try {
-                        return $this->dal->registerUser(new User($email, $fullname, password_hash($password, PASSWORD_BCRYPT)));
+                        return $this->dal->registerUser(new User(null, $email, $fullName, password_hash($password, PASSWORD_BCRYPT), false));
                     } catch(Exception $e) {
-                        echo($e);
+                        echo($e); // TEMPORARY
                     }
                 }
             } else {
