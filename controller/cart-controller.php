@@ -18,12 +18,22 @@ if($_GET){
                 array_push($_SESSION["cart"]["items"], ["event" => $event, "count" => 1]);
             }
         }
-    } else if (isset($_GET["remove"])) {
-        
-    } else if (isset($_GET["increment"])) {
-        
-    } else if (isset($_GET["decrement"])) {
-        
+    } else if (isset($_GET["itemId"])) {
+        $itemId = $_GET["itemId"];
+
+        if ($_GET["action"] === "remove") {
+            unset($_SESSION["cart"]["items"][$itemId]);
+        } else if ($_GET["action"] === "increment") {
+            $_SESSION["cart"]["items"][$itemId]["count"]++;
+        } else if ($_GET["action"] === "decrement") {
+            if ($_SESSION["cart"]["items"][$itemId]["count"] > 0 ) {
+                $_SESSION["cart"]["items"][$itemId]["count"]--;
+            }
+        } else if ($_GET["action"] === "setCount") {
+            if(isset($_GET["count"]) && $_GET["count"] > 0) {
+                $_SESSION["cart"]["items"][$itemId]["count"] = $_GET["count"];
+            }
+        }
     }
 }
 ?>

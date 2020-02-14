@@ -5,15 +5,33 @@
   function generateEventCard($event) {
     return "
     <section class=\"eventcard\">
-      <div class = \"box-container\">
+      <div class=\"box-container\">
       <img src=\"{$event->image->url}\" alt=\"{$event->image->description}\">
       <h2>€{$event->price}</h2>
-      <button div id=\"addbtn\" type=\"button\" name=\"add-{$event->id}\"action=\"controller/cart-controller.php?eventId={$event->id}\">ADD</button>
-      <h3>{$event->more} {$event->artist}</h3>
+      <button id=\"addbtn\" type=\"button\" name=\"add-{$event->id}\" action=\"controller/cart-controller.php?eventId={$event->id}\">ADD</button>
+      <h3>{$event->getName()}</h3>
       <h4>{$event->programmeItem->location}</h4>
       <h4>{$event->programmeItem->startsAt}-{$event->programmeItem->endsAt}</h4>
     </section>
     ";
+  }
+
+  // CONCEPT
+  function generateCart() {
+    $html = "";
+    for($i = 0; $i < count($_SESSION["cart"]["items"]); $i++) {
+      $item = $_SESSION["cart"]["items"][$i];
+      $html += "
+      <div class=\"box-container\">
+      <p>" . $item["event"]->price * $item["count"] . "</p>
+      <input type=\"text\" class=\"count\" name=\"count-{$i}\ action=\"controller/cart-controller.php?itemId={$i}&action=setCount&count={$count}\"> <!-- count??? -->
+      <button class=\"increment\" name=\"increment-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=increment\"
+      <p>" . $item["event"]->getName() . "</p>
+      <button class=\"decrement\" name=\"decrement-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=decrement\"
+      <button class=\"remove\" name=\"remove-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=remove\"
+      ";
+    }
+    return $html;
   }
 
   $events = $eventService->getAllEvents(1);
@@ -96,7 +114,12 @@
       </table>
     </div>
 
-    <section class="shopping cart">
+    <section class="cart">
+      <?php generateCart(); ?>
+
+      <!-- Total Price Here -->
+      <!-- Checkout Button Here -->
+    </section>
 
     </section>
 
