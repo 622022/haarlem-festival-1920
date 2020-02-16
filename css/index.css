@@ -18,13 +18,20 @@
     height: 500px;
 }
 
-#haarlemtext
+#haarlemtitle
 {
     position: absolute;
     top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
+}
+
+#haarlemtext
+{
+    position: relative;
+    left: 10%;
+    font-size: 30px;
 }
 
 #year2020
@@ -85,4 +92,24 @@ h3
     -webkit-box-shadow: inset 0 8px 10px 5px var(--shadow);
     -moz-box-shadow: inset 0 8px 10px 5px var(--shadow);
          box-shadow: inset 0 8px 10px 5px var(--shadow);
+}
+
+.eventrectangle
+{
+    width: 550px;
+    height: 1000px;
+    position: absolute;
+    color: var(--main-bg);
+}
+
+.eventrectangleshadow
+{
+    -webkit-box-shadow: inset 0 8px 10px 5px var(--shadow);
+    -moz-box-shadow: inset 0 8px 10px 5px var(--shadow);
+         box-shadow: inset 0 8px 10px 5px var(--shadow), inset 0 -8px 10px 5px var(--shadow);
+}
+
+p.a
+{
+    
 }
