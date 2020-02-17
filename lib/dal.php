@@ -189,5 +189,73 @@
 
             return $this->executeSelectQuery($query, 's', $email)[0]["isAdmin"];
         }
+
+        public function sortEvents($eventType) {
+            $query = "
+            SELECT
+            E.id,
+            E.artist,
+            E.price,
+            E.ticketsLeft,
+            E.description,
+            E.more,
+            P.id AS programmeId,
+            P.startsAt,
+            P.endsAt,
+            P.location,
+            I.id AS imageId,
+            I.url,
+            I.description AS imageDescription
+            FROM event AS
+             E
+            JOIN
+            programme AS P
+            ON
+            E.programmeId = P.id
+            JOIN
+            image AS I
+            ON
+            E.imageId = I.id
+            WHERE
+            E.eventTypeId = ?
+            ORDER BY
+            price ASC
+            ";
+
+            $results = $this->executeSelectQuery($query, 'i', intval($eventType));
+            $events = [];
+
+            foreach ($results as $row) {
+                $programmeItem = new ProgrammeItem(
+                    $row["programmeId"],
+                    $row["startsAt"],
+                    $row["endsAt"],
+                    $row["location"],
+                    $eventType
+                );
+
+                $image = new Image(
+                    $row["imageId"],
+                    $row["url"],
+                    $row["imageDescription"]
+                );
+
+                $event = new Event(
+                    $row["id"],
+                    $row["artist"],
+                    $row["price"],
+                    $row["ticketsLeft"],
+                    $programmeItem,
+                    $image,
+                    $eventType,
+                    $row["description"],
+                    $row["more"]
+                );
+
+                array_push($events, $event);
+            }
+            return $events;
+        }
+            
     }
 ?>

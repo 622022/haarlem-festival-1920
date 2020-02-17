@@ -22,5 +22,12 @@
 			$foodEvents = $this->dal->getEvents(3);
 			return array_merge($danceEvents, $jazzEvents, $foodEvents);
 		}
+
+		public function getSortedEvents($eventType){
+			$danceEvents = $this->dal->sortEvents(1);
+			$jazzEvents = $this->dal->sortEvents(2);
+			$foodEvents = $this->dal->sortEvents(3);
+			return array_merge($danceEvents, $jazzEvents, $foodEvents);
+		}
 	}
 ?>

@@ -1,6 +1,7 @@
 <?php
+  session_start();
   require_once(__DIR__ . "/service/event-service.php");
-  $eventService = eventService::getInstance();
+  $eventService = eventService::getInstance();  
 
   function generateEventCard($event) {
     return "
@@ -17,24 +18,24 @@
   }
 
   // CONCEPT
-  function generateCart() {
-    $html = "";
-    for($i = 0; $i < count($_SESSION["cart"]["items"]); $i++) {
-      $item = $_SESSION["cart"]["items"][$i];
-      $html += "
-      <div class=\"box-container\">
-      <p>" . $item["event"]->price * $item["count"] . "</p>
-      <input type=\"text\" class=\"count\" name=\"count-{$i}\ action=\"controller/cart-controller.php?itemId={$i}&action=setCount&count={$count}\"> <!-- count??? -->
-      <button class=\"increment\" name=\"increment-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=increment\"
-      <p>" . $item["event"]->getName() . "</p>
-      <button class=\"decrement\" name=\"decrement-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=decrement\"
-      <button class=\"remove\" name=\"remove-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=remove\"
-      ";
-    }
-    return $html;
-  }
+  // function generateCart() {
+  //   $html = "";
+  //   for($i = 0; $i < count($_SESSION["cart"]["items"]); $i++) {
+  //     $item = $_SESSION["cart"]["items"][$i];
+  //     $html += "
+  //     <div class=\"box-container\">
+  //     <p>" . $item["event"]->price * $item["count"] . "</p>
+  //     <input type=\"text\" class=\"count\" name=\"count-{$i}\ action=\"controller/cart-controller.php?itemId={$i}&action=setCount&count={$count}\"> <!-- count??? -->
+  //     <button class=\"increment\" name=\"increment-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=increment\"
+  //     <p>" . $item["event"]->getName() . "</p>
+  //     <button class=\"decrement\" name=\"decrement-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=decrement\"
+  //     <button class=\"remove\" name=\"remove-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=remove\"
+  //     ";
+  //   }
+  //   return $html;
+  // }
 
-  $events = $eventService->getAllEvents(1);
+  //$events = $eventService->getAllEvents(1);
 ?>
 
 
@@ -45,6 +46,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/event.css">
     <title>Dance event</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- <script>
+    $(document).ready(function(){
+    $("select[name=product]").change(function(){
+      $('.eventcard').html(div);
+      });
+    });
+
+    </script> -->
+
   </head>
   <body>
     <header>
@@ -67,7 +79,22 @@
     <h3>July 27th</h3>
 
     <?php
-      foreach($events as &$event) { echo generateEventCard($event); }
+
+      function generateSortedEvent()
+      {
+        $eventService = eventService::getInstance();
+        $events = $eventService->getSortedEvents(1);
+        foreach($events as &$event) { echo generateSortedEventCard($event); }
+      }
+      function generateEvent()
+      {
+        $eventService = eventService::getInstance();
+        $events = $eventService->getAllEvents(1);
+        foreach($events as &$event) { echo generateEventCard($event); }
+      }
+      //foreach($events as &$event) { echo generateEventCard($event); }
+      generateEvent();
+      //generateSortedEvent();
     ?>
 
     <div class="filter">
@@ -105,17 +132,20 @@
         <tr>
           <td>Sorting by</td>
           <td><select name="product" id="product">
-            <option></option>
-            <option id="Time">Time</option>
-            <option id="Price asc">Price asc.</option>
-            <option id="Price desc">Price desc.</option>
+            
+            <option selected value="0" id="Time">Time</option>
+            <option value="1" id="Price asc">Price asc.</option>
+            <option value="2" id="Price desc">Price desc.</option>
           </select></td>
         </tr>
       </table>
     </div>
 
     <section class="cart">
-      <?php generateCart(); ?>
+      <?php 
+      //generateCart();
+      
+      ?>
 
       <!-- Total Price Here -->
       <!-- Checkout Button Here -->

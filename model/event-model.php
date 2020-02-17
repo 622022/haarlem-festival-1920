@@ -41,9 +41,10 @@
         public function getName() {
             if($eventTypeId === 1) { // If Dance
                 return $this->more["session"] + "by" + $this->artist;
-            } else if ($eventTypeId === 2) { // If Jazz
-                return $this->artist;
-            }
+             } 
+            // else if ($eventTypeId === 2) { // If Jazz
+            //     return $this->artist;
+            // }
         }
 
         public function getEventName() {
