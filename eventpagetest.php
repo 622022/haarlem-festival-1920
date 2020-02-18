@@ -5,7 +5,7 @@
 
   function generateEventCard($event) {
     return "
-    <section class=\"eventcard\">
+    <section class=\"eventcard1\">
       <div class=\"box-container\">
       <img src=\"{$event->image->url}\" alt=\"{$event->image->description}\">
       <h2>€{$event->price}</h2>
@@ -47,14 +47,24 @@
     <link rel="stylesheet" href="css/event.css">
     <title>Dance event</title>
 
-    <!-- <script>
-    $(document).ready(function(){
-    $("select[name=product]").change(function(){
-      $('.eventcard').html(div);
-      });
+    <script>
+    
+    $(function(){
+      $("#product").change(function(){
+          var selectedValue = $(this).children("option:selected").val();
+          if(selectedValue == 1){
+            //generateSortedEvent();
+            alert("You have selected this value - " + selectedValue);
+            //$(".eventcard").hide();
+            //$(".eventcard1").show();
+            //generateEvent().stop();
+            
+          }
+         
+       });
     });
+    </script>
 
-    </script> -->
 
   </head>
   <body>
@@ -76,6 +86,12 @@
     </section>
     <hr>
     <h3>July 27th</h3>
+
+    <section id="cards">
+    <hr>
+    <h3>July 27th</h3>
+    <?php generateEvent(); ?>
+    </section>
 
     <?php
 
