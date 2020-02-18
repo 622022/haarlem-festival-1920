@@ -94,12 +94,13 @@ h3
          box-shadow: inset 0 8px 10px 5px var(--shadow);
 }
 
-.eventrectangle
+.eventrectangle img
 {
     width: 550px;
-    height: 1000px;
-    position: absolute;
-    color: var(--main-bg);
+    height: 916px;
+    position: relative;
+    background-color: var(--main-bg);
+    text-align: center;
 }
 
 .eventrectangleshadow
@@ -109,7 +110,23 @@ h3
          box-shadow: inset 0 8px 10px 5px var(--shadow), inset 0 -8px 10px 5px var(--shadow);
 }
 
+.eventlink img
+{
+    position: absolute;
+    align-content: center;
+    transform: translate(-50%, -50%);
+}
+
 p.a
 {
-    
+    text-align: center;
+    font-weight: 700;
+    font-size: 25px;
+}
+
+.centertitle
+{
+    text-align: center;
+    font-weight: 700;
+    font-size: 40px;
 }
