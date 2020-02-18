@@ -47,25 +47,6 @@
     <link rel="stylesheet" href="css/event.css">
     <title>Dance event</title>
 
-    <script>
-    
-    $(function(){
-      $("#product").change(function(){
-          var selectedValue = $(this).children("option:selected").val();
-          if(selectedValue == 1){
-            //generateSortedEvent();
-            alert("You have selected this value - " + selectedValue);
-            //$(".eventcard").hide();
-            //$(".eventcard1").show();
-            //generateEvent().stop();
-            
-          }
-         
-       });
-    });
-    </script>
-
-
   </head>
   <body>
     <header>
@@ -86,7 +67,6 @@
     </section>
     <hr>
     <h3>July 27th</h3>
-
     <section id="cards">
     <hr>
     <h3>July 27th</h3>
@@ -108,39 +88,39 @@
         foreach($events as &$event) { echo generateEventCard($event); }
       }
       //foreach($events as &$event) { echo generateEventCard($event); }
-      generateEvent();
+      //generateEvent();
       //generateSortedEvent();
     ?>
 
-    <div class="filter">
+    <section class="filter">
       <h3>Filters</h3>
-      <h4 div id="Artist">Artists</h4>
+      <h4 id="Artist">Artists</h4>
         <div class="checkbox">
-          <label><input type="checkbox" rel="Nicky Romero" onchange="change()"/>Nicky romero</label>
+          <label><input type="checkbox" name="Nicky Romero" onchange="change()"/>Nicky romero</label>
         </div>
         <div class="checkbox">
-          <label><input type="checkbox" rel="Afrojack" onchange="change()"/>Afrojack</label>
+          <label><input type="checkbox" name="Afrojack" onchange="change()"/>Afrojack</label>
        </div>
         <div class="checkbox">
-          <label><input type="checkbox" rel="Tiesto" onchange="change()"/>Tiesto</label>
+          <label><input type="checkbox" name="Tiesto" onchange="change()"/>Tiesto</label>
         </div>
         <div class="checkbox">
-          <label><input type="checkbox" rel="Hardwell" onchange="change()"/>Hardwell</label>
+          <label><input type="checkbox" name="Hardwell" onchange="change()"/>Hardwell</label>
         </div>
       <h4 div id="Location">Locations</h4>
         <div class="checkbox">
-          <label><input type="checkbox" rel="Nicky Romero" onchange="change()"/>Lichtfabriek</label>
+          <label><input type="checkbox" name="Nicky Romero" onchange="change()"/>Lichtfabriek</label>
         </div>
         <div class="checkbox">
-          <label><input type="checkbox" rel="Afrojack" onchange="change()"/>Club Stalker</label>
+          <label><input type="checkbox" name="Afrojack" onchange="change()"/>Club Stalker</label>
        </div>
         <div class="checkbox">
-          <label><input type="checkbox" rel="Tiesto" onchange="change()"/>Jopenkerk</label>
+          <label><input type="checkbox" name="Tiesto" onchange="change()"/>Jopenkerk</label>
         </div>
         <div class="checkbox">
-          <label><input type="checkbox" rel="Hardwell" onchange="change()"/>XO the Club</label>
+          <label><input type="checkbox" name="Hardwell" onchange="change()"/>XO the Club</label>
         </div>   
-    </div>
+    </section>
 
     <div class="Sort">
       <table>
@@ -166,13 +146,74 @@
       <!-- Checkout Button Here -->
     </section>
 
+    <script>
+    // $(function(){
+    //   $("#product").change(function(){
+    //       var selectedValue = $(this).children("option:selected").val();
+    //       if(selectedValue == 1){
+    //         //generateSortedEvent();
+    //         alert("You have selected this value - " + selectedValue);
+    //         //$(".eventcard").hide();
+    //         //$(".eventcard1").show();
+    //         //generateEvent().stop();
+            
+    //       }
+         
+    //    });
+    // });
+    </script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
     $(function() {
-      $.ajax({
-        url:""
+      var filteredArtists = [];
+      var sort = "";
+
+      $(".filter input[type=checkbox]").change(function() {
+        if(this.checked) {
+          filteredArtists.push(this.name);
+        } else {
+          let index = filteredArtists.indexOf(this.name);
+          if(index != -1) {
+            filteredArtists.splice(index, 1);
+          }
+        }
       });
-    }
+
+      // function setFilter() {
+      //   $(".filter input[type=checkbox]:checked").each(function() {
+      //     filteredArtists.push(this.name);
+      //   });
+      // }
+
+      var data = { filter:filteredArtists, sort:sort }
+
+      function generateEventCards() {
+        $.ajax({
+          url:"./controller/ajax/card-controller.php",
+          method:"POST",
+          data:{filter:filteredArtists, sort:sort}, // Put filter and sort options here.
+          success: function(data) {
+            $("#cards").html(data);
+          },
+          error: function() {
+            console.log("There was an error with the 'cards' AJAX call.");
+          }
+        });
+      }
+      
+      $.ajax({
+        url:"./controller/ajax/card-controller.php",
+        method:"POST",
+        data:"", // Put filter and sort options here.
+        success: function(data) {
+          $("#cards").html(data);
+        },
+        error: function() {
+          console.log("There was an error with the 'cards' AJAX call.");
+        }
+      });
+    });
     </script>
 
   </body>

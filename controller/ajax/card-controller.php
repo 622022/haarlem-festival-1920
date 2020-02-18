@@ -4,6 +4,8 @@
 
 	$events = $eventService->getAllEvents(1);
 	
+	
+
 	function generateEventCard($event) {
 		return "
 		<section class=\"eventcard\">
@@ -18,8 +20,35 @@
 		";
 	}
 
+	if($_POST){
+		if(isset($_POST["sort"])){
+			if($_POST["sort"] === "PRICE_ASC") {	
+				usort($events, fn($a, $b) => $a->price < $b->price);
+			} else if($_POST["sort"] === "PRICE_DESC") {
+				usort($events, fn($a, $b) => $a->price > $b->price);
+			} else if($_POST["sort"] === "DATE_ASC") {	
+
+			} else if($_POST["sort"] === "DATE_DESC") {
+
+			}
+		} else if (isset($_POST["filter"])) {
+
+		} else { // POST is empty. (no options)
+			$lastDate;
+			foreach($events as &$event) {
+				$date = date("F jS", $date);
+				if($date !== $lastDate) {
+					$data .= "<hr> ";
+
+					$lastDate = date("F jS", $event);
+				}
+				$data .= generateEventCard($event);
+			}
+		}
+	}
+
 	
-	foreach($events as &$event) { $data .= generateEventCard($event); }
+	
 
 	echo $data;
 ?>
