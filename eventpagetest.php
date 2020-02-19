@@ -120,7 +120,7 @@
 
         filter["artists"].length > 0 || filter["locations"].length > 0 ? data["filter"] = filter : null;        
         sort.length > 0 ? data["sort"] = sort : null;
-console.log(data);
+        console.log(data);
         $.ajax({
           url:"./controller/ajax/card-controller.php",
           method:"POST",

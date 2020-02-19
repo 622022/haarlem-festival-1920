@@ -147,6 +147,10 @@ hr {
   border: 2px solid;
   border-color: var(--dance-main);
   position: absolute;
+  margin-bottom: 0px;
+  bottom: 0px;
+  top: 800px;
+  left: auto;
 }
 
 .filter h3{
@@ -206,7 +210,7 @@ hr {
   border-color: royalblue;
 }
 
-.Sort #product{
+.Sort #sort{
   width: 101.988636px;
   border-radius: 20px;
   border-color: var(--dance-main);
