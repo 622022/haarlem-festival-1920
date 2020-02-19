@@ -1,22 +1,4 @@
 <?php
-  session_start();
-  require_once(__DIR__ . "/service/event-service.php");
-  $eventService = eventService::getInstance();  
-
-  function generateEventCard($event) {
-    return "
-    <section class=\"eventcard1\">
-      <div class=\"box-container\">
-      <img src=\"{$event->image->url}\" alt=\"{$event->image->description}\">
-      <h2>€{$event->price}</h2>
-      <button id=\"addbtn\" type=\"button\" name=\"add-{$event->id}\" action=\"controller/cart-controller.php?eventId={$event->id}\">ADD</button>
-      <h3>{$event->getName()}</h3>
-      <h4>{$event->programmeItem->location}</h4>
-      <h4>{$event->programmeItem->startsAt}-{$event->programmeItem->endsAt}</h4>
-    </section>
-    ";
-  }
-
   // CONCEPT
   // function generateCart() {
   //   $html = "";
@@ -65,72 +47,54 @@
       <h3>or</h3>
       <h4>order-seperately</h4>
     </section>
-    <hr>
-    <h3>July 27th</h3>
-    <section id="cards">
-    <hr>
-    <h3>July 27th</h3>
-    <?php generateEvent(); ?>
-    </section>
 
-    <?php
-
-      function generateSortedEvent()
-      {
-        $eventService = eventService::getInstance();
-        $events = $eventService->getSortedEvents(1);
-        foreach($events as &$event) { echo generateSortedEventCard($event); }
-      }
-      function generateEvent()
-      {
-        $eventService = eventService::getInstance();
-        $events = $eventService->getAllEvents(1);
-        foreach($events as &$event) { echo generateEventCard($event); }
-      }
-      //foreach($events as &$event) { echo generateEventCard($event); }
-      //generateEvent();
-      //generateSortedEvent();
-    ?>
+    <section id="cards"></section>
 
     <section class="filter">
       <h3>Filters</h3>
-      <h4 id="Artist">Artists</h4>
+      <div id=filter-artist>
+        <h4 id="Artist">Artists</h4>
         <div class="checkbox">
-          <label><input type="checkbox" name="Nicky Romero" onchange="change()"/>Nicky romero</label>
+          <label><input type="checkbox" name="Nicky Romero"/>Nicky romero</label>
         </div>
         <div class="checkbox">
-          <label><input type="checkbox" name="Afrojack" onchange="change()"/>Afrojack</label>
-       </div>
-        <div class="checkbox">
-          <label><input type="checkbox" name="Tiesto" onchange="change()"/>Tiesto</label>
+          <label><input type="checkbox" name="Afrojack"/>Afrojack</label>
         </div>
         <div class="checkbox">
-          <label><input type="checkbox" name="Hardwell" onchange="change()"/>Hardwell</label>
-        </div>
-      <h4 div id="Location">Locations</h4>
-        <div class="checkbox">
-          <label><input type="checkbox" name="Nicky Romero" onchange="change()"/>Lichtfabriek</label>
+          <label><input type="checkbox" name="Tiësto"/>Tiësto</label>
         </div>
         <div class="checkbox">
-          <label><input type="checkbox" name="Afrojack" onchange="change()"/>Club Stalker</label>
-       </div>
+          <label><input type="checkbox" name="Hardwell"/>Hardwell</label>
+        </div>
+      </div>
+      <div id=filter-location>
+        <h4 div id="Location">Locations</h4>
         <div class="checkbox">
-          <label><input type="checkbox" name="Tiesto" onchange="change()"/>Jopenkerk</label>
+          <label><input type="checkbox" name="Lichtfabriek"/>Lichtfabriek</label>
         </div>
         <div class="checkbox">
-          <label><input type="checkbox" name="Hardwell" onchange="change()"/>XO the Club</label>
-        </div>   
+          <label><input type="checkbox" name="Club Stalker"/>Club Stalker</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="Jopenkerk"/>Jopenkerk</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="XO the Club"/>XO the Club</label>
+        </div>
+      </div>  
     </section>
 
     <div class="Sort">
       <table>
         <tr>
           <td>Sorting by</td>
-          <td><select name="product" id="product">
+          <td><select id="sort">
             
-            <option selected value="0" id="Time">Time</option>
-            <option value="1" id="Price asc">Price asc.</option>
-            <option value="2" id="Price desc">Price desc.</option>
+            <option selected value="TIME_ASC" id="time-asc">Time asc.</option>
+            <option value="TIME_DESC" id="time-desc">Time desc.</option>
+            <option value="PRICE_ASC" id="price-asc">Price asc.</option>
+            <option value="PRICE_DESC" id="price-desc">Price desc.</option>
+            
           </select></td>
         </tr>
       </table>
@@ -138,61 +102,29 @@
 
     <section class="cart">
       <?php 
-      //generateCart();
-      
+      //generateCart();      
       ?>
 
       <!-- Total Price Here -->
       <!-- Checkout Button Here -->
     </section>
 
-    <script>
-    // $(function(){
-    //   $("#product").change(function(){
-    //       var selectedValue = $(this).children("option:selected").val();
-    //       if(selectedValue == 1){
-    //         //generateSortedEvent();
-    //         alert("You have selected this value - " + selectedValue);
-    //         //$(".eventcard").hide();
-    //         //$(".eventcard1").show();
-    //         //generateEvent().stop();
-            
-    //       }
-         
-    //    });
-    // });
-    </script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
     $(function() {
-      var filteredArtists = [];
-      var sort = "";
-
-      $(".filter input[type=checkbox]").change(function() {
-        if(this.checked) {
-          filteredArtists.push(this.name);
-        } else {
-          let index = filteredArtists.indexOf(this.name);
-          if(index != -1) {
-            filteredArtists.splice(index, 1);
-          }
-        }
-      });
-
-      // function setFilter() {
-      //   $(".filter input[type=checkbox]:checked").each(function() {
-      //     filteredArtists.push(this.name);
-      //   });
-      // }
-
-      var data = { filter:filteredArtists, sort:sort }
+      var filter = {artists:[], locations:[]};
+      var sort = $("#sort").val();
 
       function generateEventCards() {
+        var data = {};
+
+        filter["artists"].length > 0 || filter["locations"].length > 0 ? data["filter"] = filter : null;        
+        sort.length > 0 ? data["sort"] = sort : null;
+console.log(data);
         $.ajax({
           url:"./controller/ajax/card-controller.php",
           method:"POST",
-          data:{filter:filteredArtists, sort:sort}, // Put filter and sort options here.
+          data:data, // Put filter and sort options here.
           success: function(data) {
             $("#cards").html(data);
           },
@@ -201,18 +133,43 @@
           }
         });
       }
-      
-      $.ajax({
-        url:"./controller/ajax/card-controller.php",
-        method:"POST",
-        data:"", // Put filter and sort options here.
-        success: function(data) {
-          $("#cards").html(data);
-        },
-        error: function() {
-          console.log("There was an error with the 'cards' AJAX call.");
+
+      $(".filter input[type=checkbox]").change(function() {
+        if($(this).closest("#filter-artist").length) {
+          if(this.checked) {
+            filter["artists"].push(this.name);
+          } else {
+            let index = filter["artists"].indexOf(this.name);
+            if(index != -1) {
+              filter["artists"].splice(index, 1);
+            }
+          }
+        } else if($(this).closest("#filter-location").length) {
+          if(this.checked) {
+            filter["locations"].push(this.name);
+          } else {
+            let index = filter["locations"].indexOf(this.name);
+            if(index != -1) {
+              filter["locations"].splice(index, 1);
+            }
+          }
         }
+
+        generateEventCards();
       });
+
+      $("#sort").change(function() {
+        sort = this.value;
+        generateEventCards();
+      });
+
+      // function setFilter() {
+      //   $(".filter input[type=checkbox]:checked").each(function() {
+      //     filteredArtists.push(this.name);
+      //   });
+      // }
+
+      generateEventCards();
     });
     </script>
 

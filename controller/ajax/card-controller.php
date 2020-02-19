@@ -1,11 +1,10 @@
 <?php
-	require_once(__DIR__ . "/service/event-service.php");
+	require_once(__DIR__ . "/../../service/event-service.php");
 	$eventService = eventService::getInstance();  
 
 	$events = $eventService->getAllEvents(1);
 	
 	
-
 	function generateEventCard($event) {
 		return "
 		<section class=\"eventcard\">
@@ -15,40 +14,69 @@
 		  <button id=\"addbtn\" type=\"button\" name=\"add-{$event->id}\" action=\"controller/cart-controller.php?eventId={$event->id}\">ADD</button>
 		  <h3>{$event->getName()}</h3>
 		  <h4>{$event->programmeItem->location}</h4>
-		  <h4>{$event->programmeItem->startsAt}-{$event->programmeItem->endsAt}</h4>
+		  <h4>" . date("H:i", $event->programmeItem->startsAt) . " - " . date("H:i", $event->programmeItem->endsAt) . "</h4>
 		</section>
 		";
 	}
 
-	if($_POST){
-		if(isset($_POST["sort"])){
-			if($_POST["sort"] === "PRICE_ASC") {	
-				usort($events, fn($a, $b) => $a->price < $b->price);
-			} else if($_POST["sort"] === "PRICE_DESC") {
-				usort($events, fn($a, $b) => $a->price > $b->price);
-			} else if($_POST["sort"] === "DATE_ASC") {	
+	function generateEventCards(&$events) {
+		$html = "";
 
-			} else if($_POST["sort"] === "DATE_DESC") {
+		$lastDate = "";
+		foreach($events as &$event) {
+			$date = date("F jS", $event->programmeItem->startsAt);
+			if($date !== $lastDate) {
+				$html .= "<hr> <h3>$date<h3>";
 
+				$lastDate = $date;
 			}
-		} else if (isset($_POST["filter"])) {
+			$html .= generateEventCard($event);
+		}
 
-		} else { // POST is empty. (no options)
-			$lastDate;
-			foreach($events as &$event) {
-				$date = date("F jS", $date);
-				if($date !== $lastDate) {
-					$data .= "<hr> ";
+		return $html;
+	}
 
-					$lastDate = date("F jS", $event);
+	if($_POST){
+		if(isset($_POST["filter"])) {
+			if(isset($_POST["filter"]["artists"])) {
+				$newEvents = [];
+				//$filteredArtists = is_array($_POST["filter"]["artists"]) && count($_POST["filter"]["artists"]) > 0 ? $_POST["filter"]["locations"] : [""];
+				$filteredArtists = $_POST["filter"]["artists"] ?? [null];
+				foreach($filteredArtists as &$filteredArtist) {
+					foreach($events as &$event) {
+						if(strpos($event->artist, $filteredArtist) !== false && !in_array($event, $newEvents)) {
+							array_push($newEvents, $event);
+						}
+					}
 				}
-				$data .= generateEventCard($event);
+				$events = $newEvents;
+			}	
+			if(isset($_POST["filter"]["locations"])) {
+				$newEvents = [];
+				//$filteredLocations = is_array($_POST["filter"]["locations"]) && count($_POST["filter"]["locations"]) > 0 ? $_POST["filter"]["locations"] : [""];
+				$filteredLocations = $_POST["filter"]["locations"] ?? [null];
+				foreach($filteredLocations as &$filteredLocation) {
+					foreach($events as &$event) {
+						if($filteredLocation == $event->programmeItem->location) {
+							array_push($newEvents, $event);
+						}
+					}
+				}
+				$events = $newEvents;
+			}
+		}
+		if(isset($_POST["sort"])){
+			if($_POST["sort"] === "TIME_ASC") {
+				usort($events, function($a, $b) { return $a->programmeItem->startsAt > $b->programmeItem->startsAt; } );
+			} else if($_POST["sort"] === "TIME_DESC") {
+				usort($events, function($a, $b) { return date('Y-m-d', $a->programmeItem->startsAt) === date('Y-m-d', $b->programmeItem->startsAt) && $a->programmeItem->startsAt < $b->programmeItem->startsAt; } );
+			} else if($_POST["sort"] === "PRICE_ASC") {
+				usort($events, function($a, $b) { return date('Y-m-d', $a->programmeItem->startsAt) === date('Y-m-d', $b->programmeItem->startsAt) && $a->price > $b->price; } );
+			} else if($_POST["sort"] === "PRICE_DESC") {
+				usort($events, function($a, $b) { return date('Y-m-d', $a->programmeItem->startsAt) === date('Y-m-d', $b->programmeItem->startsAt) && $a->price < $b->price; } );
 			}
 		}
 	}
 
-	
-	
-
-	echo $data;
+	echo generateEventCards($events);
 ?>

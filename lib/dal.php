@@ -92,6 +92,8 @@
                 ON E.imageId = I.id
                 WHERE E.eventTypeId = ?
             ";
+
+            $this->conn->set_charset('utf8');
      
             $results = $this->executeSelectQuery($query, 'i', intval($eventType));
             $events = [];
@@ -99,8 +101,8 @@
             foreach ($results as $row) {
                 $programmeItem = new ProgrammeItem(
                     $row["programmeId"],
-                    $row["startsAt"],
-                    $row["endsAt"],
+                    strtotime($row["startsAt"]),
+                    strtotime($row["endsAt"]),
                     $row["location"],
                     $eventType
                 );
@@ -145,8 +147,8 @@
 
             $programmeItem = new ProgrammeItem(
                 $row["programmeId"],
-                $row["startsAt"],
-                $row["endsAt"],
+                strtotime($row["startsAt"]),
+                strtotime($row["endsAt"]),
                 $row["location"],
                 $row["eventTypeId"]
             );
@@ -228,8 +230,8 @@
             foreach ($results as $row) {
                 $programmeItem = new ProgrammeItem(
                     $row["programmeId"],
-                    $row["startsAt"],
-                    $row["endsAt"],
+                    strtotime($row["startsAt"]),
+                    strtotime($row["endsAt"]),
                     $row["location"],
                     $eventType
                 );

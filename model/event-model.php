@@ -39,12 +39,11 @@
         }
 
         public function getName() {
-            if($eventTypeId === 1) { // If Dance
-                return $this->more["session"] + "by" + $this->artist;
-             } 
-            // else if ($eventTypeId === 2) { // If Jazz
-            //     return $this->artist;
-            // }
+            if($this->eventTypeId === 1) { // If Dance
+                return strval($this->more["session"]) ? strval($this->more["session"]) . " by " . $this->artist : $this->artist;
+            } else if ($this->eventTypeId === 2) { // If Jazz
+                return $this->artist;
+            }
         }
 
         public function getEventName() {
@@ -66,6 +65,10 @@
 
         public function getEventEndDateTime() {
 
+        }
+
+        public function __toString() {
+            return $this->id;
         }
     }
 ?>   
