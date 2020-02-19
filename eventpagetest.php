@@ -47,15 +47,34 @@
       <h3>or</h3>
       <h4>order-seperately</h4>
     </section>
+    <div id="cart-wrapper">
+      <button id=cart-circle>
+        <img id="cart-icon" src="https://cdns.iconmonstr.com/wp-content/assets/preview/2013/240/iconmonstr-shopping-cart-3.png" alt="Click to view cart contents">
+    </button>
+    </div>
+    
+
+    <section class="cart">
+    
+      
+      <div class="cart-display">
+        <!-- Generate Cart Items -->   
+      </div>
+
+      <h3 name="Total-Price"><!-- Total Price Here --></h3>
+      <button id="checkout" type="button">Checkout</button>
+    </section>
 
     <section id="cards"></section>
+
+    
 
     <section class="filter">
       <h3>Filters</h3>
       <div id=filter-artist>
         <h4 id="Artist">Artists</h4>
         <div class="checkbox">
-          <label><input type="checkbox" name="Nicky Romero"/>Nicky romero</label>
+          <label><input type="checkbox" name="Nicky Romero"/>Nicky Romero</label>
         </div>
         <div class="checkbox">
           <label><input type="checkbox" name="Afrojack"/>Afrojack</label>
@@ -65,6 +84,12 @@
         </div>
         <div class="checkbox">
           <label><input type="checkbox" name="Hardwell"/>Hardwell</label>
+        </div>
+        <div class="checkbox">
+          <label id="artist-fix"><input type="checkbox" name="Armin van Buuren"/>Armin van Buuren</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="Martin Garrix"/>Martin Garrix</label>
         </div>
       </div>
       <div id=filter-location>
@@ -80,6 +105,12 @@
         </div>
         <div class="checkbox">
           <label><input type="checkbox" name="XO the Club"/>XO the Club</label>
+        </div>
+        <div class="checkbox">
+          <label id="location-fix"><input type="checkbox" name="Caprera Openluchttheater"/>Caprera Openluchttheater</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="Club Ruis"/>Club Ruis</label>
         </div>
       </div>  
     </section>
@@ -100,14 +131,7 @@
       </table>
     </div>
 
-    <section class="cart">
-      <?php 
-      //generateCart();      
-      ?>
-
-      <!-- Total Price Here -->
-      <!-- Checkout Button Here -->
-    </section>
+    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
@@ -122,7 +146,7 @@
         sort.length > 0 ? data["sort"] = sort : null;
         console.log(data);
         $.ajax({
-          url:"./controller/ajax/card-controller.php",
+          url:"./controller/ajax/eventcards-handler.php",
           method:"POST",
           data:data, // Put filter and sort options here.
           success: function(data) {
@@ -162,12 +186,6 @@
         sort = this.value;
         generateEventCards();
       });
-
-      // function setFilter() {
-      //   $(".filter input[type=checkbox]:checked").each(function() {
-      //     filteredArtists.push(this.name);
-      //   });
-      // }
 
       generateEventCards();
     });
