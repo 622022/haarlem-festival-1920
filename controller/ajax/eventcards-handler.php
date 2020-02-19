@@ -22,18 +22,38 @@
 	function generateEventCards(&$events) {
 		$html = "";
 
-		$lastDate = "";
-		foreach($events as &$event) {
-			$date = date("F jS", $event->programmeItem->startsAt);
-			if($date !== $lastDate) {
-				$html .= "<hr> <h3>$date<h3>";
-
-				$lastDate = $date;
+		$eventsByDateList = sortEventsByDate($events);
+		foreach($eventsByDateList as &$eventsByDate) {
+			$date = date("F jS", $eventsByDate[0]->programmeItem->startsAt);
+			$html .= "<hr> <h3>$date<h3>";
+			foreach($eventsByDate as &$event) {
+				$html .= generateEventCard($event);
 			}
-			$html .= generateEventCard($event);
 		}
 
 		return $html;
+	}
+
+	function sortEventsByDate(&$events) { // Takes array of events and splits up into arrays of events divided by date.
+		$eventsByDateList = [];
+
+		array_push($eventsByDateList, [$events[0]]); // Initiate starting date array.
+		for($i = 1; $i < count($events); $i++) {
+			$isNewDate = true;
+			foreach($eventsByDateList as &$eventsByDate) { // Add to array with corresponding date.
+				if(date('Y-m-d', $events[$i]->programmeItem->startsAt) === date('Y-m-d', $eventsByDate[0]->programmeItem->startsAt)) {
+					array_push($eventsByDate, $events[$i]); 
+					$isNewDate = false;
+					break;
+				}
+			}
+
+			if($isNewDate) { array_push($eventsByDateList, [$events[$i]]); } // If date does not correspond with existing array then make a new array for the new date.
+
+			usort($eventsByDateList, function($a, $b) { return $a[0]->programmeItem->startsAt <=> $b[0]->programmeItem->startsAt; }); // Sort the date arrays.
+		}
+
+		return $eventsByDateList;
 	}
 
 	if($_POST){
@@ -69,11 +89,12 @@
 			if($_POST["sort"] === "TIME_ASC") {
 				usort($events, function($a, $b) { return $a->programmeItem->startsAt > $b->programmeItem->startsAt; } );
 			} else if($_POST["sort"] === "TIME_DESC") {
-				usort($events, function($a, $b) { return date('Y-m-d', $a->programmeItem->startsAt) === date('Y-m-d', $b->programmeItem->startsAt) && $a->programmeItem->startsAt < $b->programmeItem->startsAt; } );
+				//usort($events, function($a, $b) { return date('Y-m-d', $a->programmeItem->startsAt) === date('Y-m-d', $b->programmeItem->startsAt) && $a->programmeItem->startsAt < $b->programmeItem->startsAt; } );
+				usort($events, function($a, $b) { return $a->programmeItem->startsAt < $b->programmeItem->startsAt; } );
 			} else if($_POST["sort"] === "PRICE_ASC") {
-				usort($events, function($a, $b) { return date('Y-m-d', $a->programmeItem->startsAt) === date('Y-m-d', $b->programmeItem->startsAt) && $a->price > $b->price; } );
+				usort($events, function($a, $b) { return $a->price > $b->price; } );
 			} else if($_POST["sort"] === "PRICE_DESC") {
-				usort($events, function($a, $b) { return date('Y-m-d', $a->programmeItem->startsAt) === date('Y-m-d', $b->programmeItem->startsAt) && $a->price < $b->price; } );
+				usort($events, function($a, $b) { return $a->price < $b->price; } );
 			}
 		}
 	}

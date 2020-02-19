@@ -146,7 +146,7 @@
         sort.length > 0 ? data["sort"] = sort : null;
         console.log(data);
         $.ajax({
-          url:"./controller/ajax/card-controller.php",
+          url:"./controller/ajax/eventcards-handler.php",
           method:"POST",
           data:data, // Put filter and sort options here.
           success: function(data) {
@@ -186,12 +186,6 @@
         sort = this.value;
         generateEventCards();
       });
-
-      // function setFilter() {
-      //   $(".filter input[type=checkbox]:checked").each(function() {
-      //     filteredArtists.push(this.name);
-      //   });
-      // }
 
       generateEventCards();
     });
