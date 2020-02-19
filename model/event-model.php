@@ -68,7 +68,19 @@
         }
 
         public function __toString() {
-            return $this->id;
+            $output = "
+            id: $this->id,\n
+            artist: $this->artist,\n
+            price: $this->price,\n
+            ticketsLeft: $this->ticketsLeft,\n
+            programmeItemId: {$this->programmeItem->id},\n
+            imageId: {$this->image->id},\n
+            eventTypeId: $this->eventTypeId,\n\n
+            description: $this->description,\n\n
+            more: $this->more\n\n
+            ";
+
+            return $output;
         }
     }
 ?>   
