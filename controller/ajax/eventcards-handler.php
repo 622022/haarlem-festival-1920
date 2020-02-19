@@ -64,7 +64,7 @@
 				$filteredArtists = $_POST["filter"]["artists"] ?? [null];
 				foreach($filteredArtists as &$filteredArtist) {
 					foreach($events as &$event) {
-						if(strpos($event->artist, $filteredArtist) !== false && !in_array($event, $newEvents)) {
+						if(strpos(strtolower($event->artist), strtolower($filteredArtist)) !== false && !in_array($event, $newEvents)) {
 							array_push($newEvents, $event);
 						}
 					}
@@ -77,7 +77,7 @@
 				$filteredLocations = $_POST["filter"]["locations"] ?? [null];
 				foreach($filteredLocations as &$filteredLocation) {
 					foreach($events as &$event) {
-						if($filteredLocation == $event->programmeItem->location) {
+						if(strtolower($filteredLocation) === strtolower($event->programmeItem->location)) {
 							array_push($newEvents, $event);
 						}
 					}
