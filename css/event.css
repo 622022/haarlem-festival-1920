@@ -182,6 +182,19 @@ hr {
   background-color: #ffffff;
   display: block;
   padding-right: 80px;
+  
+}
+.checkbox #artist-fix{
+  margin-right: 40px;
+
+}
+
+.checkbox #location-fix{
+  
+  margin-right: 0px;
+  padding-right: 00px;
+
+
 }
 
 .filter #Location{
@@ -226,6 +239,33 @@ hr {
   object-fit: cover;
 }
 
+#cart-wrapper{
+  margin-left: 1400px;
+  margin-top: 270px;
+  display: -webkit-box;
+  position: fixed;
+}
+#cart-circle{
+  
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  border-radius: 50%;
+  position: sticky;
+  
+}
+.cart{
+  margin-left: 1400px;
+  margin-top: 270px;
+  display: -webkit-box;
+  position: fixed;
+  bottom: 100px;
+}
+
+#cart-icon{
+  width: 100%;
+  height: 100%;
+}
 
 
 
