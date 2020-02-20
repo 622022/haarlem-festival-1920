@@ -195,18 +195,9 @@ session_start();
           method:"POST",
           data:data,
           success: function(data) {
-            var cartItem = data ?: {};
- 
-            var html = 
-            `<div class="cartitem" name="cartitem-${}">` +
-            ` <img src="${}" alt="${}">` +
-            ` <p class="cartitem-name"></p>` +
-            ` <button class="cartitem-decrement" action="controller/cart-controller.php?itemId=${}&action=decrement"></button>` +
-            ` <input type="number" class="cartitem-count" min=1 max=10>` +
-            ` <button class="cartitem-increment" action="controller/cart-controller.php?itemId=${}&action=increment"></button>` +
-            ` <p class="cartitem-price" action="controller/cart-controller.php?itemId=${}&action=increment"></p>` +
-            ` <button class="cartitem-remove"></button>` +
-            `</div>`;
+            var cart = data ?: {};
+            // EXAMPLE: `$_SESSION["cart"]["items"][0]["event"], $_SESSION["cart"]["items"][0]["count"]`;
+            generateItemHtml(id, image, name, price);
 
             $("#cart-items").html(html);
           },
@@ -217,22 +208,57 @@ session_start();
       }
 
       $(".cartitem-count").change(function() {
-        var itemId = this.parent().attr("name").search(/[0-9]+/);
         //$.get(`/controller/cart-controller.php?itemId={$i}&action=setCount&count=${this.value}`);
-        $.get("/controller/cart-controller.php", {itemId:itemId, action:"setCount", count:this.value});
+        $.get("/controller/cart-controller.php", {itemId:getItemId(this), action:"setCount", count:this.value});
       });
 
       $(".cartitem-decrement").click(function() {
-        this.siblings(".cartitem-count").val(--this.value);
+        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"decrement"}, function() {
+          this.siblings(".cartitem-count").val(--this.value);
+        });
       });
 
       $(".cartitem-increment").click(function() {
-        this.siblings(".cartitem-count").val(++this.value);
+        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"increment"}, function() {
+          this.siblings(".cartitem-count").val(++this.value);
+        });
       });
       
       $(".cartitem-remove").click(function() {
-        this.parent().remove();
+        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"remove"}, function() {
+          this.parent().remove();
+        });
       });
+
+      // TOOLS
+      function generateItemHtml(id, image, name, count, price) {
+        var html =
+        `<div class="cartitem" name="cartitem-${id}">` +
+        ` <img src="${image}">` +
+        ` <p class="cartitem-name">${name}</p>` +
+        ` <button class="cartitem-decrement"></button>` +
+        ` <input type="number" class="cartitem-count" min=1 max=10> value="${count}"` +
+        ` <button class="cartitem-increment"></button>` +
+        ` <p class="cartitem-price">${price*count}</p>` +
+        ` <button class="cartitem-remove"></button>` +
+        `</div>`;
+
+        return html;
+      }
+
+      function generateItemHtml() {
+        var html = "";
+
+        generateItemHtml();
+      }
+
+      function getItemId(element) {
+        return element.closest(".cartitem").attr("name").search(/[0-9]+/);
+      }
+
+      function updatePrice(element) {
+
+      }
     });
     </script>
   </body>
