@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . "/../service/cart-service.php");
-$cartService = loginService::getInstance();
+$cartService = cartService::getInstance();
 
 if($_GET){
     if(isset($_GET["eventId"])){

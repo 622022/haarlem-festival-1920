@@ -89,7 +89,6 @@
 			if($_POST["sort"] === "TIME_ASC") {
 				usort($events, function($a, $b) { return $a->programmeItem->startsAt > $b->programmeItem->startsAt; } );
 			} else if($_POST["sort"] === "TIME_DESC") {
-				//usort($events, function($a, $b) { return date('Y-m-d', $a->programmeItem->startsAt) === date('Y-m-d', $b->programmeItem->startsAt) && $a->programmeItem->startsAt < $b->programmeItem->startsAt; } );
 				usort($events, function($a, $b) { return $a->programmeItem->startsAt < $b->programmeItem->startsAt; } );
 			} else if($_POST["sort"] === "PRICE_ASC") {
 				usort($events, function($a, $b) { return $a->price > $b->price; } );

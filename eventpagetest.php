@@ -1,4 +1,5 @@
 <?php
+session_start();
   // CONCEPT
   // function generateCart() {
   //   $html = "";
@@ -47,27 +48,20 @@
       <h3>or</h3>
       <h4>order-seperately</h4>
     </section>
-    <div id="cart-wrapper">
-      <button id=cart-circle>
-        <img id="cart-icon" src="https://cdns.iconmonstr.com/wp-content/assets/preview/2013/240/iconmonstr-shopping-cart-3.png" alt="Click to view cart contents">
-    </button>
+
+    <div class="Sort">
+      <table>
+        <tr>
+          <td>Sorting by</td>
+          <td><select id="sort">       
+            <option selected value="TIME_ASC" id="time-asc">Time asc.</option>
+            <option value="TIME_DESC" id="time-desc">Time desc.</option>
+            <option value="PRICE_ASC" id="price-asc">Price asc.</option>
+            <option value="PRICE_DESC" id="price-desc">Price desc.</option>
+          </select></td>
+        </tr>
+      </table>
     </div>
-    
-
-    <section class="cart">
-    
-      
-      <div class="cart-display">
-        <!-- Generate Cart Items -->   
-      </div>
-
-      <h3 name="Total-Price"><!-- Total Price Here --></h3>
-      <button id="checkout" type="button">Checkout</button>
-    </section>
-
-    <section id="cards"></section>
-
-    
 
     <section class="filter">
       <h3>Filters</h3>
@@ -115,21 +109,23 @@
       </div>  
     </section>
 
-    <div class="Sort">
-      <table>
-        <tr>
-          <td>Sorting by</td>
-          <td><select id="sort">
-            
-            <option selected value="TIME_ASC" id="time-asc">Time asc.</option>
-            <option value="TIME_DESC" id="time-desc">Time desc.</option>
-            <option value="PRICE_ASC" id="price-asc">Price asc.</option>
-            <option value="PRICE_DESC" id="price-desc">Price desc.</option>
-            
-          </select></td>
-        </tr>
-      </table>
+    <section id="cards"></section>
+
+    <div id="cart-wrapper">
+      <button id=cart-circle>
+        <img id="cart-icon" src="https://cdns.iconmonstr.com/wp-content/assets/preview/2013/240/iconmonstr-shopping-cart-3.png" alt="Click to view cart contents">
+    </button>
     </div>
+
+    <section id="cart">
+      <div id="cart-items">
+        <!-- Generate Cart Items Here -->   
+      </div>
+      <h3 name="Total-Price"><!-- Total Price Here --></h3>
+      <button id="checkout" type="button">Checkout</button>
+    </section>
+
+    
 
     
 
@@ -144,7 +140,7 @@
 
         filter["artists"].length > 0 || filter["locations"].length > 0 ? data["filter"] = filter : null;        
         sort.length > 0 ? data["sort"] = sort : null;
-        console.log(data);
+        
         $.ajax({
           url:"./controller/ajax/eventcards-handler.php",
           method:"POST",
@@ -191,5 +187,53 @@
     });
     </script>
 
+    <script>
+    $(function() {
+      function generateCart() {
+        $.ajax({
+          url:"./controller/ajax/cart-handler.php",
+          method:"POST",
+          data:data,
+          success: function(data) {
+            var cartItem = data ?: {};
+ 
+            var html = 
+            `<div class="cartitem" name="cartitem-${}">` +
+            ` <img src="${}" alt="${}">` +
+            ` <p class="cartitem-name"></p>` +
+            ` <button class="cartitem-decrement" action="controller/cart-controller.php?itemId=${}&action=decrement"></button>` +
+            ` <input type="number" class="cartitem-count" min=1 max=10>` +
+            ` <button class="cartitem-increment" action="controller/cart-controller.php?itemId=${}&action=increment"></button>` +
+            ` <p class="cartitem-price" action="controller/cart-controller.php?itemId=${}&action=increment"></p>` +
+            ` <button class="cartitem-remove"></button>` +
+            `</div>`;
+
+            $("#cart-items").html(html);
+          },
+          error: function() {
+            console.log("There was an error with the 'cart' AJAX call.");
+          }
+        });
+      }
+
+      $(".cartitem-count").change(function() {
+        var itemId = this.parent().attr("name").search(/[0-9]+/);
+        //$.get(`/controller/cart-controller.php?itemId={$i}&action=setCount&count=${this.value}`);
+        $.get("/controller/cart-controller.php", {itemId:itemId, action:"setCount", count:this.value});
+      });
+
+      $(".cartitem-decrement").click(function() {
+        this.siblings(".cartitem-count").val(--this.value);
+      });
+
+      $(".cartitem-increment").click(function() {
+        this.siblings(".cartitem-count").val(++this.value);
+      });
+      
+      $(".cartitem-remove").click(function() {
+        this.parent().remove();
+      });
+    });
+    </script>
   </body>
 </html>
