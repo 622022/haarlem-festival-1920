@@ -29,5 +29,9 @@
 			$foodEvents = $this->dal->sortEvents(3);
 			return array_merge($danceEvents, $jazzEvents, $foodEvents);
 		}
+
+		public function getEvent($eventId) {
+			return $this->dal->getEventById($eventId);
+		}
 	}
 ?>

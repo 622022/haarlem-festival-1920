@@ -242,7 +242,7 @@ input[type=button], input[type=submit] {
 
 .event-card {
     width: 25%;
-    height: 15%;
+    height: 18%;
     box-shadow: 0px 0px 8px 0px var(--shadow);
     padding-left: 8px;
 }
@@ -279,4 +279,70 @@ input[type=button], input[type=submit] {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+.event-button {
+    display: block;
+    border: none;
+    background-color: var(--cms-primary);
+    color: white;
+    -webkit-appearance: none;
+    border-radius: 6px;
+    width: 180px;
+    height: 36px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    box-shadow: 0px 0px 8px 0px var(--shadow);
+    text-align: center;
+    text-decoration: none;
+}
+
+#edit-container {
+    display: block;
+    z-index: 999;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 0px 8px 0px var(--shadow);
+    height: 50%;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+}
+
+#edit-container h1 {
+    margin-top: 0;
+    margin-left: 8px;
+}
+
+.button-color1 {
+    background-color: var(--dance-main);
+}
+
+.button-color2 {
+    background-color: var(--jazz-main);
+}
+
+.button-color3 {
+    background-color: var(--food-main);
+}
+
+.textbox-area {
+    display: flex;
+    margin-top: 8px;
+}
+
+.textbox-area label {
+    text-align: right;
+    flex: 1;
+}
+
+.textbox-area input {
+    flex: 5;
+    margin: 0;
+}
+
+#edit-rbuttons {
+    margin-left: 12%;
 }
