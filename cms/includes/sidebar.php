@@ -8,7 +8,7 @@
     </div>
     <div id="sidebar-account">
         <?php 
-            require_once(__DIR__ . '/../service/login-service.php');
+            require_once(__DIR__ . '/../../service/login-service.php');
             $user = loginService::getInstance()->getFullName($_SESSION['USER']);
             if ($user != null) {
                 echo($user);

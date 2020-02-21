@@ -14,7 +14,7 @@
                 include('../service/event-service.php');
                 $events = eventService::getInstance()->getAllEvents(0);
                 for ($i=0; $i < count($events); $i++) { 
-                    $event = $events[i];
+                    $event = $events[$i];
                     ?>
                         <div class=\"event-card\">
                         <h1><?= $event->getEventName() ?></h1>
