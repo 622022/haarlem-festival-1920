@@ -4,7 +4,7 @@
 {
     position: relative;
     text-align: center;
-    width: 1930px;
+    width: 1520px;
     height: 600px; 
 }
 
@@ -94,11 +94,11 @@ h3
          box-shadow: inset 0 8px 10px 5px var(--shadow);
 }
 
-.eventrectangle img
+.eventrectangle
 {
-    width: 550px;
-    height: 916px;
-    position: relative;
+    width: 1520px;
+    height: 700px;
+    position: absolute;
     background-color: var(--main-bg);
 }
 
@@ -119,13 +119,12 @@ h3
 
 .eventlink img
 {
-    position: absolute;
+    position: relative;
     left: 42%;
 }
 
 p.a
 {
-    position: absolute;
     text-align: center;
     font-weight: 700;
     font-size: 25px;
@@ -133,7 +132,6 @@ p.a
 
 .centertitle
 {
-    position: absolute;
     text-align: center;
     font-weight: 700;
     font-size: 40px;
