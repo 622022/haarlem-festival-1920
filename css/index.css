@@ -136,3 +136,33 @@ p.a
     font-weight: 700;
     font-size: 40px;
 }
+
+#footer
+{
+    width: 1520px;
+    height: 200px;
+    background-color: gray;
+}
+
+#footertext
+{
+    position: absolute;
+    left: 3%;
+    color: var(--main-bg);
+}
+
+p.b
+{
+    font-size: 30px;
+}
+
+p.c
+{
+    font-size: 20px;
+}
+
+p.d
+{
+    font-size: 25px;
+    right: 3%;
+}
