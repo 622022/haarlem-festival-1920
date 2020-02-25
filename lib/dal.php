@@ -21,7 +21,11 @@
         private function executeQuery($query, $params, ...$variables) {
             $stmt = $this->conn->prepare($query);
             if (isset($params) && count($variables) > 0) {
-                $stmt->bind_param($params, ...$variables);
+                // try {
+                    $stmt->bind_param($params, ...$variables);
+                // } catch () {
+                //     throw new Exception("Connection failed. (or params are fucked?)");
+                // }
             }
             $stmt->execute();
 

@@ -195,11 +195,11 @@ session_start();
           method:"POST",
           data:data,
           success: function(data) {
-            var cart = data ?: {};
+            var cart = data["item"] ?: {};
             // EXAMPLE: `$_SESSION["cart"]["items"][0]["event"], $_SESSION["cart"]["items"][0]["count"]`;
-            generateItemHtml(id, image, name, price);
+            var html = generateItemHtml(cart.id, cart.image, cart.name, cart.count, cart.price);
 
-            $("#cart-items").html(html);
+            $("#cart-items").append(html);
           },
           error: function() {
             console.log("There was an error with the 'cart' AJAX call.");
@@ -209,25 +209,37 @@ session_start();
 
       $(".cartitem-count").change(function() {
         //$.get(`/controller/cart-controller.php?itemId={$i}&action=setCount&count=${this.value}`);
-        $.get("/controller/cart-controller.php", {itemId:getItemId(this), action:"setCount", count:this.value});
+        $.get("/controller/cart-controller.php", {itemId:getItemId(this), action:"setCount", count:this.value}).fail(function() {
+            this.val(this.data("lastCount") ?: this.defaultValue;); // Undo change
+        });
+
+        this.data("lastCount", this.value); // Update last count
       });
 
       $(".cartitem-decrement").click(function() {
-        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"decrement"}, function() {
-          this.siblings(".cartitem-count").val(--this.value);
+        var countElement = this.siblings(".cartitem-count");
+        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"decrement"}).fail(function() {
+          countElement.val(++this.value); // Undo change
         });
+        countElement.val(--this.value);
       });
 
       $(".cartitem-increment").click(function() {
-        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"increment"}, function() {
-          this.siblings(".cartitem-count").val(++this.value);
+        var countElement = this.siblings(".cartitem-count");
+        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"increment"}).fail(function() {
+          countElement.val(--this.value); // Undo change
         });
+        countElement.val(++this.value);
       });
       
       $(".cartitem-remove").click(function() {
-        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"remove"}, function() {
-          this.parent().remove();
+        var cartItemElement = this.parent();
+        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"remove"}).done(function() {
+          cartItemElement.remove(); // Remove completely if successful
+        }).fail(function() {
+          cartItemElement.show(); // Re-appear if unsuccessfull (Undo change)
         });
+          cartItemElement.hide(); // Hide until confirmed for removal
       });
 
       // TOOLS
