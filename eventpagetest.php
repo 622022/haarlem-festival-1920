@@ -189,17 +189,20 @@ session_start();
 
     <script>
     $(function() {
-      function generateCart() {
+      function loadCart() {
         $.ajax({
-          url:"./controller/ajax/cart-handler.php",
-          method:"POST",
-          data:data,
+          url:"./controller/cart-controller.php",
+          method:"GET",
+          data:{getCart:""},
           success: function(data) {
-            var cart = data["item"] ?: {};
-            // EXAMPLE: `$_SESSION["cart"]["items"][0]["event"], $_SESSION["cart"]["items"][0]["count"]`;
-            var html = generateItemHtml(cart.id, cart.image, cart.name, cart.count, cart.price);
-
-            $("#cart-items").append(html);
+            var cart = data["cart"] ?? {};
+console.log(cart);
+            var html = "";
+            cart.foreach(function(item) {
+              html += generateItemHtml(item.id, item.image, item.name, item.count, item.price);
+            });
+            // EXAMPLE: `$_SESSION["cart"]["items"][0]["event"], $_SESSION["cart"]["items"][0]["count"]`;        
+            $("#cart-items").html(html);
           },
           error: function() {
             console.log("There was an error with the 'cart' AJAX call.");
@@ -209,8 +212,8 @@ session_start();
 
       $(".cartitem-count").change(function() {
         //$.get(`/controller/cart-controller.php?itemId={$i}&action=setCount&count=${this.value}`);
-        $.get("/controller/cart-controller.php", {itemId:getItemId(this), action:"setCount", count:this.value}).fail(function() {
-            this.val(this.data("lastCount") ?: this.defaultValue;); // Undo change
+        $.get("/controller/cart-controller.php", {itemId:getItemId(this, ".cartitem"), action:"setCount", count:this.value}).fail(function() {
+            this.val(this.data("lastCount") ?? this.defaultValue); // Undo change
         });
 
         this.data("lastCount", this.value); // Update last count
@@ -218,7 +221,7 @@ session_start();
 
       $(".cartitem-decrement").click(function() {
         var countElement = this.siblings(".cartitem-count");
-        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"decrement"}).fail(function() {
+        $.get("controller/cart-controller.php", {itemId:getItemId(this, ".cartitem"), action:"decrement"}).fail(function() {
           countElement.val(++this.value); // Undo change
         });
         countElement.val(--this.value);
@@ -226,7 +229,7 @@ session_start();
 
       $(".cartitem-increment").click(function() {
         var countElement = this.siblings(".cartitem-count");
-        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"increment"}).fail(function() {
+        $.get("controller/cart-controller.php", {itemId:getItemId(this, ".cartitem"), action:"increment"}).fail(function() {
           countElement.val(--this.value); // Undo change
         });
         countElement.val(++this.value);
@@ -234,12 +237,20 @@ session_start();
       
       $(".cartitem-remove").click(function() {
         var cartItemElement = this.parent();
-        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"remove"}).done(function() {
+        $.get("controller/cart-controller.php", {itemId:getItemId(this, ".cartitem"), action:"remove"}).done(function() {
           cartItemElement.remove(); // Remove completely if successful
         }).fail(function() {
           cartItemElement.show(); // Re-appear if unsuccessfull (Undo change)
         });
           cartItemElement.hide(); // Hide until confirmed for removal
+      });
+
+      $(".addbtn").change(function() {
+        $.get("controller/cart-controller.php", {eventId: getItemId(this, ".eventcard")}).done(function(data) {
+          var cartItem = data["item"] ?? {};
+          var html = generateItemHtml(cartItem.id, cartItem.image, cartItem.name, cartItem.count, cartItem.price);
+          $("#cart-items").append(html);
+        });
       });
 
       // TOOLS
@@ -258,19 +269,15 @@ session_start();
         return html;
       }
 
-      function generateItemHtml() {
-        var html = "";
-
-        generateItemHtml();
-      }
-
-      function getItemId(element) {
-        return element.closest(".cartitem").attr("name").search(/[0-9]+/);
+      function getItemId(element, parentElement) {
+        return element.closest(parentElement).attr("name").search(/[0-9]+/);
       }
 
       function updatePrice(element) {
 
       }
+
+      loadCart();
     });
     </script>
   </body>

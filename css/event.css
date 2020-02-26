@@ -4,6 +4,7 @@ body  {
   margin: 0 auto;
   text-align: center;
 }
+
 .navbarlist {
   list-style-type: none;
   margin: 0 auto;
@@ -41,20 +42,25 @@ li.navbaritems.food{
 .navbaritems a:hover {
   background-color: var(--jaz-main);
 }
+
 .active {
   background-color: var(--dance-main);
   color: white;
   border-radius: 0px 0 15px 15px;
 }
+
 #jazz{
   color: var(--jazz-main);
 }
+
 #food{
   color: var(--food-main);
 }
+
 span{
   color: green;
 }
+
 #all-accessbtn{
   background-color: var(--dance-main);
   border: none;
@@ -67,14 +73,17 @@ span{
   font-size: 24px;
   margin-top: 30px;
 }
+
 .all-access h2{
   text-align: center;
   margin-top: 100px;
 
 }
+
 h3{
   margin-top: 0px;
 }
+
 hr {
   display: block;
   margin-top: 0.5em;
@@ -88,6 +97,7 @@ hr {
   border-bottom-width: 0px;
 
 }
+
 .box-container{
   width: 850px;
   height: 150px;
@@ -99,12 +109,14 @@ hr {
   margin-top: 10px;
   margin-bottom: 35px;
 }
+
 .box-container h3{
   position: relative;
   padding-right: 100px;
   margin-bottom: 25px;
   top: 10px;
 }
+
 .box-container img{
   float: left;
   max-width: 100%;
@@ -112,20 +124,22 @@ hr {
   display: block;
   border-radius: 20px;
 }
+
 .box-container h4{
-  
   padding-right: 400px;
   padding-top: 0px;
   margin-top: 10px;
 
 }
+
 .box-container h2{
   float: right;
   padding-top: 35px;
   padding-right: 190px;
 
 }
-#addbtn{
+
+.addbtn{
   background-color: blue;
   position: absolute;
   width: 116px;
@@ -182,19 +196,15 @@ hr {
   background-color: #ffffff;
   display: block;
   padding-right: 80px;
-  
 }
+
 .checkbox #artist-fix{
   margin-right: 40px;
-
 }
 
 .checkbox #location-fix{
-  
   margin-right: 0px;
-  padding-right: 00px;
-
-
+  padding-right: 0px;
 }
 
 .filter #Location{
@@ -208,7 +218,6 @@ hr {
   padding-top: 0px;
   border-top-width: 25px;
   margin-top: 125px;
-
 }
 
 .Sort{
@@ -245,21 +254,13 @@ hr {
   display: -webkit-box;
   position: fixed;
 }
+
 #cart-circle{
-  
   height: 50px;
   width: 50px;
   background-color: white;
   border-radius: 50%;
   position: sticky;
-  
-}
-.cart{
-  margin-left: 1400px;
-  margin-top: 270px;
-  display: -webkit-box;
-  position: fixed;
-  bottom: 100px;
 }
 
 #cart-icon{
@@ -267,6 +268,11 @@ hr {
   height: 100%;
 }
 
-
-
-
+.cart{
+  display: -webkit-box;
+  position: absolute;
+  bottom: 100px;
+  right: 100px;
+  border-width: 2px;
+  border-color: var(--dance-main);
+}

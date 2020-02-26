@@ -19,13 +19,14 @@
         }
 
         private function executeQuery($query, $params, ...$variables) {
+            $this->conn->set_charset('utf8');
             $stmt = $this->conn->prepare($query);
             if (isset($params) && count($variables) > 0) {
-                // try {
+                try {
                     $stmt->bind_param($params, ...$variables);
-                // } catch () {
-                //     throw new Exception("Connection failed. (or params are fucked?)");
-                // }
+                } catch (Exception $e) {
+                    throw new Exception("Connection failed (or params are fucked?); $e");
+                }
             }
             $stmt->execute();
 
@@ -96,12 +97,10 @@
                 ON E.imageId = I.id
                 WHERE E.eventTypeId = ?
             ";
-
-            $this->conn->set_charset('utf8');
      
             $results = $this->executeSelectQuery($query, 'i', intval($eventType));
-            $events = [];
 
+            $events = [];
             foreach ($results as $row) {
                 $programmeItem = new ProgrammeItem(
                     $row["programmeId"],
