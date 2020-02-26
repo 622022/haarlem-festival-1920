@@ -1,32 +1,9 @@
-<?php
-session_start();
-  // CONCEPT
-  // function generateCart() {
-  //   $html = "";
-  //   for($i = 0; $i < count($_SESSION["cart"]["items"]); $i++) {
-  //     $item = $_SESSION["cart"]["items"][$i];
-  //     $html += "
-  //     <div class=\"box-container\">
-  //     <p>" . $item["event"]->price * $item["count"] . "</p>
-  //     <input type=\"text\" class=\"count\" name=\"count-{$i}\ action=\"controller/cart-controller.php?itemId={$i}&action=setCount&count={$count}\"> <!-- count??? -->
-  //     <button class=\"increment\" name=\"increment-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=increment\"
-  //     <p>" . $item["event"]->getName() . "</p>
-  //     <button class=\"decrement\" name=\"decrement-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=decrement\"
-  //     <button class=\"remove\" name=\"remove-{$i}\" action=\"controller/cart-controller.php?itemId={$i}&action=remove\"
-  //     ";
-  //   }
-  //   return $html;
-  // }
-
-  //$events = $eventService->getAllEvents(1);
-?>
-
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.svg">
     <link rel="stylesheet" href="css/event.css">
     <title>Dance event</title>
 
@@ -43,10 +20,10 @@ session_start();
     </header>
 
     <section class = "all-access">
-      <h2>You can save upto <span>*50%</span> off if you buy an all-access pass </h2>
+      <h2>You can save up to <span>*50%</span> off if you buy an all-access pass </h2>
       <button div id="all-accessbtn" type="button">All-access pass</button>
       <h3>or</h3>
-      <h4>order-seperately</h4>
+      <h4>order-separately</h4>
     </section>
 
     <div class="Sort">
@@ -195,10 +172,11 @@ session_start();
           method:"GET",
           data:{getCart:""},
           success: function(data) {
-            var cart = data["cart"] ?? {};
+            //var cart = data["cart"] ?? {}; // Chrome does not support coalescence yet.
+            var cart = data["cart"];
 console.log(cart);
             var html = "";
-            cart.foreach(function(item) {
+            cart.forEach(function(item) {
               html += generateItemHtml(item.id, item.image, item.name, item.count, item.price);
             });
             // EXAMPLE: `$_SESSION["cart"]["items"][0]["event"], $_SESSION["cart"]["items"][0]["count"]`;        
@@ -213,7 +191,8 @@ console.log(cart);
       $(".cartitem-count").change(function() {
         //$.get(`/controller/cart-controller.php?itemId={$i}&action=setCount&count=${this.value}`);
         $.get("/controller/cart-controller.php", {itemId:getItemId(this, ".cartitem"), action:"setCount", count:this.value}).fail(function() {
-            this.val(this.data("lastCount") ?? this.defaultValue); // Undo change
+            //this.val(this.data("lastCount") ?? this.defaultValue); // Undo change // Chrome does not support coalescence yet.
+            this.val(this.data("lastCount") ? this.data("lastCount") : this.defaultValue); // Undo change
         });
 
         this.data("lastCount", this.value); // Update last count
@@ -245,9 +224,10 @@ console.log(cart);
           cartItemElement.hide(); // Hide until confirmed for removal
       });
 
-      $(".addbtn").change(function() {
+      $(".addbtn").click(function() {
         $.get("controller/cart-controller.php", {eventId: getItemId(this, ".eventcard")}).done(function(data) {
-          var cartItem = data["item"] ?? {};
+          //var cartItem = data["item"] ?? {}; // Chrome does not support coalescence yet.
+          var cartItem = data["item"];
           var html = generateItemHtml(cartItem.id, cartItem.image, cartItem.name, cartItem.count, cartItem.price);
           $("#cart-items").append(html);
         });
@@ -259,11 +239,11 @@ console.log(cart);
         `<div class="cartitem" name="cartitem-${id}">` +
         ` <img src="${image}">` +
         ` <p class="cartitem-name">${name}</p>` +
-        ` <button class="cartitem-decrement"></button>` +
-        ` <input type="number" class="cartitem-count" min=1 max=10> value="${count}"` +
-        ` <button class="cartitem-increment"></button>` +
+        ` <button class="cartitem-decrement">-</button>` +
+        ` <input type="number" class="cartitem-count" min=1 max=10 value="${count}">` +
+        ` <button class="cartitem-increment">+</button>` +
         ` <p class="cartitem-price">${price*count}</p>` +
-        ` <button class="cartitem-remove"></button>` +
+        ` <button class="cartitem-remove"><img src="/icon/delete.svg"></button>` +
         `</div>`;
 
         return html;

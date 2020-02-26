@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 :root {
 	--jazz-main: #e72e2e;
@@ -16,5 +17,6 @@
 }
 
 body {
+    font-family: 'Roboto';
     margin: 0;
 }

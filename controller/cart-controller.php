@@ -22,7 +22,7 @@ if($_GET){
         // If the event is already in the cart (as an item) then increment its count. If not, then push it in.
         $alreadyExist = false;
         for($i = 0; $i < count($cart["items"]); $i++) {
-            if($cart["items"][$i]["event"]->id === $event->id) {
+            if($cart["items"][$i]["event"]->id == $event->id) {
                 $cart["items"][$i]["count"]++;
                 $data["added"] = true; // Set return data
                 $alreadyExist = true;

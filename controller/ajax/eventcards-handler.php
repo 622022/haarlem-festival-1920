@@ -7,15 +7,14 @@
 	
 	function generateEventCard($event) {
 		return "
-		<section class=\"eventcard\" name=\"eventcard-$event->id\">
-		  <div class=\"box-container\">
+		<div class=\"eventcard\" name=\"eventcard-$event->id\">
 		  <img src=\"{$event->image->url}\" alt=\"{$event->image->description}\">
 		  <h2>€{$event->price}</h2>
 		  <button class=\"addbtn\" type=\"button\" name=\"add-{$event->id}\" action=\"controller/cart-controller.php?eventId={$event->id}\">ADD</button>
 		  <h3>{$event->getName()}</h3>
 		  <h4>{$event->programmeItem->location}</h4>
 		  <h4>" . date("H:i", $event->programmeItem->startsAt) . " - " . date("H:i", $event->programmeItem->endsAt) . "</h4>
-		</section>
+		</div>
 		";
 	}
 
@@ -25,7 +24,7 @@
 		$eventsByDateList = sortEventsByDate($events);
 		foreach($eventsByDateList as &$eventsByDate) {
 			$date = date("F jS", $eventsByDate[0]->programmeItem->startsAt);
-			$html .= "<hr> <h3>$date<h3>";
+			$html .= "<hr> <h3>$date</h3>";
 			foreach($eventsByDate as &$event) {
 				$html .= generateEventCard($event);
 			}
