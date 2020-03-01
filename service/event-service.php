@@ -33,5 +33,9 @@
 		public function getEvent($eventId) {
 			return $this->dal->getEventById($eventId);
 		}
+
+		public function updateEvent($event) {
+			return $this->dal->updateEvent($event);
+		}
 	}
 ?>

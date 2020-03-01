@@ -177,14 +177,6 @@
             return $event;
         }
 
-        public function getEventPage($eventType) {
-            $query = "
-                someone write this cursed query please lol
-            ";
-            
-            return $this->executeSelectQuery($query, 'i', intval($eventType));
-        }
-
         public function userIsAdmin($email) {
             $query = "
                 SELECT isAdmin
@@ -261,6 +253,27 @@
             }
             return $events;
         }
-            
+
+        public function updateEvent($event) {
+            $query = "
+                UPDATE event
+                SET something = ?
+                WHERE id = ?
+
+                SELECT E.artist, E.price, E.ticketsLeft, E.eventTypeId, E.description, E.more,
+                P.id AS programmeId, P.startsAt, P.endsAt, P.location,
+                I.id as imageId, I.url, I.description AS imageDescription
+                FROM event AS E
+                JOIN programme AS P
+                ON E.programmeId = P.id
+                JOIN image AS I
+                ON E.imageId = I.id
+                WHERE E.id = ?
+
+                i dont know how to write queries help
+            ";
+
+            $row = $this->executeSelectQuery($query, 'i', intval($eventId))[0];
+        }
     }
 ?>

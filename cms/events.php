@@ -23,11 +23,11 @@
                         <h1 id="edit-text">EDIT EVENT <?= $event->id ?></h1>
                         <form action="../controller/event-controller.php" method="post" name="edit-event">
                             <div id="edit-rbuttons">
-                                <input type="radio" name="event-type" value="1">
+                                <input type="radio" name="event-type" value="1" <?= $event->id == 1 ? 'checked' : '' ?>>
                                 <label>Dance</label>
-                                <input type="radio" name="event-type" value="2">
+                                <input type="radio" name="event-type" value="2" <?= $event->id == 2 ? 'checked' : '' ?>>
                                 <label>Jazz</label>
-                                <input type="radio" name="event-type" value="3">
+                                <input type="radio" name="event-type" value="3" <?= $event->id == 3 ? 'checked' : '' ?>>
                                 <label>Food</label>
                             </div>
                             <div class="textbox-area">
@@ -36,11 +36,11 @@
                             </div>
                             <div class="textbox-area">
                                 <label>Start Date</label>
-                                <input type="date" value="<?= date('Y-m-d', $event->programmeItem->startsAt) ?>">
+                                <input type="date" name="event-start" value="<?= date('Y-m-d', $event->programmeItem->startsAt) ?>">
                             </div>
                             <div class="textbox-area">
                                 <label>Start Time</label>
-                                <input type="time" value="<?= date('H:i', $event->programmeItem->startsAt) ?>">
+                                <input type="time" name="event-end" value="<?= date('H:i', $event->programmeItem->startsAt) ?>">
                             </div>
                             <div class="textbox-area">
                                 <label>Duration</label>
@@ -50,6 +50,7 @@
                                 <label class="textbox-label">Location</label>
                                 <input type="text" name="event-location" value="<?= $event->programmeItem->location ?>">
                             </div>
+                            <input type="hidden" name="id" value="<?= $_GET['eventid'] ?>"/>
                             <input type="submit" name="confirm-edit-event" value="Edit Event">
                             <a href="events.php">Close</a>
                         </form>
