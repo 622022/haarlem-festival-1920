@@ -189,34 +189,34 @@
 
         public function sortEvents($eventType) {
             $query = "
-            SELECT
-            E.id,
-            E.artist,
-            E.price,
-            E.ticketsLeft,
-            E.description,
-            E.more,
-            P.id AS programmeId,
-            P.startsAt,
-            P.endsAt,
-            P.location,
-            I.id AS imageId,
-            I.url,
-            I.description AS imageDescription
-            FROM event AS
-             E
-            JOIN
-            programme AS P
-            ON
-            E.programmeId = P.id
-            JOIN
-            image AS I
-            ON
-            E.imageId = I.id
-            WHERE
-            E.eventTypeId = ?
-            ORDER BY
-            price ASC
+                SELECT
+                E.id,
+                E.artist,
+                E.price,
+                E.ticketsLeft,
+                E.description,
+                E.more,
+                P.id AS programmeId,
+                P.startsAt,
+                P.endsAt,
+                P.location,
+                I.id AS imageId,
+                I.url,
+                I.description AS imageDescription
+                FROM event AS
+                E
+                JOIN
+                programme AS P
+                ON
+                E.programmeId = P.id
+                JOIN
+                image AS I
+                ON
+                E.imageId = I.id
+                WHERE
+                E.eventTypeId = ?
+                ORDER BY
+                price ASC
             ";
 
             $results = $this->executeSelectQuery($query, 'i', intval($eventType));
@@ -257,20 +257,25 @@
         public function updateEvent($event) {
             $query = "
                 UPDATE event
-                SET something = ?
-                WHERE id = ?
-
-                SELECT E.artist, E.price, E.ticketsLeft, E.eventTypeId, E.description, E.more,
-                P.id AS programmeId, P.startsAt, P.endsAt, P.location,
-                I.id as imageId, I.url, I.description AS imageDescription
-                FROM event AS E
-                JOIN programme AS P
-                ON E.programmeId = P.id
-                JOIN image AS I
-                ON E.imageId = I.id
-                WHERE E.id = ?
-
-                i dont know how to write queries help
+                SET E.artist = \"\", 
+                    E.price = 1, 
+                    E.ticketsLeft = 3, 
+                    E.eventTypeId = 1, 
+                    E.description = \"WHEN IS THIS PROJECT OVER :(\", 
+                    E.more = \"\",
+                    P.id = 1, 
+                    P.startsAt = \"2020-01-01\", 
+                    P.endsAt = \"2020-01-01\", 
+                    P.location = \"\",
+                    P.id = 1, 
+                    I.url = \"https://google.com\", 
+                    I.description = \"bla\"
+                    FROM event E
+                    JOIN programme AS P
+                        ON E.programmeId = P.id
+                    JOIN image AS I
+                        ON E.imageId = I.id
+                        WHERE E.id = 1
             ";
 
             $row = $this->executeSelectQuery($query, 'i', intval($eventId))[0];
