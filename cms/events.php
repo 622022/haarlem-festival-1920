@@ -35,16 +35,20 @@
                                 <input type="text" name="event-name" value="<?= $event->artist ?>">
                             </div>
                             <div class="textbox-area">
+                                <label class="textbox-label">Price</label>
+                                <input type="number" name="event-price" step="0.01" value="<?= $event->price ?>">
+                            </div>
+                            <div class="textbox-area">
                                 <label>Start Date</label>
-                                <input type="date" name="event-start" value="<?= date('Y-m-d', $event->programmeItem->startsAt) ?>">
+                                <input type="date" name="event-date" value="<?= date('Y-m-d', $event->programmeItem->startsAt) ?>">
                             </div>
                             <div class="textbox-area">
                                 <label>Start Time</label>
-                                <input type="time" name="event-end" value="<?= date('H:i', $event->programmeItem->startsAt) ?>">
+                                <input type="time" name="event-time" value="<?= date('H:i', $event->programmeItem->startsAt) ?>">
                             </div>
                             <div class="textbox-area">
                                 <label>Duration</label>
-                                <input type="number" value="<?= $duration ?>">
+                                <input type="number" name="event-duration" value="<?= $duration ?>">
                             </div>
                             <div class="textbox-area">
                                 <label class="textbox-label">Location</label>

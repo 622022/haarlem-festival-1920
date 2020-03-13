@@ -257,28 +257,27 @@
         public function updateEvent($event) {
             $query = "
                 UPDATE event
-                SET E.artist = \"\", 
-                    E.price = 1, 
-                    E.ticketsLeft = 3, 
-                    E.eventTypeId = 1, 
-                    E.description = \"WHEN IS THIS PROJECT OVER :(\", 
-                    E.more = \"\",
-                    P.id = 1, 
-                    P.startsAt = \"2020-01-01\", 
-                    P.endsAt = \"2020-01-01\", 
-                    P.location = \"\",
-                    P.id = 1, 
-                    I.url = \"https://google.com\", 
-                    I.description = \"bla\"
-                    FROM event E
-                    JOIN programme AS P
-                        ON E.programmeId = P.id
-                    JOIN image AS I
-                        ON E.imageId = I.id
-                        WHERE E.id = 1
+                JOIN programme ON event.id = programme.id
+                SET event.artist = ?,
+                    event.price = ?,
+                    event.ticketsLeft = ?,
+                    event.eventTypeId = ?,
+                    programme.startsAt = ?,
+                    programme.endsAt = ?,
+                    programme.location = ?
+                WHERE event.id = ?
             ";
 
-            $row = $this->executeSelectQuery($query, 'i', intval($eventId))[0];
+            return $this->executeEditQuery($query, 'sdiisssi',
+                $event->artist,
+                $event->price,
+                $event->ticketsLeft,
+                $event->eventTypeId,
+                date('Y-m-d H:i:s', $event->programmeItem->startsAt),
+                date('Y-m-d H:i:s', $event->programmeItem->endsAt),
+                $event->programmeItem->location,
+                $event->id
+            );
         }
     }
 ?>

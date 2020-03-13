@@ -7,24 +7,30 @@
     if (isset($_POST["confirm-edit-event"])) {
         try {
             $event = $eventService->getEvent($_POST['id']);
+            $startDate = new DateTime($_POST['event-date'] . " " . $_POST['event-time']);
+            $startDate = $startDate->getTimestamp();
+            $endDate = $startDate + $_POST['event-duration'] * 60;
             
-            $updatedPerogrammeItem = new ProgrammeItem($event->programmeItem->id,
-            strtotime($_POST['event-start']),
-            strtotime($_POST['event-end']),
-            $_POST['event-location'],
-            intval($_POST['event-type']));
+            $updatedProgrammeItem = new ProgrammeItem(
+                $event->programmeItem->id,
+                $startDate,
+                $endDate,
+                $_POST['event-location'],
+                intval($_POST['event-type'])
+            );
 
             $eventService->updateEvent(new Event(
                 intval($_POST['id']),
                 $_POST['event-name'],
-                $event->price,
+                $_POST['event-price'],
                 $event->ticketsLeft,
                 $updatedProgrammeItem,
                 $event->image,
                 intval($_POST['event-type']),
                 $event->description,
-                $event->more));
-            header("Location: ../cms/events.php");
+                $event->more)
+            );
+            //header("Location: ../cms/events.php");
         } catch(Exception $e) {
             echo($e);
         }
