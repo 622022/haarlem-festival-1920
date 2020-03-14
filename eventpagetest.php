@@ -166,6 +166,8 @@
 
     <script>
     $(function() {
+      // Setup
+
       function loadCart() {
         $.ajax({
           url:"./controller/cart-controller.php",
@@ -187,36 +189,46 @@ console.log(cart);
           }
         });
       }
-
-      $(".cartitem-count").change(function() {
-        //$.get(`/controller/cart-controller.php?itemId={$i}&action=setCount&count=${this.value}`);
-        $.get("/controller/cart-controller.php", {itemId:getItemId(this, ".cartitem"), action:"setCount", count:this.value}).fail(function() {
-            //this.val(this.data("lastCount") ?? this.defaultValue); // Undo change // Chrome does not support coalescence yet.
-            this.val(this.data("lastCount") ? this.data("lastCount") : this.defaultValue); // Undo change
-        });
-
-        this.data("lastCount", this.value); // Update last count
+      
+      $(document).on("load", ".cartitem-count", function() {
+        this.data("lastCount", this.value); // Initialize last count
       });
 
-      $(".cartitem-decrement").click(function() {
-        var countElement = this.siblings(".cartitem-count");
-        $.get("controller/cart-controller.php", {itemId:getItemId(this, ".cartitem"), action:"decrement"}).fail(function() {
+
+
+
+
+      // Interaction Events
+
+      $(document).on("change", ".cartitem-count", function() {
+        //$.get(`/controller/cart-controller.php?itemId={$i}&action=setCount&count=${this.value}`);
+        $.get("/controller/cart-controller.php", {itemId:getItemId(this), action:"setCount", count:this.value}).fail(function() {
+            //this.val(this.data("lastCount") ?? this.defaultValue); // Undo change // Chrome does not support coalescence yet.
+            this.val(this.data("lastCount")); // Undo change
+        });
+
+        $(this).data("lastCount", this.value); // Update last count
+      });
+
+      $(document).on("click", ".cartitem-decrement", function() {
+        var countElement = $(this).siblings(".cartitem-count");
+        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"decrement"}).fail(function() {
           countElement.val(++this.value); // Undo change
         });
         countElement.val(--this.value);
       });
 
-      $(".cartitem-increment").click(function() {
-        var countElement = this.siblings(".cartitem-count");
-        $.get("controller/cart-controller.php", {itemId:getItemId(this, ".cartitem"), action:"increment"}).fail(function() {
+      $(document).on("click", ".cartitem-increment", function() {
+        var countElement = $(this).siblings(".cartitem-count");
+        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"increment"}).fail(function() {
           countElement.val(--this.value); // Undo change
         });
         countElement.val(++this.value);
       });
       
-      $(".cartitem-remove").click(function() {
-        var cartItemElement = this.parent();
-        $.get("controller/cart-controller.php", {itemId:getItemId(this, ".cartitem"), action:"remove"}).done(function() {
+      $(document).on("click", ".cartitem-remove", function() {
+        var cartItemElement = $(this).parent();
+        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"remove"}).done(function() {
           cartItemElement.remove(); // Remove completely if successful
         }).fail(function() {
           cartItemElement.show(); // Re-appear if unsuccessfull (Undo change)
@@ -224,8 +236,8 @@ console.log(cart);
           cartItemElement.hide(); // Hide until confirmed for removal
       });
 
-      $(".addbtn").click(function() {
-        $.get("controller/cart-controller.php", {eventId: getItemId(this, ".eventcard")}).done(function(data) {
+      $(document).on("click", ".addbtn", function() {
+        $.get("controller/cart-controller.php", {eventId: getEventId(this)}).done(function(data) {
           //var cartItem = data["item"] ?? {}; // Chrome does not support coalescence yet.
           var cartItem = data["item"];
           var html = generateItemHtml(cartItem.id, cartItem.image, cartItem.name, cartItem.count, cartItem.price);
@@ -233,7 +245,12 @@ console.log(cart);
         });
       });
 
+
+
+
+
       // TOOLS
+
       function generateItemHtml(id, image, name, count, price) {
         var html =
         `<div class="cartitem" name="cartitem-${id}">` +
@@ -249,13 +266,23 @@ console.log(cart);
         return html;
       }
 
-      function getItemId(element, parentElement) {
-        return element.closest(parentElement).attr("name").search(/[0-9]+/);
+      function getItemId(element) {
+        return $(element.closest(".cartitem")).attr("name").match(/[0-9]+/)[0];
+      }
+
+      function getEventId(element) {
+        return element.closest(".eventcard").attr("name").match(/[0-9]+/)[0];
       }
 
       function updatePrice(element) {
 
       }
+
+
+
+
+
+      // Execution
 
       loadCart();
     });

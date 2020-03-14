@@ -75,8 +75,8 @@
             ticketsLeft: $this->ticketsLeft,\n
             programmeItemId: {$this->programmeItem->id},\n
             imageId: {$this->image->id},\n
-            eventTypeId: $this->eventTypeId,\n\n
-            description: $this->description,\n\n
+            eventTypeId: $this->eventTypeId,\n
+            description: $this->description,\n
             more: $this->more\n\n
             ";
 

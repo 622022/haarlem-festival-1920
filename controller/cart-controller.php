@@ -47,26 +47,33 @@ if($_GET){
         $itemId = $_GET["itemId"];
 
         if ($_GET["action"] === "remove") {
-            unset($cart["items"][$itemId]);
-            $data["removed"] = true;
+            if (isset($cart["items"][$itemId])) {
+                unset($cart["items"][$itemId]);
+                $data["removed"] = true;
+            }
         } else if ($_GET["action"] === "increment") {
-            $cart["items"][$itemId]["count"]++;
-            $data["incremented"] = true;
+            if (isset($cart["items"][$itemId])) {
+                $cart["items"][$itemId]["count"]++;
+                $data["incremented"] = true;
+            }
         } else if ($_GET["action"] === "decrement") {
-            if ($cart["items"][$itemId]["count"] > 0 ) {
-                $cart["items"][$itemId]["count"]--;
-                $data["decremented"] = true;
+            if (isset($cart["items"][$itemId])) {
+                if ($cart["items"][$itemId]["count"] > 0 ) {
+                    $cart["items"][$itemId]["count"]--;
+                    $data["decremented"] = true;
+                }
             }
         } else if ($_GET["action"] === "setCount") {
-            if(isset($_GET["count"]) && $_GET["count"] > 0) {
-                $cart["items"][$itemId]["count"] = $_GET["count"];
-                $data["countSetTo"] = $_GET["count"];
+            if(isset($cart["items"][$itemId])) {
+                if(isset($_GET["count"]) && $_GET["count"] > 0) {
+                    $cart["items"][$itemId]["count"] = $_GET["count"];
+                    $data["countSetTo"] = $_GET["count"];
+                }
             }
         }
     } else if (isset($_GET["getCart"])) {
         $data["cart"] = [];
-
-        for($i = 0; $i < count($cart["items"]); $i++){ 
+        foreach($cart["items"] as $i=>&$item) {
             $itemData = [
             "id"    => $i,
             "image" => $cart["items"][$i]["event"]->image->url,
