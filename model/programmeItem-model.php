@@ -27,4 +27,4 @@
             $this->eventTypeId = $eventTypeId;
         }
     }
-?>   
+?>

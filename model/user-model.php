@@ -22,4 +22,4 @@
             $this->isAdmin = $isAdmin;
         }
     }
-?>    
+?>
