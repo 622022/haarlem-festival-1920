@@ -21,9 +21,9 @@ if($_GET){
 
         // If the event is already in the cart (as an item) then increment its count. If not, then push it in.
         $alreadyExist = false;
-        for($i = 0; $i < count($cart["items"]); $i++) {
-            if($cart["items"][$i]["event"]->id == $event->id) {
-                $cart["items"][$i]["count"]++;
+        foreach($cart["items"] as $i=>&$item) {
+            if($item["event"]->id == $event->id) {
+                $item["count"]++;
                 $data["added"] = true; // Set return data
                 $alreadyExist = true;
                 break;
@@ -76,10 +76,10 @@ if($_GET){
         foreach($cart["items"] as $i=>&$item) {
             $itemData = [
             "id"    => $i,
-            "image" => $cart["items"][$i]["event"]->image->url,
-            "name"  => $cart["items"][$i]["event"]->getName(),
-            "count" => $cart["items"][$i]["count"],
-            "price" => $cart["items"][$i]["event"]->price
+            "image" => $item["event"]->image->url,
+            "name"  => $item["event"]->getName(),
+            "count" => $item["count"],
+            "price" => $item["event"]->price
             ];
             array_push($data["cart"], $itemData);
         }

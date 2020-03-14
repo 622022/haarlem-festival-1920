@@ -233,15 +233,19 @@ console.log(cart);
         }).fail(function() {
           cartItemElement.show(); // Re-appear if unsuccessfull (Undo change)
         });
-          cartItemElement.hide(); // Hide until confirmed for removal
+        cartItemElement.hide(); // Hide until confirmed for removal
       });
 
       $(document).on("click", ".addbtn", function() {
         $.get("controller/cart-controller.php", {eventId: getEventId(this)}).done(function(data) {
           //var cartItem = data["item"] ?? {}; // Chrome does not support coalescence yet.
-          var cartItem = data["item"];
-          var html = generateItemHtml(cartItem.id, cartItem.image, cartItem.name, cartItem.count, cartItem.price);
-          $("#cart-items").append(html);
+          if(data["item"]) {
+            var cartItem = data["item"];
+            var html = generateItemHtml(cartItem.id, cartItem.image, cartItem.name, cartItem.count, cartItem.price);
+            $("#cart-items").append(html);
+          } else if (data["added"]) {
+            
+          }
         });
       });
 
@@ -271,7 +275,7 @@ console.log(cart);
       }
 
       function getEventId(element) {
-        return element.closest(".eventcard").attr("name").match(/[0-9]+/)[0];
+        return $(element.closest(".eventcard")).attr("name").match(/[0-9]+/)[0];
       }
 
       function updatePrice(element) {
