@@ -21,9 +21,9 @@ if($_GET){
 
         // If the event is already in the cart (as an item) then increment its count. If not, then push it in.
         $alreadyExist = false;
-        for($i = 0; $i < count($cart["items"]); $i++) {
-            if($cart["items"][$i]["event"]->id == $event->id) {
-                $cart["items"][$i]["count"]++;
+        foreach($cart["items"] as $i=>&$item) {
+            if($item["event"]->id == $event->id) {
+                $item["count"]++;
                 $data["added"] = true; // Set return data
                 $alreadyExist = true;
                 break;
@@ -47,32 +47,39 @@ if($_GET){
         $itemId = $_GET["itemId"];
 
         if ($_GET["action"] === "remove") {
-            unset($cart["items"][$itemId]);
-            $data["removed"] = true;
+            if (isset($cart["items"][$itemId])) {
+                unset($cart["items"][$itemId]);
+                $data["removed"] = true;
+            }
         } else if ($_GET["action"] === "increment") {
-            $cart["items"][$itemId]["count"]++;
-            $data["incremented"] = true;
+            if (isset($cart["items"][$itemId])) {
+                $cart["items"][$itemId]["count"]++;
+                $data["incremented"] = true;
+            }
         } else if ($_GET["action"] === "decrement") {
-            if ($cart["items"][$itemId]["count"] > 0 ) {
-                $cart["items"][$itemId]["count"]--;
-                $data["decremented"] = true;
+            if (isset($cart["items"][$itemId])) {
+                if ($cart["items"][$itemId]["count"] > 0 ) {
+                    $cart["items"][$itemId]["count"]--;
+                    $data["decremented"] = true;
+                }
             }
         } else if ($_GET["action"] === "setCount") {
-            if(isset($_GET["count"]) && $_GET["count"] > 0) {
-                $cart["items"][$itemId]["count"] = $_GET["count"];
-                $data["countSetTo"] = $_GET["count"];
+            if(isset($cart["items"][$itemId])) {
+                if(isset($_GET["count"]) && $_GET["count"] > 0) {
+                    $cart["items"][$itemId]["count"] = $_GET["count"];
+                    $data["countSetTo"] = $_GET["count"];
+                }
             }
         }
     } else if (isset($_GET["getCart"])) {
         $data["cart"] = [];
-
-        for($i = 0; $i < count($cart["items"]); $i++){ 
+        foreach($cart["items"] as $i=>&$item) {
             $itemData = [
             "id"    => $i,
-            "image" => $cart["items"][$i]["event"]->image->url,
-            "name"  => $cart["items"][$i]["event"]->getName(),
-            "count" => $cart["items"][$i]["count"],
-            "price" => $cart["items"][$i]["event"]->price
+            "image" => $item["event"]->image->url,
+            "name"  => $item["event"]->getName(),
+            "count" => $item["count"],
+            "price" => $item["event"]->price
             ];
             array_push($data["cart"], $itemData);
         }
