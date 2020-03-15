@@ -244,7 +244,7 @@
             var cartItem = data["item"];
             createItem(cartItem.id, cartItem.image, cartItem.name, cartItem.count, cartItem.price);
           } else if (data["added"]) {
-            let countElement = $(`.cartitem[name="cartitem-${data["itemId"]}"] .cartitem-count`);
+            let countElement = $(`.cartitem[name$="${data["itemId"]}"] .cartitem-count`);
             countElement.val(+countElement.val()+1);
             updatePrice(data["itemId"]);
           }
