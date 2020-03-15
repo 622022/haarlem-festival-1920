@@ -174,25 +174,15 @@
           method:"GET",
           data:{getCart:""},
           success: function(data) {
-            //var cart = data["cart"] ?? {}; // Chrome does not support coalescence yet.
-            var cart = data["cart"];
-console.log(cart);
-            var html = "";
-            cart.forEach(function(item) {
-              html += generateItemHtml(item.id, item.image, item.name, item.count, item.price);
-            });
-            // EXAMPLE: `$_SESSION["cart"]["items"][0]["event"], $_SESSION["cart"]["items"][0]["count"]`;        
-            $("#cart-items").html(html);
+            var cart = data["cart"]; //var cart = data["cart"] ?? {}; // Chrome does not support coalescence yet.
+            console.log(cart); // For debugging
+            cart.forEach(function(item) { createItem(item.id, item.image, item.name, item.count, item.price); });   
           },
           error: function() {
             console.log("There was an error with the 'cart' AJAX call.");
           }
         });
       }
-      
-      $(document).on("load", ".cartitem-count", function() {
-        this.data("lastCount", this.value); // Initialize last count
-      });
 
 
 
@@ -201,29 +191,40 @@ console.log(cart);
       // Interaction Events
 
       $(document).on("change", ".cartitem-count", function() {
-        //$.get(`/controller/cart-controller.php?itemId={$i}&action=setCount&count=${this.value}`);
-        $.get("/controller/cart-controller.php", {itemId:getItemId(this), action:"setCount", count:this.value}).fail(function() {
-            //this.val(this.data("lastCount") ?? this.defaultValue); // Undo change // Chrome does not support coalescence yet.
-            this.val(this.data("lastCount")); // Undo change
-        });
+        if($(this).val() < 1) { $(this).val(1); } // Only 1 or more is allowed
 
-        $(this).data("lastCount", this.value); // Update last count
+        let that = this;
+        $.get("/controller/cart-controller.php", {itemId:getItemId(this), action:"setCount", count:this.value}).done(function() {
+          updatePrice(getItemId(that)); //Update price if successfull
+          $(this).data("lastCount", this.value); // Update last count
+        }).fail(function() {
+            //$(this).val($(this).data("lastCount") ?? $(this).defaultValue); // Undo change // Chrome does not support coalescence yet.
+            $(that).val($(that).data("lastCount")); // Undo change
+        });
       });
 
       $(document).on("click", ".cartitem-decrement", function() {
         var countElement = $(this).siblings(".cartitem-count");
-        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"decrement"}).fail(function() {
-          countElement.val(++this.value); // Undo change
-        });
-        countElement.val(--this.value);
+        if(countElement.val() > 1) { // Do not decrement if result would become less than 1.
+          let that = this;
+          $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"decrement"}).done(function() {
+            updatePrice(getItemId(that)); //Update price if successfull
+          }).fail(function() {
+            countElement.val(+countElement.val()+1); // Undo change
+          });
+          countElement.val(+countElement.val()-1);
+        }
       });
 
       $(document).on("click", ".cartitem-increment", function() {
         var countElement = $(this).siblings(".cartitem-count");
-        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"increment"}).fail(function() {
-          countElement.val(--this.value); // Undo change
+        let that = this;
+        $.get("controller/cart-controller.php", {itemId:getItemId(this), action:"increment"}).done(function() {
+          updatePrice(getItemId(that)); //Update price if successfull
+        }).fail(function() {
+          countElement.val(+countElement.val()-1); // Undo change
         });
-        countElement.val(++this.value);
+        countElement.val(+countElement.val()+1);
       });
       
       $(document).on("click", ".cartitem-remove", function() {
@@ -241,10 +242,11 @@ console.log(cart);
           //var cartItem = data["item"] ?? {}; // Chrome does not support coalescence yet.
           if(data["item"]) {
             var cartItem = data["item"];
-            var html = generateItemHtml(cartItem.id, cartItem.image, cartItem.name, cartItem.count, cartItem.price);
-            $("#cart-items").append(html);
+            createItem(cartItem.id, cartItem.image, cartItem.name, cartItem.count, cartItem.price);
           } else if (data["added"]) {
-            
+            let countElement = $(`.cartitem[name="cartitem-${data["itemId"]}"] .cartitem-count`);
+            countElement.val(+countElement.val()+1);
+            updatePrice(data["itemId"]);
           }
         });
       });
@@ -254,6 +256,13 @@ console.log(cart);
 
 
       // TOOLS
+      function createItem(id, image, name, count, price) {
+        $("#cart-items").append(generateItemHtml(id, image, name, count, price));
+        var cartItemElement = $("#cart-items > .cartitem").last();
+        cartItemElement.data("id", id);
+        cartItemElement.children(".cartitem-count").data("lastCount", count);
+        cartItemElement.children(".cartitem-price").data("singlePrice", price);
+      }
 
       function generateItemHtml(id, image, name, count, price) {
         var html =
@@ -263,7 +272,7 @@ console.log(cart);
         ` <button class="cartitem-decrement">-</button>` +
         ` <input type="number" class="cartitem-count" min=1 max=10 value="${count}">` +
         ` <button class="cartitem-increment">+</button>` +
-        ` <p class="cartitem-price">${price*count}</p>` +
+        ` <p class="cartitem-price">€${parseFloat((price*count).toFixed(2))}</p>` +
         ` <button class="cartitem-remove"><img src="/icon/delete.svg"></button>` +
         `</div>`;
 
@@ -271,15 +280,20 @@ console.log(cart);
       }
 
       function getItemId(element) {
-        return $(element.closest(".cartitem")).attr("name").match(/[0-9]+/)[0];
+        return $(element).closest(".cartitem").data("id");
       }
 
       function getEventId(element) {
         return $(element.closest(".eventcard")).attr("name").match(/[0-9]+/)[0];
       }
 
-      function updatePrice(element) {
+      function updatePrice(itemId) {
+        var cartItemElement = $(`.cartitem[name$="${itemId}"]`);
+        var priceElement = cartItemElement.children(".cartitem-price");
+        var countElement = cartItemElement.children(".cartitem-count");
 
+        var newPrice = priceElement.data("singlePrice") * countElement.val();
+        priceElement.text(`€${parseFloat(newPrice.toFixed(2))}`);
       }
 
 
