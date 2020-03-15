@@ -3,12 +3,12 @@
 ?>
 <html lang="en">
     <head>
-        <?php include('./includes/header.php'); ?>
+    <?php include(__DIR__ . '/includes/header.php'); ?>
         <title>CMS – Events</title>
     </head>
     <body>
-        <?php include('./includes/sidebar.php'); ?>
-        <h1 id="event-text">Upcoming Events</h1>
+    <?php include(__DIR__ . '/includes/sidebar.php'); ?>
+        <h1 id="title-text">Upcoming Events</h1>
         <?php
             if (isset($_GET['eventid'])) {
                 require_once('../service/event-service.php');
@@ -74,7 +74,7 @@
                         <h1><?= $event->getEventName() ?></h1>
                         <h2><?= $event->artist ?></h2>
                         <h3><?= date('F tS – H:i', $event->programmeItem->startsAt) ?> - <?= date('H:i', $event->programmeItem->endsAt) ?></h3>
-                        <a href="events.php?eventid=<?= $event->id ?>" class="event-button button-color<?= $event->eventTypeId ?>">Edit Event</a>
+                        <a href="events.php?eventid=<?= $event->id ?>" class="card-button button-color<?= $event->eventTypeId ?>">Edit Event</a>
                         </div>
                     <?php
                 }
