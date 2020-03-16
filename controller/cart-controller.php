@@ -9,9 +9,7 @@ $data = [];
 if($_GET){
     session_start();
 
-    if(!isset($_SESSION["cart"])) {
-        $_SESSION["cart"] = ["items" => []];
-    } 
+    if(!isset($_SESSION["cart"])) { $_SESSION["cart"] = ["items" => []]; } // Instantiate the cart if it does not already exist.
 
     $cart = &$_SESSION["cart"];
 
@@ -25,6 +23,7 @@ if($_GET){
             if($item["event"]->id == $event->id) {
                 $item["count"]++;
                 $data["added"] = true; // Set return data
+                $data["itemId"] = $i;
                 $alreadyExist = true;
                 break;
             }
@@ -45,34 +44,30 @@ if($_GET){
         }
     } else if (isset($_GET["itemId"])) {
         $itemId = $_GET["itemId"];
-
-        if ($_GET["action"] === "remove") {
-            if (isset($cart["items"][$itemId])) {
+        if(isset($cart["items"][$itemId])) {
+            if ($_GET["action"] === "remove") {
                 unset($cart["items"][$itemId]);
                 $data["removed"] = true;
-            }
-        } else if ($_GET["action"] === "increment") {
-            if (isset($cart["items"][$itemId])) {
+            } else if ($_GET["action"] === "increment") {
                 $cart["items"][$itemId]["count"]++;
                 $data["incremented"] = true;
-            }
-        } else if ($_GET["action"] === "decrement") {
-            if (isset($cart["items"][$itemId])) {
+            } else if ($_GET["action"] === "decrement") {
                 if ($cart["items"][$itemId]["count"] > 0 ) {
                     $cart["items"][$itemId]["count"]--;
                     $data["decremented"] = true;
                 }
-            }
-        } else if ($_GET["action"] === "setCount") {
-            if(isset($cart["items"][$itemId])) {
+            } else if ($_GET["action"] === "setCount") {
                 if(isset($_GET["count"]) && $_GET["count"] > 0) {
                     $cart["items"][$itemId]["count"] = $_GET["count"];
                     $data["countSetTo"] = $_GET["count"];
                 }
             }
+        } else {
+            $data["error"] = "Invalid itemId";
         }
     } else if (isset($_GET["getCart"])) {
         $data["cart"] = [];
+        $data["totalPrice"] = 0;
         foreach($cart["items"] as $i=>&$item) {
             $itemData = [
             "id"    => $i,
@@ -82,6 +77,7 @@ if($_GET){
             "price" => $item["event"]->price
             ];
             array_push($data["cart"], $itemData);
+            $data["totalPrice"] += $item["event"]->price * $item["count"];
         }
     } else {
         http_response_code(400);

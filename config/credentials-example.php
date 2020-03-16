@@ -13,5 +13,5 @@
     define('DB_DB', 'hfitteam3_haarlemfestival');
     define('DB_PASSWORD', 'Spoceps1');
     define('DB_PORT', '3306');
-?> 
+?>
 

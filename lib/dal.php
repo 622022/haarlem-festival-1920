@@ -3,6 +3,7 @@
     require_once(__DIR__ . "/../model/event-model.php"); 
     require_once(__DIR__ . "/../model/programmeItem-model.php");
     require_once(__DIR__ . "/../model/image-model.php");
+    require_once(__DIR__ . "/../model/user-model.php");
 
     class dataLayer {
         private static $instance;
@@ -278,6 +279,44 @@
                 $event->programmeItem->location,
                 $event->id
             );
+        }
+
+        public function getUsers() {
+            $query = "
+                SELECT id, email, fullName, isAdmin
+                FROM user
+            ";
+
+            $results = $this->executeSelectQuery($query, '');
+            $users = [];
+
+            foreach ($results as $row) {  
+                array_push($users, new User($row['id'], $row['email'], $row['fullName'], '', $row['isAdmin'] == '1'));
+            }
+
+            return $users;
+        }
+
+        public function getUserByEmail($email) {
+            $query = "
+                SELECT id, email, fullName, isAdmin
+                FROM user
+                WHERE email = ?
+            ";
+
+            $result = $this->executeSelectQuery($query, 's', $email)[0];
+            return new User($result['id'], $result['email'], $result['fullName'], '', $result['isAdmin'] == '1');
+        }
+
+        public function getUserById($id) {
+            $query = "
+                SELECT id, email, fullName, isAdmin
+                FROM user
+                WHERE id = ?
+            ";
+
+            $result = $this->executeSelectQuery($query, 'i', intval($id))[0];
+            return new User($result['id'], $result['email'], $result['fullName'], '', $result['isAdmin'] == '1');
         }
     }
 ?>

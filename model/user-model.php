@@ -15,11 +15,11 @@
 
             // if(!$id >= 0)                                  throw new UnexpectedValueException("Parameter '\$id' cannot be negative.");
             // if(!filter_var($email, FILTER_VALIDATE_EMAIL)) throw new UnexpectedValueException("Parameter '\$email' is not a valid email.");
-
+            $this->id = $id;
             $this->email = $email;
             $this->fullName = $fullName;
             $this->password = $password;
             $this->isAdmin = $isAdmin;
         }
     }
-?>    
+?>

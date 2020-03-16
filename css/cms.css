@@ -232,7 +232,7 @@ input[type=button], input[type=submit] {
     padding-top: 16px;
 }
 
-#event-text {
+#title-text {
     margin-top: 64px;
     margin-left: 8px;
     font-family: 'Montserrat', sans-serif;
@@ -281,7 +281,7 @@ input[type=button], input[type=submit] {
     justify-content: space-between;
 }
 
-.event-button {
+.card-button {
     display: block;
     border: none;
     background-color: var(--cms-primary);
