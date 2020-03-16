@@ -33,5 +33,6 @@
         if ($_POST['user-password'] != '') {
             $userService->updatePassword($user->email, $_POST['user-password']);
         }
+        header('Location: ../cms/users.php');
     }
 ?>
