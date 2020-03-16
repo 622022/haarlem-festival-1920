@@ -67,6 +67,7 @@ if($_GET){
         }
     } else if (isset($_GET["getCart"])) {
         $data["cart"] = [];
+        $data["totalPrice"] = 0;
         foreach($cart["items"] as $i=>&$item) {
             $itemData = [
             "id"    => $i,
@@ -76,6 +77,7 @@ if($_GET){
             "price" => $item["event"]->price
             ];
             array_push($data["cart"], $itemData);
+            $data["totalPrice"] += $item["event"]->price * $item["count"];
         }
     } else {
         http_response_code(400);
