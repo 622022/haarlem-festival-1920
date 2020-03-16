@@ -26,5 +26,17 @@
                 return $this->dal->getUserById($identifier);
             }
         }
+
+        public function updateUser($user) {
+            if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
+                return $this->dal->updateUser($user);
+            } else {
+                throw new Exception('Invalid email address format');
+            }
+        }
+
+        public function updatePassword($email, $password) {
+            return $this->dal->updatePassword($email, password_hash($password, PASSWORD_BCRYPT));
+        }
 	}
 ?>

@@ -22,6 +22,7 @@
         private function executeQuery($query, $params, ...$variables) {
             $this->conn->set_charset('utf8');
             $stmt = $this->conn->prepare($query);
+            if (!$stmt) { echo $this->conn->error; }
             if (isset($params) && count($variables) > 0) {
                 try {
                     $stmt->bind_param($params, ...$variables);
@@ -317,6 +318,28 @@
 
             $result = $this->executeSelectQuery($query, 'i', intval($id))[0];
             return new User($result['id'], $result['email'], $result['fullName'], '', $result['isAdmin'] == '1');
+        }
+
+        public function updateUser($user) {
+            $query = "
+                UPDATE user
+                SET fullName = ?,
+                    email = ?,
+                    isAdmin = ?
+                WHERE id = ?
+            ";
+
+            return $this->executeEditQuery($query, 'ssii', $user->fullName, $user->email, intval($user->isAdmin), intval($user->id));
+        }
+
+        public function updatePassword($email, $password) {
+            $query = "
+                UPDATE user
+                SET password = ?
+                WHERE email = ?
+            ";
+
+            return $this->executeEditQuery($query, 'ss', $password, $email);
         }
     }
 ?>
