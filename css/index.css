@@ -1,168 +1,124 @@
 @import 'main.css';
 
-#header img
-{
+nav {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    background-color: rgba(150, 150, 150, 0.5);
+    padding: 4px 8px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #999;
+}
+
+nav img {
+    float: right;
+}
+
+header {
+    width: 100vw;
     position: relative;
+    z-index: -1;
+    margin-bottom: 20vh;
+}
+
+h2 {
+    margin-top: 10vh;
+    width: 50%;
     text-align: center;
-    width: 1520px;
-    height: 600px; 
-}
-
-#hf-logo img
-{
     position: absolute;
-    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 550px;
-    height: 500px;
+    color: var(--text-primary);
+    font-weight: lighter;
+    font-size: 1.75em;
 }
 
-#haarlemtitle
-{
+#header-image {
+    width: 100vw;
+}
+
+#header-logo {
     position: absolute;
-    top: 52%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    height: 75%;
 }
 
-#haarlemtext
-{
-    position: relative;
-    left: 10%;
-    font-size: 30px;
-}
-
-#year2020
-{
-    position: absolute;
-    top: 44%;
-    left: 56%;
-    color: var(--logo-colour);
-}
-
-nav
-{
+#header-buttons {
     display: flex;
-    flex-direction: row;
-    position: relative;
-    margin: 0 auto;
-    width: 1020px;
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }
 
-#navdance
-{
+#header-buttons * {
+    width: 15vw;
+    color: white;
+    text-decoration: none;
+    font-size: 2em;
     text-align: center;
-    width: 340px;
-    height: 120px;
+    line-height: 80px;
+}
+
+#button-dance {
     background-color: var(--dance-main);
-    color:white;
-    border-bottom-left-radius: 25px;
+    border-bottom-left-radius: 24px;
 }
 
-#navjazz
-{
-    text-align: center;
-    width: 340px;
-    height: 120px;
+#button-jazz {
     background-color: var(--jazz-main);
-    color:white;
 }
 
-#navfood
-{
-    text-align: center;
-    width: 340px;
-    height: 120px;
+#button-food {
     background-color: var(--food-main);
-    color:white;
-    border-bottom-right-radius: 25px;
+    border-bottom-right-radius: 24px;
 }
 
-h3
-{
-    margin-top: 40px;
-    margin-bottom: 90px;
-    font-size: 45px;
+.shadow {
+    box-shadow: 0px 0px 8px var(--shadow);
 }
 
-.navshadow
-{
-    -webkit-box-shadow: inset 0 8px 10px 5px var(--shadow);
-    -moz-box-shadow: inset 0 8px 10px 5px var(--shadow);
-         box-shadow: inset 0 8px 10px 5px var(--shadow);
+.border-top {
+    border-top: 2px solid lightgray;
 }
 
-.eventrectangle
-{
-    width: 1520px;
-    height: 700px;
-    position: absolute;
-    background-color: var(--main-bg);
+section {
+    height: 75vh;
+    box-shadow: 0px 16px 16px var(--shadow);
+    color: var(--text-primary);
 }
 
-.eventrectangleshadow
-{
-    -webkit-box-shadow: inset 0 8px 10px 5px var(--shadow);
-    -moz-box-shadow: inset 0 8px 10px 5px var(--shadow);
-         box-shadow: inset 0 8px 10px 5px var(--shadow), inset 0 -8px 10px 5px var(--shadow);
+section > img {
+    width: 20%;
+    height: 100%;
+    object-fit: cover;
+    float: left;
 }
 
-.eventimage img
-{
-    position: absolute;
-    right: 0%;
-    width: 400px;
-    height: 650px;
+.section-theme-image-right {
+    float: right;
 }
 
-.eventlink img
-{
-    position: relative;
-    left: 42%;
-}
-
-p.a
-{
+section h3 {
     text-align: center;
-    font-weight: 700;
-    font-size: 25px;
+    font-size: 5rem;
+    margin: 0;
 }
 
-.centertitle
-{
+section p {
     text-align: center;
-    font-weight: 700;
-    font-size: 40px;
+    font-size: 1.5rem;
+    width: 75%;
 }
 
-#footer
-{
-    width: 1520px;
-    height: 200px;
-    background-color: gray;
-}
-
-#footertext
-{
-    position: absolute;
-    left: 3%;
-    color: var(--main-bg);
-}
-
-p.b
-{
-    font-size: 30px;
-}
-
-p.c
-{
-    font-size: 20px;
-}
-
-p.d
-{
-    font-size: 25px;
-    right: 3%;
+.section-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    transform: translateY(50%);
 }
