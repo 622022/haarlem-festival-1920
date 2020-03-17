@@ -3,7 +3,7 @@
 nav {
     position: fixed;
     top: 0;
-    width: 100vw;
+    width: 100%;
     background-color: rgba(150, 150, 150, 0.5);
     padding: 4px 8px;
     box-sizing: border-box;
@@ -15,7 +15,7 @@ nav img {
 }
 
 header {
-    width: 100vw;
+    width: 100%;
     position: relative;
     z-index: -1;
     margin-bottom: 20vh;
@@ -34,7 +34,7 @@ h2 {
 }
 
 #header-image {
-    width: 100vw;
+    width: 100%;
 }
 
 #header-logo {
@@ -121,4 +121,26 @@ section p {
     align-items: center;
     top: 50%;
     transform: translateY(50%);
+}
+
+footer {
+    background-color: gray;
+    padding-left: 32px;
+}
+
+footer table {
+    color: white;
+    box-sizing: border-box;
+    display: inline;
+}
+
+footer th {
+    font-size: 1.5rem;
+    text-align: left;
+    width: 256px;
+}
+
+footer p {
+    float: right;
+    color: white;
 }
