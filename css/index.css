@@ -125,7 +125,7 @@ section p {
 
 footer {
     background-color: gray;
-    padding-left: 32px;
+    padding: 0 32px;
 }
 
 footer table {
@@ -143,4 +143,31 @@ footer th {
 footer p {
     float: right;
     color: white;
+}
+
+#button-top {
+	background-color: var(--jazz-main);
+	position: fixed;
+	right: 2rem;
+	bottom: 2rem;
+	padding: 0.5rem;
+	filter: drop-shadow(0 4px 8px var(--shadow));
+	height: 1rem;
+	width: 6rem;
+	z-index: 999;
+	border-radius: 16px;
+	transition: background-color 0.15s ease-in-out;
+}
+
+#button-top:hover {
+	filter: brightness(175%);
+}
+
+#button-top h4 {
+	font-size: 0.9rem;
+	font-weight: 400;
+	color: white;
+	margin: 0;
+	text-align: center;
+    text-decoration: none;
 }
