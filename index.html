@@ -1,110 +1,76 @@
-<!DOCTYPE HTML>
 <html lang="en">
     <head>
-        <title>Home</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=devide-width, initial-scale=1.0">
-        <link href="css/index.css" rel="stylesheet" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/index.css" />
+        <meta charset="UTF-8">
+        <title>Explore Haarlem Festival</title>
     </head>
     <body>
-        <header>
-            <div id="header">
-                <img src="img/homebackground.jpg">
-                <div id="hf-logo">
-                    <img src="img/hf-logowhite.png">
-                </div>
-                <div id="haarlemtitle">
-                    <h1 style="text-align:center;">Haarlem Festival</h1>
-                </div>
-                <div id="year2020">
-                    <h2>2020</h2>
-                </div>
-                <nav>
-                    <div id="navdance" class="navshadow" onclick="" style="cursor: pointer;">
-                        <h3>Dance</h3>
-                    </div>
-                    <div id="navjazz" class="navshadow" onclick="" style="cursor: pointer;">
-                        <h3>Jazz</h3>
-                    </div>
-                    <div id="navfood" class="navshadow" onclick="" style="cursor: pointer;">
-                        <h3>Food</h3>
-                    </div>
-                </nav>
+        <a href="#top" id="button-top">
+            <h4>Back To Top</h4>
+        </a>
+        <nav class='shadow'>
+            <a href='cms/login.php'>
+                <img src='img/index/cms-link.svg'>
+            </a>
+        </nav>
+        <header class='shadow'>
+            <img id='header-image' src='img/index/index-background.jpg'>
+            <img id='header-logo' src='img/index/hf-logowhite.png'>
+            <div id='header-buttons'>
+                <a id='button-dance' class='shadow' href='#section-dance'>Dance</a>
+                <a id='button-jazz' class='shadow' href='#section-jazz'>Jazz</a>
+                <a id='button-food' class='shadow' href='#section-food'>Food</a>
             </div>
+            <h2>Welcome to the Haarlem Festival where you can discover the Dutch culture and have fun at the same time.</h2>
         </header>
-        <div id="haarlemtext">
-            Welcome to Haarlem Festival where you can discover the Dutch culture and have fun at the same time.
-        </div>
-        <div id="eventrectangle" class="eventrectangleshadow">
-            <div class="eventimage">
-                <img src="img/jazz.jpg">
+        <section id='section-dance' class='border-top'>
+            <img class='section-theme-image-right' src='img/index/dance-banner.jpg'>
+            <div class='section-info-container'>
+                <h3>Dance</h3>
+                <p>Dance around and spend your energy a little. Dancing is a healthy and fun activity. Come join us!</p>
+                <a href='eventpagetest.php?event=dance'>
+                    <img src='img/index/event-button.svg'>
+                </a>
             </div>
-            <div class="centertitle">
-                Jazz
+        </section>
+        <section id='section-jazz'>
+            <img class='section-theme-image' src='img/index/jazz-banner.jpg'>
+            <div class='section-info-container'>
+                <h3>Jazz</h3>
+                <p>Jazz is the sould of this event. Come relax a bit and enjoy the music from these lovely jazz bands.</p>
+                <a href='eventpagetest.php?event=jazz'>
+                    <img src='img/index/event-button.svg'>
+                </a>
             </div>
-            <p class="a">
-                Jazz is the soul of this event. Come relax a bit and enjoy the music from these lovely jazz bands.
-            </p>
-            <div class="eventlink">
-                <img src="img/events_link.svg">
+        </section>
+        <section id='section-food'>
+            <img class='section-theme-image-right' src='img/index/food-banner.jpg'>
+            <div class='section-info-container'>
+                <h3>Food</h3>
+                <p>Looking for some great Haarlem cuisine for the entire family? Haarlem Food is the place to go.</p>
+                <a href='eventpagetest.php?event=food'>
+                    <img src='img/index/event-button.svg'>
+                </a>
             </div>
-        </div>
-        <div id="eventrectangle" class="eventrectangleshadow">
-            <div class="eventimage">
-                <img src="img/dance.jpg">
-            </div>
-            <div class="centertitle">
-                Dance
-            </div>
-            <p class="a">
-                Dance around and spend your energy a little. Dancing is a healthy and fun activity. Come join us!
-            </p>
-            <div class="eventlink">
-                <img src="img/events_link.svg">
-            </div>
-        </div>
-        <div id="eventrectangle" class="eventrectangleshadow">
-            <div class="eventimage">
-                <img src="img/food.jpg">
-            </div>
-            <div class="centertitle">
-                Food
-            </div>
-            <p class="a">
-                Looking for some great Haarlem cuisine for the entire family? Haarlem Food is the place to go.
-            </p>
-            <div class="eventlink">
-                <img src="img/events_link.svg">
-            </div>        
-        </div>
-        <div id="eventrectangle" class="eventrectangleshadow">
-            <div class="centertitle">
-                Volunteer
-            </div>
-            <p class="a">
-                Are you looking for a fun volunteering position? Haarlem Festival offers a fun and educational experience for students in the area of Haarlem.
-            </p>
-            <div class="eventlink">
-                <img src="img/events_link.svg">
-            </div>
-        </div>
+        </section>
         <footer>
-            <div id="footer">
-                <div id="footertext">
-                    <p class="b">
-                        Contact Us                  About Us
-                    </p>
-                    <p class="c">
-                        info@haarlem-festival.nl    Haarlem Festival Team
-                    </p>
-                    <p class="c">
-                        0900-1234                   Spec Ops Inc.
-                    </p>
-                    <p class="d">
-                        ® All Rights Reserved                 Copyright ©️ 2019
-                    </p>
-                </div>
-            </div>
+            <table>
+                <tr>
+                    <th>Contact Us</th>
+                    <th>About Us</th>
+                </tr>
+                <tr>
+                    <td>info@haarlem-festival.nl</td>
+                    <td>Haarlem Festival Team</td>
+                </tr>
+                <tr>
+                    <td>0900-1234</td>
+                    <td>Spec Ops Inc.</td>
+                </tr>
+            </table>
+            <p>® All Rights Reserved | Copyright ©️ 2019</p>
         </footer>
     </body>
 </html>
