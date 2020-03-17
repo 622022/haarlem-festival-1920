@@ -2,7 +2,7 @@
     require_once(__DIR__ . "/../config/credentials.php");
     require_once(__DIR__ . "/../model/event-model.php"); 
 
-    class dataLayer {
+    class Mail {
         private static $instance;
         private $conn;
 
@@ -13,7 +13,7 @@
         // Initialize instance if not already intitialized. Then returns that instance.
         // if this self instance then return new data layer otherwise ::(references constants or statics) do this
         public static function getInstance() {
-            return !self::$instance ? new dataLayer() : self::$instance;
+            return !self::$instance ? new Mail() : self::$instance;
         }
 
         //call this from the login service and pass the email we get from the payment page?

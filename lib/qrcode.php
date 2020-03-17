@@ -1,0 +1,3 @@
+<?php
+	// Use phpqrcode library
+?>

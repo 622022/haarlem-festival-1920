@@ -13,6 +13,5 @@
         public static function getInstance() {
             return !self::$instance ? new mailService() : self::$instance;
         }
-
-        //qr code and pdf generation here.
     }
+?>

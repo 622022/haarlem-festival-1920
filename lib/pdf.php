@@ -3,7 +3,7 @@
     // $array = ["yo","yo2","yo3"];
     
 
-    class PDF{
+    class PDF {
 
         private static $instance;
 
