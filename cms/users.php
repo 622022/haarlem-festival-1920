@@ -36,6 +36,7 @@
                             </div>
                             <input type="hidden" name="id" value="<?= $_GET['userid'] ?>"/>
                             <input type="submit" name="confirm-edit-user" value="Edit User">
+                            <input class='button-right' type="submit" name="delete-user" value="Delete User">
                             <a href="users.php">Close</a>
                         </form>
                     </div>

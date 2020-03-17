@@ -356,5 +356,14 @@
 
             return $this->executeEditQuery($query, 'iis', $method,$status,$details) == 1;
         }
+
+        public function deleteUser($id) {
+            $query = "
+                DELETE FROM user
+                WHERE id = ?
+            ";
+
+            return $this->executeEditQuery($query, 'i', intval($id));
+        }
     }
 ?>

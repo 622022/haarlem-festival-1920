@@ -38,5 +38,9 @@
         public function updatePassword($email, $password) {
             return $this->dal->updatePassword($email, password_hash($password, PASSWORD_BCRYPT));
         }
+
+        public function deleteUser($id) {
+            return $this->dal->deleteUser($id);
+        }
 	}
 ?>
