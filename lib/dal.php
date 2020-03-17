@@ -341,5 +341,20 @@
 
             return $this->executeEditQuery($query, 'ss', $password, $email);
         }
+
+        public function insertPayment($method,$status,$details)
+        {
+            $query = "
+            INSERT
+            INTO
+            `payment`(
+            `methodId`,
+            `statusId`,
+            `details`
+            )
+            VALUES(?, ?, ?)";
+
+            return $this->executeEditQuery($query, 'iis', $method,$status,$details) == 1;
+        }
     }
 ?>
