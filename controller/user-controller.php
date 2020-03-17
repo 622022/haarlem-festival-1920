@@ -35,4 +35,10 @@
         }
         header('Location: ../cms/users.php');
     }
+
+    if (isset($_POST['delete-user'])) {
+        echo "deleting user ". $_POST['id'];
+        $userService->deleteUser($_POST['id']);
+        header('Location: ../cms/users.php');
+    }
 ?>

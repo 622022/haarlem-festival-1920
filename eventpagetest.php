@@ -96,7 +96,9 @@
     <section id="cart">
       <div id="cart-items"> <!-- Generate Cart Items Here --> </div>
       <p id="total-price"> <!-- Total Price Here --> </p>
-      <button id="checkout" type="button">Checkout</button>
+      <button id="checkout" type="button" onclick="location.href='customerForm.php';">Checkout</button>
+
+      <!-- location.href just for checking the flow here -->
     </section>
 
     
