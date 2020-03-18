@@ -23,7 +23,7 @@ $payment = $mollie->payments->create([
         "value" => "10.00"
     ],
     "description" => "My first API payment",
-    "redirectUrl" => "http://127.0.0.1/haarlem-festival-1920/getPayment-test.php",
+    "redirectUrl" => "http://127.0.0.1/haarlem-festival-1920/controller/payment-controller.php",
     "metadata" => [
         "order_id" => $orderId,
     ],
