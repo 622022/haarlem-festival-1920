@@ -32,11 +32,13 @@
                     </div> 
                     <div class="textbox-area">
                         <label class="textbox-label">Status</label>
-                        <select id="ticket-status" value="<?= $ticket->getStatusString() ?>">
-                            <option value="valid">Valid</option>
-                            <option value="redeemed">Redeemed</option>
-                            <option value="cancelled">Cancelled</option>
-                            <option value="expired">Expired</option>
+                        <select id="ticket-status">
+                            <option <?= $ticket->status == 1 ? 'selected' : '' ?> value="valid">Valid</option>
+                            <option <?= $ticket->status == 2 ? 'selected' : '' ?> value="redeemed">Redeemed</option>
+                            <option <?= $ticket->status == 3 ? 'selected' : '' ?> value="cancelled">Cancelled</option>
+                            <option <?= $ticket->status == 4 ? 'selected' : '' ?> value="expired">Expired</option>
+                            <option <?= $ticket->status == 5 ? 'selected' : '' ?> value="invalid">Invalid</option>
+                            <?= $ticket->status == 69 ? '<option selected value="monkey">I\'m a monkey</option>' : '' ?> 
                         </select>
                     </div> 
                     <div class="textbox-area">
