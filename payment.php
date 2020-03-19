@@ -13,14 +13,14 @@ $mollie->setApiKey("test_bMDdg2EknUscp4fhJzex577AEmVhxA");
 $paymentService = paymentService::getInstance();
 
 if(isset($_SESSION["cart"])) {
-    $totalPrice= $_SESSION["cart"]["totalPrice"];
+    $totalPrice = $_SESSION["cart"]["totalPrice"];
     $orderId = time();
 
 
     $payment = $mollie->payments->create([
     "amount" => [
     "currency" => "EUR",
-    "value" => $totalPrice
+    "value" => number_format((float)$totalPrice, 2, '.', '')
     ],
     "description" => "My first API payment",
     "redirectUrl" => "http://127.0.0.1/haarlem-festival-1920/controller/payment-controller.php",

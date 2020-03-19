@@ -10,11 +10,11 @@
 	<body>
 		<section id="customer-info">
 			<h3>Customer Information</h3>
-			<form name="customerForm" action="payment.php" onsubmit="validateForm();" method="post" required>                   
+			<form name="customerForm" action="payment.php" onsubmit="validateForm();" method="post">                   
 				<label for="fullname">Full Name</label>
-				<input type="text" id="fullname" name="fullname" placeholder="Funny name">
+				<input type="text" id="fullname" name="fullname" placeholder="Funny name" required>
 				<label for="email">Email</label>
-				<input type="email" id="email" name="email" placeholder="email@example.com">
+				<input type="email" id="email" name="email" placeholder="email@example.com" required>
 				<input type="submit" name="submit-btn" value="Continue to payment" class="btn">
 			</form>
 		</section>
@@ -27,19 +27,17 @@
 		<script src="scripts/cart.js"></script>
 		<script>
 		function validateForm() {
-				var x = document.forms["customerForm"]["fullname"].value;
-				var y = document.forms["customerForm"]["email"].value;
-				if (x == "") {
+			var x = document.forms["customerForm"]["fullname"].value;
+			var y = document.forms["customerForm"]["email"].value;
+			if (!x) {
 				alert("Name must be filled out");
 				return false;
-				}
-				if(y == ""){
-						alert("Email must be filled out");
+			}
+			if(!y){
+				alert("Email must be filled out");
 				return false;
-				}
-				else{
-						return true;
-				}
+			}
+			return true;
 		}
 		</script>
 	</body>

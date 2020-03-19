@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -101,9 +101,6 @@
       <!-- location.href just for checking the flow here -->
     </section>
 
-    
-
-    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="scripts/eventcards.js"></script>

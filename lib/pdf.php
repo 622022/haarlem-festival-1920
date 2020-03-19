@@ -2,7 +2,12 @@
     session_start();
     require_once __DIR__ . "/../APIs/fpdf/invoice.php";
     // $array = ["yo","yo2","yo3"];
-    $events=[];
+    // $events=[];
+    // $items = $_SESSION["cart"]["items"]; //$_SESSION["cart"]["items"][$i]["count"] $_SESSION["cart"]["items"][$i]["event"]->price
+
+    // for ($i=0; $i < count($items); $i++) { 
+        
+    // }
     
 
     class PDF {
@@ -13,10 +18,7 @@
             return !self::$instance ? new PDF() : self::$instance;
         }
         
-        
-
-        $events = $_SESSION["cart"]["items"]["event"];
-        
+            
         function makePdf()
         {
             // ob_start();
