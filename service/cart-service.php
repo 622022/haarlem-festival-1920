@@ -14,8 +14,8 @@
             return !self::$instance ? new cartService() : self::$instance;
         }
 
-        public function getEventById($eventId) {
-            return $dal->getEventById($eventId);
-        }
+        public function getEvent($eventId) {
+			return $this->dal->getEventById($eventId);
+		}
     }
 ?>

@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/../service/cart-service.php");
-
 $cartService = cartService::getInstance();
+
 
 
 $data = [];
@@ -9,14 +9,12 @@ $data = [];
 if($_GET){
     session_start();
 
-    if(!isset($_SESSION["cart"])) { $_SESSION["cart"] = ["items" => []]; } // Instantiate the cart if it does not already exist.
+    if(!isset($_SESSION["cart"])) { $_SESSION["cart"] = ["items" => [], "totalPrice" => 0]; } // Instantiate the cart if it does not already exist.
 
     $cart = &$_SESSION["cart"];
 
     if(isset($_GET["eventId"])) {
-        require_once(__DIR__ . "/../service/event-service.php");
-        $event = eventService::getInstance()->getEvent($_GET["eventId"]);
-
+        $event = cartService::getInstance()->getEvent($_GET["eventId"]);
         // If the event is already in the cart (as an item) then increment its count. If not, then push it in.
         $alreadyExist = false;
         foreach($cart["items"] as $i=>&$item) {
@@ -31,17 +29,16 @@ if($_GET){
 
         if(!$alreadyExist) { // If it wasn't added to existing item's count then add as new item.
             array_push($cart["items"], ["event" => $event, "count" => 1]);
-           
-            // Set return data with cart item
-            $itemData = [
+            $data["item"] = [ // Set return data with cart item
                 "id"    => $i + 1,
                 "image" => $event->image->url,
                 "name"  => $event->getName(),
                 "count" => 1,
                 "price" => $event->price
             ];
-            $data["item"] = $itemData;
         }
+
+        updateTotalPrice();
     } else if (isset($_GET["itemId"])) {
         $itemId = $_GET["itemId"];
         if(isset($cart["items"][$itemId])) {
@@ -62,12 +59,13 @@ if($_GET){
                     $data["countSetTo"] = $_GET["count"];
                 }
             }
+            updateTotalPrice();
         } else {
             $data["error"] = "Invalid itemId";
         }
     } else if (isset($_GET["getCart"])) {
         $data["cart"] = [];
-        $data["totalPrice"] = 0;
+        $data["totalPrice"] = $cart["totalPrice"];
         foreach($cart["items"] as $i=>&$item) {
             $itemData = [
             "id"    => $i,
@@ -77,7 +75,6 @@ if($_GET){
             "price" => $item["event"]->price
             ];
             array_push($data["cart"], $itemData);
-            $data["totalPrice"] += $item["event"]->price * $item["count"];
         }
     } else {
         http_response_code(400);
@@ -85,7 +82,21 @@ if($_GET){
 } else {
     http_response_code(400);
 }
-
+//var_dump($_SESSION["cart"]);
 header('content-type: application/json');
 echo json_encode($data);
+
+
+
+
+
+// Tools
+
+function updateTotalPrice() {
+    $totalPrice = 0;
+    if(isset($_SESSION["cart"])) {
+        foreach($_SESSION["cart"]["items"] as &$item) { $totalPrice += $item["event"]->price * $item["count"]; }
+        $_SESSION["cart"]["totalPrice"] = $totalPrice;
+    }
+}
 ?>

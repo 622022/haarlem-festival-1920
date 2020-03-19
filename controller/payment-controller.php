@@ -16,7 +16,7 @@ $paymentService = paymentService::getInstance();
 $method="";
 $status="";
 
-//1.ideal
+// 1.ideal
 // 2.creditcard
 // 3.paypal
 // 4.inghomepay

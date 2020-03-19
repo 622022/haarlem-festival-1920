@@ -12,26 +12,29 @@ $mollie->setApiKey("test_bMDdg2EknUscp4fhJzex577AEmVhxA");
 
 $paymentService = paymentService::getInstance();
 
+if(isset($_SESSION["cart"])) {
+    $totalPrice= $_SESSION["cart"]["totalPrice"];
+    $orderId = time();
 
 
-$orderId = time();
-
-
-$payment = $mollie->payments->create([
+    $payment = $mollie->payments->create([
     "amount" => [
-        "currency" => "EUR",
-        "value" => "10.00"
+    "currency" => "EUR",
+    "value" => $totalPrice
     ],
     "description" => "My first API payment",
     "redirectUrl" => "http://127.0.0.1/haarlem-festival-1920/controller/payment-controller.php",
     "metadata" => [
-        "order_id" => $orderId,
+    "order_id" => $orderId,
     ],
-]);
+    ]);
 
-// save the payment_id for when the user returns
-$_SESSION['mollie_payment_id'] = $payment->id ;
+    // save the payment_id for when the user returns
+    $_SESSION['mollie_payment_id'] = $payment->id ;
 
-header("Location: " . $payment->getCheckoutUrl(), true, 303);
+    header("Location: " . $payment->getCheckoutUrl(), true, 303);
+}
+
+
 
 ?>
