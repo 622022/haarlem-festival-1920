@@ -4,6 +4,7 @@
     require_once(__DIR__ . "/../model/programmeItem-model.php");
     require_once(__DIR__ . "/../model/image-model.php");
     require_once(__DIR__ . "/../model/user-model.php");
+    require_once(__DIR__ . "/../model/ticket-model.php");
 
     class dataLayer {
         private static $instance;
@@ -364,6 +365,27 @@
             ";
 
             return $this->executeEditQuery($query, 'i', intval($id));
+        }
+
+        public function ticketExists($uuid) {
+            $query = "
+                SELECT uid
+                FROM ticket
+                WHERE uid = ?
+            ";
+
+            return count($this->executeSelectQuery($query, 's', $uuid)) >= 1;
+        }
+
+        public function getTicket($uuid) {
+            $query = "
+                SELECT orderId, statusId, price, uid
+                FROM ticket
+                WHERE uid = ?
+            ";
+
+            $result = $this->executeSelectQuery($query, 's', $uuid);
+            return new Ticket($result[0]['orderId'], intval($result[0]['statusId']), intval($result[0]['price']), $result[0]['uid']);
         }
     }
 ?>
