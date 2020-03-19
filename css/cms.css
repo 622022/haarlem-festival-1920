@@ -351,3 +351,9 @@ input[type=button], input[type=submit] {
 .button-right {
     right: 16px;
 }
+
+.hint-text {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    margin-left: 16px;
+}
