@@ -399,5 +399,19 @@
 
             return $this->executeEditQuery($query, 'iids', $ticket->orderId, $ticket->status, $ticket->price, $ticket->uuid);
         }
+
+        public function insertCustomer($name,$email)
+        {
+            $query = "
+            INSERT
+            INTO
+            `customer`(
+            `name`,
+            `email`
+            )
+            VALUES(?, ?)";
+
+            return $this->executeEditQuery($query, 'ss', $name,$email) == 1;
+        }
     }
 ?>

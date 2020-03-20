@@ -23,7 +23,7 @@ if(isset($_SESSION["cart"])) {
     "value" => number_format((float)$totalPrice, 2, '.', '')
     ],
     "description" => "My first API payment",
-    "redirectUrl" => "http://127.0.0.1/haarlem-festival-1920/controller/payment-controller.php",
+    "redirectUrl" => "http://127.0.0.1/haarlem-festival-1920/controller/checkout-controller.php",
     "metadata" => [
     "order_id" => $orderId,
     ],

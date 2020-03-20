@@ -10,7 +10,7 @@
 	<body>
 		<section id="customer-info">
 			<h3>Customer Information</h3>
-			<form name="customerForm" action="payment.php" onsubmit="validateForm();" method="post">                   
+			<form name="customerForm" action="controller/checkout-controller.php" onsubmit="validateForm();" method="post">                   
 				<label for="fullname">Full Name</label>
 				<input type="text" id="fullname" name="fullname" placeholder="Funny name" required>
 				<label for="email">Email</label>

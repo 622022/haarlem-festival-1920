@@ -17,5 +17,9 @@
         public function storePayment($method,$status,$details) {
             return $this->dal->insertPayment($method,$status,$details);
         }
+
+        public function storeCustomer($name,$email) {
+            return $this->dal->insertCustomer($name,$email);
+        }
     }
 ?>
