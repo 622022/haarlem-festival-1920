@@ -18,18 +18,15 @@ $status="";
 
 
 if(isset($_POST["submit-btn"])) {
-	if(isset($_POST['fullname']))
+	
+	if(isset($_POST['fullname']) && isset($_POST['email']))
 	{
 		$_SESSION["fullName"]=$_POST["fullname"];
 		$fullName = $_SESSION["fullName"];
-	}
-	
-
-	if(isset($_POST['email']))
-	{
 		$_SESSION["email"] = $_POST["email"];
 		$email = $_SESSION["email"];
 	}
+	
         
 	header("Location: ../payment.php");
 } else {
@@ -73,8 +70,12 @@ else{
 		
 		if(isset($_SESSION["fullName"]) && !empty($_SESSION["email"])) 
 		{
-			$paymentService->storeCustomer($_SESSION["fullName"],$_SESSION["email"]);
-			echo "Payment success and stored!";
+			if(isset($_POST['fullname']) && isset($_POST['email']))
+			{
+				$paymentService->storeCustomer($_SESSION["fullName"],$_SESSION["email"]);
+				echo "Payment success and stored!";
+			}
+			
 		}
 		
         // $status=0;
