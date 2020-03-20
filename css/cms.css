@@ -355,5 +355,10 @@ input[type=button], input[type=submit] {
 .hint-text {
     color: var(--text-secondary);
     font-size: 0.75rem;
-    margin-left: 16px;
+    margin-left: 16.5%;
+}
+
+#success-text {
+    color: green;
+    margin-left: 16.5%;
 }

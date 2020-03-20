@@ -7,7 +7,7 @@
 
         public function __construct($orderId, $status, $price, $uuid) {
             $this->orderId = $orderId;
-            $this->status = $status;
+            $this->status = is_numeric($status) ? $status : $this->getStatusInt($status);
             $this->price = $price;
             $this->uuid = $uuid;
         }
@@ -28,6 +28,25 @@
                     return 'I\'m a monkey';
                 default:
                     return 'Invalid';
+            }
+        }
+
+        private function getStatusInt($string) {
+            switch (strtolower($string)) {
+                case 'valid':
+                    return  1;
+                case 'redeemed':
+                    return 2;
+                case 'cancelled':
+                    return 3;
+                case 'expired':
+                    return 4;
+                case 'invalid':
+                    return 5;
+                case 'i\'m a monkey':
+                    return 6;
+                default:
+                    return 5;
             }
         }
     }
