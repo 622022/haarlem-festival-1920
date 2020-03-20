@@ -6,7 +6,7 @@
         private $pdf;
 
         public function __construct() {
-           $this->pdf = pdfGenerator::getInstance();
+           $this->pdf = PDF::getInstance();
         }
 
         // Initialize instance if not already intitialized. Then returns that instance.

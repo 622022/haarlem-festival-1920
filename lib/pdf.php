@@ -1,18 +1,12 @@
 <?php
-    session_start();
     require_once __DIR__ . "/../APIs/fpdf/invoice.php";
-    // $array = ["yo","yo2","yo3"];
-    // $events=[];
-    // $items = $_SESSION["cart"]["items"]; //$_SESSION["cart"]["items"][$i]["count"] $_SESSION["cart"]["items"][$i]["event"]->price
-
-    // for ($i=0; $i < count($items); $i++) { 
-        
-    // }
+    require_once(__DIR__ . "/../service/cart-service.php");
+    session_start();
     
-
     class PDF {
 
         private static $instance;
+        
 
         public static function getInstance() {
             return !self::$instance ? new PDF() : self::$instance;
@@ -21,16 +15,20 @@
             
         function makePdf()
         {
-            // ob_start();
+            $items = $_SESSION["cart"]["items"];
+            $totalPrice = $_SESSION["cart"]["totalPrice"];
+            $today = date("Y-m-d H:i:s"); 
+
+            ob_start();
             $pdf = new FPDF();
             $pdf->AddPage();
             $pdf->SetFont('Arial', '', 12);
             $pdf->Cell(55, 5, 'Reference Code', 0, 0);
             $pdf->Cell(58, 5, ': 026ETY', 0, 0);
             $pdf->Cell(25, 5, 'Date', 0, 0);
-            $pdf->Cell(52, 5, ': 2018-12-24 11:47:10 AM', 0, 1);
-            $pdf->Cell(55, 5, 'Amount', 0, 0);
-            $pdf->Cell(58, 5, ":60.00 EUROS", 0, 0);
+            $pdf->Cell(52, 5, ": $today ", 0, 1);
+            $pdf->Cell(55, 5, 'Total Price', 0, 0);
+            $pdf->Cell(58, 5, ":$totalPrice Euros", 0, 0);
             $pdf->Cell(25, 5, 'Channel', 0, 0);
             $pdf->Cell(52, 5, ': WEB', 0, 1);
             $pdf->Cell(55, 5, 'Status', 0, 0);
@@ -38,6 +36,27 @@
             $pdf->Line(10, 30, 200, 30);
             $pdf->Ln(10);
             
+        
+            for ($i=0; $i < count($items); $i++) { 
+        
+                $events = $_SESSION["cart"]["items"][$i]["event"];
+                $event = cartService::getInstance()->getEvent($events->id);
+                //echo $event->getName();
+                $eventName= $event->getName();
+                $count= $_SESSION["cart"]["items"][$i]["count"];
+        
+                $pdf->Cell(55, 5, 'Product Id', 0, 0);
+                $pdf->Cell(58, 5, ": $event->id ", 0, 1);
+                $pdf->Cell(55, 5, 'Amount', 0, 0);
+                $pdf->Cell(58, 5, ":$count ", 0, 1);
+                $pdf->Cell(55, 5, 'Product Name', 0, 0);
+                $pdf->Cell(58, 5, ": $eventName ", 0, 1);
+                $pdf->Cell(55, 5, 'Product Price', 0, 0);
+                $pdf->Cell(58, 5, ": $event->price Euros", 0, 1);
+                $pdf->Line(10, 60, 200, 60);
+                $pdf->Ln(10);//Line break
+                
+            }
             //testing loop for when the actual array is used
             // foreach($array as $arr)
             // {
@@ -64,7 +83,7 @@
             
             
             $pdf->Output();
-            // ob_end_flush();
+            ob_end_flush();
         }
 
     }
