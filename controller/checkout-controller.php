@@ -70,12 +70,7 @@ else{
 		
 		if(isset($_SESSION["fullName"]) && !empty($_SESSION["email"])) 
 		{
-			if(isset($_POST['fullname']) && isset($_POST['email']))
-			{
-				$paymentService->storeCustomer($_SESSION["fullName"],$_SESSION["email"]);
-				
-			}
-			
+			$paymentService->storeCustomer($_SESSION["fullName"],$_SESSION["email"]);
 		}
 		unset($_SESSION['mollie_payment_id']);
 		header("Location: ../pdf.php");
