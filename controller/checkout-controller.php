@@ -73,10 +73,12 @@ else{
 			if(isset($_POST['fullname']) && isset($_POST['email']))
 			{
 				$paymentService->storeCustomer($_SESSION["fullName"],$_SESSION["email"]);
-				echo "Payment success and stored!";
+				
 			}
 			
 		}
+		unset($_SESSION['mollie_payment_id']);
+		header("Location: ../pdf.php");
 		
         // $status=0;
         // $paymentService->storePayment(1,$status,"skiddy bu bah");

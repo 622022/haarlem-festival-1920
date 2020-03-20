@@ -8,6 +8,8 @@
     // EXAMPLE: //$_SESSION["cart"]["items"][$i]["count"] $_SESSION["cart"]["items"][$i]["event"]->price
     $totalPrice = $_SESSION["cart"]["totalPrice"];
     $today = date("Y-m-d H:i:s"); 
+    $customerName= $_SESSION["fullName"];
+    $customerEmail = $_SESSION["email"];
     
     if(isset($_SESSION["cart"])) {
         ob_start();
@@ -51,9 +53,9 @@
         
         
         $pdf->Cell(55, 5, 'Paid by', 0, 0);
-        $pdf->Cell(58, 5, ": Mumbo", 0, 1);
+        $pdf->Cell(58, 5, ": $customerName", 0, 1);
         $pdf->Cell(55, 5, 'Email id', 0, 0);
-        $pdf->Cell(58, 5, ": 420 bruh", 0, 1);
+        $pdf->Cell(58, 5, ": $customerEmail", 0, 1);
         $pdf->Line(155, 75, 195, 75);
         $pdf->Ln(5);//Line break
         $pdf->Cell(140, 5, '', 0, 0);
