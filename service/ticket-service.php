@@ -22,5 +22,9 @@
         public function ticketExists($uuid) {
             return $this->dal->ticketExists($uuid);
         }
+
+        public function updateTicket($ticket) {
+            return $this->dal->updateTicket($ticket);
+        }
 	}
 ?>

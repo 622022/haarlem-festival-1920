@@ -357,3 +357,8 @@ input[type=button], input[type=submit] {
     font-size: 0.75rem;
     margin-left: 16px;
 }
+
+#success-text {
+    color: green;
+    margin-left: 16.5%;
+}

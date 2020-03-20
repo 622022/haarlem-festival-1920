@@ -24,6 +24,7 @@
                     <input type="text" name="ticket-uid" value="<?= $_GET['ticketuid'] ?? '' ?>">
                 </div>
                 <input type="submit" name="confirm-edit-ticket" value="Edit Ticket">
+                <input type="hidden" name="ticket-uuid-original" value="<?= $_GET['ticketuid'] ?? '' ?>"/>
                 <input type="submit" class="button-right" name="confirm-scan-ticket" value="Scan">
                 <?php if (isset($_GET['ticketuid'])) { ?>
                     <div class="textbox-area">
@@ -32,7 +33,7 @@
                     </div> 
                     <div class="textbox-area">
                         <label class="textbox-label">Status</label>
-                        <select id="ticket-status">
+                        <select name="ticket-status">
                             <option <?= $ticket->status == 1 ? 'selected' : '' ?> value="valid">Valid</option>
                             <option <?= $ticket->status == 2 ? 'selected' : '' ?> value="redeemed">Redeemed</option>
                             <option <?= $ticket->status == 3 ? 'selected' : '' ?> value="cancelled">Cancelled</option>
@@ -45,6 +46,10 @@
                         <label class="textbox-label">Price</label>
                         <input type="number" name="ticket-price" step="0.01" value="<?= $ticket->price ?>">
                     </div>
+                    <?php if (isset($_GET['success'])) { ?>
+                        <p id='success-text'>Ticket <?= $_GET['ticketuid'] ?> was successfully updated</p>
+                        <a href="tickets.php">Close</a>
+                    <?php } ?>
                 <?php } else { ?>
                     <p class="hint-text">You must first input a valid ticket number before you can continue</p>
                 <?php } ?>

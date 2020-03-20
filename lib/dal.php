@@ -385,7 +385,19 @@
             ";
 
             $result = $this->executeSelectQuery($query, 's', $uuid);
-            return new Ticket($result[0]['orderId'], intval($result[0]['statusId']), intval($result[0]['price']), $result[0]['uid']);
+            return new Ticket($result[0]['orderId'], intval($result[0]['statusId']), doubleval($result[0]['price']), $result[0]['uid']);
+        }
+
+        public function updateTicket($ticket) {
+            $query = "
+                UPDATE ticket
+                SET orderid = ?,
+                    statusId = ?,
+                    price = ?
+                WHERE uid = ?
+            ";
+
+            return $this->executeEditQuery($query, 'iids', $ticket->orderId, $ticket->status, $ticket->price, $ticket->uuid);
         }
     }
 ?>
