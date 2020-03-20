@@ -14,9 +14,9 @@
             return !self::$instance ? new pdfService() : self::$instance;
         }
 
-        public function generatePdf()
+        public function generatePdf($items,$totalPrice,$date)
         {
-            $this->pdf->makePdf();
+            $this->pdf->makePdf($items,$totalPrice,$date);
         }
     }
 ?>

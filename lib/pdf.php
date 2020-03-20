@@ -13,11 +13,8 @@
         }
         
             
-        function makePdf()
+        function makePdf($items,$totalPrice,$date)
         {
-            $items = $_SESSION["cart"]["items"];
-            $totalPrice = $_SESSION["cart"]["totalPrice"];
-            $today = date("Y-m-d H:i:s"); 
 
             ob_start();
             $pdf = new FPDF();
@@ -26,7 +23,7 @@
             $pdf->Cell(55, 5, 'Reference Code', 0, 0);
             $pdf->Cell(58, 5, ': 026ETY', 0, 0);
             $pdf->Cell(25, 5, 'Date', 0, 0);
-            $pdf->Cell(52, 5, ": $today ", 0, 1);
+            $pdf->Cell(52, 5, ": $date ", 0, 1);
             $pdf->Cell(55, 5, 'Total Price', 0, 0);
             $pdf->Cell(58, 5, ":$totalPrice Euros", 0, 0);
             $pdf->Cell(25, 5, 'Channel', 0, 0);
@@ -39,7 +36,7 @@
         
             for ($i=0; $i < count($items); $i++) { 
         
-                $events = $_SESSION["cart"]["items"][$i]["event"];
+                $events = $items[$i]["event"];
                 $event = cartService::getInstance()->getEvent($events->id);
                 //echo $event->getName();
                 $eventName= $event->getName();
