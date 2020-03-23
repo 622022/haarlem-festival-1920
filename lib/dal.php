@@ -5,6 +5,7 @@
     require_once(__DIR__ . "/../model/image-model.php");
     require_once(__DIR__ . "/../model/user-model.php");
     require_once(__DIR__ . "/../model/ticket-model.php");
+    require_once(__DIR__ . "/../model/invoice-model.php");
 
     class dataLayer {
         private static $instance;
@@ -412,6 +413,25 @@
             VALUES(?, ?)";
 
             return $this->executeEditQuery($query, 'ss', $name,$email) == 1;
+        }
+
+        public function getInvoices() {
+            $query = "
+                SELECT `order`.id, statusId, orderedAt, name, email, methodId
+                FROM `order`
+                JOIN payment ON paymentId = payment.id
+                JOIN customer ON customerId = customer.id
+            ";
+
+            $invoices = [];
+
+            foreach ($this->executeSelectQuery($query, '') as $result) {
+                $orderedAt = new DateTime($result['orderedAt']);
+                $orderedAt = $orderedAt->getTimestamp();
+                array_push($invoices, new Invoice($result['id'], $result['statusId'], $orderedAt, $result['name'], $result['email'], $result['methodId']));
+            }
+           
+            return $invoices;
         }
     }
 ?>
