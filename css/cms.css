@@ -362,3 +362,7 @@ input[type=button], input[type=submit] {
     color: green;
     margin-left: 16.5%;
 }
+
+.overflow-scroll {
+    overflow: auto;
+}

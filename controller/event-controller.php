@@ -30,7 +30,7 @@
                 $event->description,
                 $event->more)
             );
-            //header("Location: ../cms/events.php");
+            header("Location: ../cms/events.php");
         } catch(Exception $e) {
             echo($e);
         }

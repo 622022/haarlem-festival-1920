@@ -31,10 +31,6 @@
         <img src="../img/cms/user.svg">
         Users
     </a>
-    <a href="./pages.php" class="sidebar-item">
-        <img src="../img/cms/edit.svg">
-        Pages
-    </a>
     <a href="./tickets.php" class="sidebar-item">
         <img src="../img/cms/tickets.svg">
         Tickets
