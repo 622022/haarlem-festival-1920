@@ -343,20 +343,41 @@
             return $this->executeEditQuery($query, 'ss', $password, $email);
         }
 
-        public function insertPayment($method,$status,$details)
+        // public function insertPayment($method,$status,$details)
+        // {
+        //     $query = "
+        //     INSERT
+        //     INTO
+        //     `payment`(
+        //     `methodId`,
+        //     `statusId`,
+        //     `details`
+        //     )
+        //     VALUES(?, ?, ?);
+        //     SELECT LAST_INSERT_ID();";
+
+        //     return $this->executeSelectQuery($query, 'iis', $method,$status,$details)[0]["LAST_INSERT_ID()"];
+        // }
+
+        public function insertPayment($method, $status, $details)
         {
             $query = "
-            INSERT
-            INTO
-            `payment`(
-            `methodId`,
-            `statusId`,
-            `details`
-            )
-            VALUES(?, ?, ?);
-            SELECT LAST_INSERT_ID();";
+                INSERT INTO `payment` (
+                    `methodId`,
+                    `statusId`,
+                    `details`
+                )
+                VALUES(?, ?, ?)";
 
-            return $this->executeSelectQuery($query, 'iis', $method,$status,$details)[0]["LAST_INSERT_ID()"];
+            $this->executeEditQuery($query, 'iis', $method,$status,$details) == 1;
+
+            $query = "
+                SELECT MAX(ID)
+                FROM `payment`
+            ";
+            
+            return $this->executeSelectQuery($query, '')[0]['MAX(ID)'];
+            //return $this->executeSelectQuery($query, '')[0];
         }
 
         public function deleteUser($id) {
@@ -366,15 +387,6 @@
             ";
 
             return $this->executeEditQuery($query, 'i', intval($id));
-        }
-
-        public function insertTicket($eventId, $orderId, $price) {
-            $query = "
-                INSERT INTO ticket (eventId, orderId, statusId, price, uid)
-                VALUES (?, ?, 1, ?, UUID());
-            ";
-
-            return $this->executeEditQuery($query, 'iid', $eventId, $orderId, $price) == 1;
         }
 
         public function ticketExists($uuid) {
@@ -407,25 +419,46 @@
                 WHERE uid = ?
             ";
 
-            return $this->executeEditQuery($query, 'iids', $ticket->orderId, $ticket->status, $ticket->price, $ticket->uuid) == 1;
+            return $this->executeEditQuery($query, 'iids', $ticket->orderId, $ticket->status, $ticket->price, $ticket->uuid);
         }
+
+        // public function insertCustomer($name,$email) {
+        //     $query = "
+        //     INSERT INTO `customer` ( `name`, `email`)
+        //     VALUES(?, ?);
+        //     SELECT LAST_INSERT_ID();";
+
+        //     return $this->executeSelectQuery($query, 'ss', $name,$email)[0]["LAST_INSERT_ID()"];
+        // }
 
         public function insertCustomer($name,$email) {
             $query = "
             INSERT INTO `customer` ( `name`, `email`)
-            VALUES(?, ?);
-            SELECT LAST_INSERT_ID();";
+            VALUES(?, ?)";
 
-            return $this->executeSelectQuery($query, 'ss', $name,$email)[0]["LAST_INSERT_ID()"];
+            $this->executeEditQuery($query, 'ss', $name,$email);
+
+            $query = "
+                SELECT MAX(ID)
+                FROM `customer`
+            ";
+            
+            return $this->executeSelectQuery($query, '')[0]['MAX(ID)'];
         }
 
         public function insertOrder($customerId, $paymentId) {
             $query = "
-            INSERT INTO `order` ( `customerId`, `paymentId`, `orderedAt`)
-            VALUES(?, ?, ".time().");
-            SELECT LAST_INSERT_ID();";
+            INSERT INTO `order` ( `customerId`, `paymentId`)
+            VALUES(?, ?)";
 
-            return $this->executeSelectQuery($query, 'ii', $customerId, $paymentId)[0]["LAST_INSERT_ID()"];
+            $this->executeEditQuery($query, 'ii', $customerId, $paymentId);
+
+            $query = "
+                SELECT MAX(ID)
+                FROM `order`
+            ";
+            
+            return $this->executeSelectQuery($query, '')[0]['MAX(ID)'];
         }
     }
 ?>

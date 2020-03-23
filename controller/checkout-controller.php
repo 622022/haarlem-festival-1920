@@ -13,8 +13,8 @@ $mollie->setApiKey("test_bMDdg2EknUscp4fhJzex577AEmVhxA");
 
 $checkoutService = checkoutService::getInstance();
 
-$method;
-$status;
+$method="";
+$status="";
 
 if(isset($_SESSION["cart"])) {
     if(isset($_POST["submit-btn"])) {
@@ -51,8 +51,10 @@ if(isset($_SESSION["cart"])) {
             if(isset($_SESSION["fullName"]) && !empty($_SESSION["email"])) {
                 $customerId = $checkoutService->pushCustomer($_SESSION["fullName"], $_SESSION["email"]);
                 $orderId = $checkoutService->pushOrder($customerId, $paymentId);
-                foreach($_SESSION["cart"]["items"] as &$item) {
-                    $event = &$item["event"];
+                for ($i=0; $i < count($items); $i++) { 
+
+                    $events = $_SESSION["cart"]["items"][$i]["event"];
+                    $event = cartService::getInstance()->getEvent($events->id);
                     $checkoutService->pushTicket($event->id, $orderId, $event->price);
                 }
             }

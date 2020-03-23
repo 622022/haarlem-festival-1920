@@ -5,12 +5,12 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . "/APIs/vendor/autoload.php";
-require_once(__DIR__ . "/service/payment-service.php");
+require_once(__DIR__ . "/service/checkout-service.php");
 
 $mollie = new \Mollie\Api\MollieApiClient();
 $mollie->setApiKey("test_bMDdg2EknUscp4fhJzex577AEmVhxA");
 
-$paymentService = paymentService::getInstance();
+$checkoutService = checkoutService::getInstance();
 
 if(isset($_SESSION["cart"])) {
     $totalPrice = $_SESSION["cart"]["totalPrice"];

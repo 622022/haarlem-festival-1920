@@ -11,7 +11,7 @@
 
 		// Initialize instance if not already intitialized. Then returns that instance.
 		public static function getInstance() {
-			return !self::$instance ? new Checkout() : self::$instance;
+			return !self::$instance ? new checkoutService() : self::$instance;
 		}
 
 		public function pushPayment($method, $status, $details) {
