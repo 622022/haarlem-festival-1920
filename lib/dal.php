@@ -480,5 +480,14 @@
            
             return $invoices;
         }
+
+        public function insertTicket($eventId, $orderId, $price) {
+            $query = "
+                INSERT INTO ticket (eventId, orderId, statusId, price, uid)
+                VALUES (?, ?, 1, ?, UUID());
+            ";
+
+            return $this->executeEditQuery($query, 'iid', $eventId, $orderId, $price) == 1;
+        }
     }
 ?>
