@@ -72,7 +72,8 @@ else{
 		{
 			$paymentService->storeCustomer($_SESSION["fullName"],$_SESSION["email"]);
 		}
-		unset($_SESSION['mollie_payment_id']);
+        unset($_SESSION['mollie_payment_id']);
+        //unset($_SESSION['cart']);
 		header("Location: ../pdf.php");
 		
         // $status=0;
