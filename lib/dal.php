@@ -353,9 +353,10 @@
             `statusId`,
             `details`
             )
-            VALUES(?, ?, ?)";
+            VALUES(?, ?, ?);
+            SELECT LAST_INSERT_ID();";
 
-            return $this->executeEditQuery($query, 'iis', $method,$status,$details) == 1;
+            return $this->executeSelectQuery($query, 'iis', $method,$status,$details)[0]["LAST_INSERT_ID()"];
         }
 
         public function deleteUser($id) {
@@ -365,6 +366,15 @@
             ";
 
             return $this->executeEditQuery($query, 'i', intval($id));
+        }
+
+        public function insertTicket($eventId, $orderId, $price) {
+            $query = "
+                INSERT INTO ticket (eventId, orderId, statusId, price, uid)
+                VALUES (?, ?, 1, ?, UUID());
+            ";
+
+            return $this->executeEditQuery($query, 'iid', $eventId, $orderId, $price) == 1;
         }
 
         public function ticketExists($uuid) {
@@ -397,21 +407,25 @@
                 WHERE uid = ?
             ";
 
-            return $this->executeEditQuery($query, 'iids', $ticket->orderId, $ticket->status, $ticket->price, $ticket->uuid);
+            return $this->executeEditQuery($query, 'iids', $ticket->orderId, $ticket->status, $ticket->price, $ticket->uuid) == 1;
         }
 
-        public function insertCustomer($name,$email)
-        {
+        public function insertCustomer($name,$email) {
             $query = "
-            INSERT
-            INTO
-            `customer`(
-            `name`,
-            `email`
-            )
-            VALUES(?, ?)";
+            INSERT INTO `customer` ( `name`, `email`)
+            VALUES(?, ?);
+            SELECT LAST_INSERT_ID();";
 
-            return $this->executeEditQuery($query, 'ss', $name,$email) == 1;
+            return $this->executeSelectQuery($query, 'ss', $name,$email)[0]["LAST_INSERT_ID()"];
+        }
+
+        public function insertOrder($customerId, $paymentId) {
+            $query = "
+            INSERT INTO `order` ( `customerId`, `paymentId`, `orderedAt`)
+            VALUES(?, ?, ".time().");
+            SELECT LAST_INSERT_ID();";
+
+            return $this->executeSelectQuery($query, 'ii', $customerId, $paymentId)[0]["LAST_INSERT_ID()"];
         }
     }
 ?>
