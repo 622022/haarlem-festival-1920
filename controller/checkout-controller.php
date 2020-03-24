@@ -59,7 +59,7 @@ if(isset($_SESSION["cart"])) {
                 }
             }
             unset($_SESSION['mollie_payment_id']);
-            header("Location: ../pdf.php");
+            header("Location: ../after-checkout.php");
             
             // $status=0;
             // $checkoutService->pushPayment(1,$status,"skiddy bu bah");
