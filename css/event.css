@@ -363,3 +363,106 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
+
+/* The Modal (background) */
+.modal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+background-color: #fefefe;
+margin: 15% auto; /* 15% from the top and centered */
+padding: 20px;
+border: 1px solid #888;
+width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
+.addbtn{
+background-color: blue;
+position: absolute;
+width: 116px;
+height: 56px;
+right: -20;
+right: 0px;
+left: 700px;
+top: 40px;
+border-radius: 20px;
+}
+#day1{
+position: absolute;
+bottom: 400px;
+left: 300px;
+}
+#day2{
+position: absolute;
+left: 750px;
+bottom: 400px;
+}
+#day3{
+position: absolute;
+left: 1200px;
+bottom: 400px;
+}
+.modal-content{
+height: 300px;
+
+}
+#btn1{
+top: 400px;
+left: 300px;
+}
+#btn2{
+top: 400px;
+left: 750px;
+}
+#btn3{
+top: 400px;
+left: 1200px;
+}
+#dag1{
+position: absolute;
+bottom: 0px;
+top: 300px;
+left: 310px;
+}
+#dag2{
+position: absolute;
+bottom: 0px;
+top: 300px;
+left: 750px;
+}
+#dag3{
+position: absolute;
+bottom: 0px;
+top: 300px;
+left: 1200px;
+}
+#description{
+position: absolute;
+bottom: 180px;
+left: 150px;
+}
