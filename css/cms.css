@@ -44,7 +44,7 @@ body  {
 }
 
 #login-section-controls img {
-    width: 100%;
+    width: 75%;
 }
 
 #login-section-controls h1 {
@@ -365,4 +365,9 @@ input[type=button], input[type=submit] {
 
 .overflow-scroll {
     overflow: auto;
+}
+
+#sidebar-translations a {
+    color: white;
+    text-decoration: none;
 }

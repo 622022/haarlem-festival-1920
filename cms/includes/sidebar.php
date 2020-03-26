@@ -17,35 +17,37 @@
                 header('location: ./login.php');
             }
         ?>
-        <a href="../controller/logout.php">Log Out</a>
+        <a href="../controller/logout.php"><?= $str['cms.log-out'] ?></a>
     </div>  
 </div>
 <div id="sidebar">
     <h1>Haarlem Festival</h1>
-    <h2>Content Management System</h2>
+    <h2><?= $str['cms.subtitle'] ?></h2>
     <a href="./events.php" class="sidebar-item">
         <img src="../img/cms/calendar.svg">
-        Events
+        <?= $str['cms.events'] ?>
     </a>
     <a href="./users.php" class="sidebar-item">
         <img src="../img/cms/user.svg">
-        Users
+        <?= $str['cms.users'] ?>
     </a>
     <a href="./tickets.php" class="sidebar-item">
         <img src="../img/cms/tickets.svg">
-        Tickets
+        <?= $str['cms.tickets'] ?>
     </a>
     <a href="./restaurants.php" class="sidebar-item">
         <img src="../img/cms/restaurant.svg">
-        Restaurants
+        <?= $str['cms.restaurants'] ?>
     </a>
     <a href="./invoices.php" class="sidebar-item">
         <img src="../img/cms/receipt.svg">
-        Invoices
+        <?= $str['cms.invoices'] ?>
     </a>
     <!-- Translations footer -->
     <div id="sidebar-translations">
-        <img src="../img/cms/translate.svg">
-        English
+        <a href="../controller/language-controller.php">
+            <img src="../img/cms/translate.svg">
+            <?= isset($_SESSION['lang']) ? $_SESSION['lang'] === 'en' ? 'English' : 'Nederlands' : 'English' ?>
+        </a>
     </div>
 </div>

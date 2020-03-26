@@ -16,11 +16,11 @@
             <table>
                 <tr>
                     <th>#</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Customer Name</th>
-                    <th>Customer Email</th>
-                    <th>Payment Method</th>
+                    <th><?= $str['cms.status'] ?></th>
+                    <th><?= $str['cms.date'] ?></th>
+                    <th><?= $str['cms.customer-name'] ?></th>
+                    <th><?= $str['cms.customer-email'] ?></th>
+                    <th><?= $str['cms.payment-method'] ?></th>
                 </tr>
                 <?php
                     foreach ($invoiceService->getInvoices() as $invoice) {
@@ -42,6 +42,6 @@
 </html>
 <?php 
     } else {
-        echo("You do not have access to view this page");
+        echo("You do not have permission to view this page");
     }
 ?>
