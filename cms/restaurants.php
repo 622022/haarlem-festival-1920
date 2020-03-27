@@ -8,10 +8,11 @@
     </head>
     <body>
         <?php include(__DIR__ . '/includes/sidebar.php'); ?>
+        <h1 id="title-text">Restaurants</h1>
     </body>
 </html>
 <?php 
     } else {
-        echo("You do not have access to view this page");
+        echo("You do not have permission to view this page");
     }
 ?>
