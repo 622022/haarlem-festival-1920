@@ -40,6 +40,15 @@ $(function() {
 					filter["locations"].splice(index, 1);
 				}
 			}
+		} else if($(this).closest("#filter-food").length) {
+			if(this.checked) {
+				filter["food"].push(this.name);
+			} else {
+				let index = filter["food"].indexOf(this.name);
+				if(index != -1) {
+					filter["food"].splice(index, 1);
+				}
+			}
 		}
 
 		generateEventCards();

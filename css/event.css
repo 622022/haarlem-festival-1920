@@ -198,6 +198,21 @@ hr {
   line-height: normal;
 }
 
+.filter #Food{
+  width: 87px;
+  height: 25px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  font-family: 'Arial Regular', 'Arial';
+  font-weight: bold;
+  color: #14ff00;
+  text-align: left;
+  line-height: normal;
+  padding-top: 0px;
+  border-top-width: 25px;
+  margin-top: 125px;
+}
+
 .filter label{
   float: left;
   background-color: #ffffff;
