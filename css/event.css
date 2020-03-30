@@ -289,11 +289,17 @@ hr {
 #cart {
   width: 200px;
   display: block;
-  position: absolute;
-  bottom: 100px;
+  position: -webkit-sticky;
+  position: sticky;
+  margin-bottom: 50px;
+  top: 00px;
+  bottom: 10px;
   right: 100px;
   border: 2px solid var(--dance-main);
   border-radius: 20px;
+  left: 1260px;
+  top: 300px;
+
 }
 
 .cartitem img {
@@ -347,17 +353,19 @@ hr {
   float: right;
   position: absolute;
   left: 180px;
-  bottom: 180px;
+  /* bottom: 180px; */
   margin-top: 70px;
+  margin-top: 0px;
 }
 
 .cartitem-remove img {
   height: 15px;
   width: 15px;
-  bottom: 100px;
-  left: 180px;
-  bottom: 180px;
-  margin-top: 70px;
+  position: absolute;
+  right: 40px;
+  left: 5px;
+  top: -10;
+  bottom: 70px;
 }
 
 .cartitem button {
