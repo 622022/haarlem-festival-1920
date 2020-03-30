@@ -56,7 +56,6 @@ if(isset($_SESSION["cart"])) {
                 $orderId = $checkoutService->pushOrder($customerId, $paymentId);
                 for ($i=0; $i < count($items); $i++) { 
 
-                    print_r($items);
                     $events = $_SESSION["cart"]["items"][$i]["event"];
                     $event = cartService::getInstance()->getEvent($events->id);
                     $checkoutService->pushTicket($event->id, $orderId, $event->price);
