@@ -58,8 +58,10 @@ if(isset($_SESSION["cart"])) {
 
                     $events = $_SESSION["cart"]["items"][$i]["event"];
                     $event = cartService::getInstance()->getEvent($events->id);
-                    $checkoutService->pushTicket($event->id, $orderId, $event->price);
+                    $id=$checkoutService->pushTicket($event->id, $orderId, $event->price);
+                    $uids=$checkoutService->getUid($id);
                 }
+                $_SESSION["uid"]=$uids;
             }
             unset($_SESSION['mollie_payment_id']);
             header("Location: ../after-checkout.php");

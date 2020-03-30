@@ -487,7 +487,14 @@
                 VALUES (?, ?, 1, ?, UUID());
             ";
 
-            return $this->executeEditQuery($query, 'iid', $eventId, $orderId, $price);
+            $this->executeEditQuery($query, 'iid', $eventId, $orderId, $price);
+
+            $query = "
+                SELECT MAX(ID)
+                FROM `ticket`
+            ";
+            
+            return $this->executeSelectQuery($query, '')[0]['MAX(ID)'];
         }
 
         public function getallRestaurants() {
@@ -511,6 +518,20 @@
             }
            
             return $restaurants;
+        }
+
+        public function fetchUid($id){
+            $query = "
+            SELECT
+            uid
+            FROM
+            `ticket`
+            WHERE
+            id = ?
+            ";
+
+            return $this->executeSelectQuery($query, 'i',$id)[0]['uid'];
+
         }
     }
 ?>

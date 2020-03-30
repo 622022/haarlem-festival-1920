@@ -29,5 +29,9 @@
 		public function pushTicket($eventId, $orderId, $price) {
 			return $this->dal->insertTicket($eventId, $orderId, $price);
 		}
+
+		public function getUid($id) {
+			return $this->dal->fetchUid($id); //Returns UID
+		}
 	}
 ?>
