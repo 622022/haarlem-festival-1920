@@ -489,5 +489,28 @@
 
             return $this->executeEditQuery($query, 'iid', $eventId, $orderId, $price) == 1;
         }
+
+        public function getallRestaurants() {
+            $query = "
+                SELECT name, adultPrice, address, firstSession, stars, seats, description
+                FROM restaurant
+            ";
+
+            $restaurants = [];
+
+            foreach ($this->executeSelectQuery($query, '') as $result) {
+                array_push($restaurants, new Restaurant(
+                    $result['name'],
+                    intval($result['adultPrice']),
+                    $result['address'],
+                    $result['firstSession'],
+                    intval($result['stars']),
+                    intval($result['seats']),
+                    $result['description']
+                ));
+            }
+           
+            return $restaurants;
+        }
     }
 ?>

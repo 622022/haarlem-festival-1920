@@ -9,6 +9,18 @@
     <body>
         <?php include(__DIR__ . '/includes/sidebar.php'); ?>
         <h1 id="title-text">Restaurants</h1>
+        <div id="edit-container">
+            <?php
+                require_once('../service/restaurant-service.php');
+                $restaurants = restaurantService::getInstance()->getAllRestaurants();
+                
+                foreach ($restaurants as $restaurant) {
+                    ?>
+                        <div class="restaurants-item"><?= $restaurant->name ?></div>
+                    <?php
+                }
+            ?>
+        </div>
     </body>
 </html>
 <?php 
