@@ -1,12 +1,13 @@
 <?php
+require_once __DIR__ . "/../APIs/vendor/autoload.php";
+require_once(__DIR__ . "/../service/checkout-service.php");
+require_once(__DIR__ . "/../service/cart-service.php");
 
 session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once __DIR__ . "/../APIs/vendor/autoload.php";
-require_once(__DIR__ . "/../service/checkout-service.php");
 
 $mollie = new \Mollie\Api\MollieApiClient();
 $mollie->setApiKey("test_bMDdg2EknUscp4fhJzex577AEmVhxA");
@@ -15,6 +16,8 @@ $checkoutService = checkoutService::getInstance();
 
 $method="";
 $status="";
+$items = $_SESSION["cart"]["items"];
+
 
 if(isset($_SESSION["cart"])) {
     if(isset($_POST["submit-btn"])) {
@@ -53,6 +56,7 @@ if(isset($_SESSION["cart"])) {
                 $orderId = $checkoutService->pushOrder($customerId, $paymentId);
                 for ($i=0; $i < count($items); $i++) { 
 
+                    print_r($items);
                     $events = $_SESSION["cart"]["items"][$i]["event"];
                     $event = cartService::getInstance()->getEvent($events->id);
                     $checkoutService->pushTicket($event->id, $orderId, $event->price);

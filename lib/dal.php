@@ -487,7 +487,7 @@
                 VALUES (?, ?, 1, ?, UUID());
             ";
 
-            return $this->executeEditQuery($query, 'iid', $eventId, $orderId, $price) == 1;
+            return $this->executeEditQuery($query, 'iid', $eventId, $orderId, $price);
         }
 
         public function getallRestaurants() {
