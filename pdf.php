@@ -2,6 +2,7 @@
     require_once(__DIR__ . "/service/cart-service.php");
     require_once __DIR__ . "/APIs/fpdf/invoice.php";
     require_once __DIR__ . "/APIs/fpdf/qrcode/qrcode.class.php";
+    require_once(__DIR__ . "/service/mail-service.php");
     session_start();
 
     //$items=[];
@@ -76,6 +77,9 @@
         $pdf->Cell(50, 5, ': Signature', 0, 1, 'C');
         
         $qrcode->displayFPDF($pdf, 159, 150, 50);
+        $pdfdoc = $pdf->Output('', 'S');
+        //use customer email later
+        mailService::getInstance()->sendPdf($pdfdoc);
         $pdf->Output();
         ob_end_flush();
     }else

@@ -1,6 +1,7 @@
 <?php
     require_once __DIR__ . "/../APIs/fpdf/invoice.php";
     require_once(__DIR__ . "/../service/cart-service.php");
+    require_once(__DIR__ . "/../service/mail-service.php");
     
     session_start();
     
@@ -79,7 +80,7 @@
             $pdf->Cell(140, 5, '', 0, 0);
             $pdf->Cell(50, 5, ': Signature', 0, 1, 'C');
             
-            
+            mailService::getInstance()->getEvent($events->id);
             $pdf->Output();
             ob_end_flush();
         }
