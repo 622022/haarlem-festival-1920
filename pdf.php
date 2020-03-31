@@ -1,6 +1,7 @@
 <?php
     require_once(__DIR__ . "/service/cart-service.php");
     require_once __DIR__ . "/APIs/fpdf/invoice.php";
+    require_once __DIR__ . "/APIs/fpdf/qrcode/qrcode.class.php";
     session_start();
 
     //$items=[];
@@ -12,6 +13,8 @@
     $customerEmail = $_SESSION["email"];
     $uid=array();
     $uid=$_SESSION["uid"];
+    $qrcode = new QRcode ("$customerName", 'H'); // error level: L, M, Q, H
+
     // $id=array();
     // $id=$_SESSION["id"];
     
@@ -69,7 +72,7 @@
         $pdf->Cell(140, 5, '', 0, 0);
         $pdf->Cell(50, 5, ': Signature', 0, 1, 'C');
         
-        
+        $qrcode->displayFPDF($pdf, 159, 150, 50);
         $pdf->Output();
         ob_end_flush();
     }else
