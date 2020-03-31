@@ -54,13 +54,18 @@ if(isset($_SESSION["cart"])) {
             if(isset($_SESSION["fullName"]) && !empty($_SESSION["email"])) {
                 $customerId = $checkoutService->pushCustomer($_SESSION["fullName"], $_SESSION["email"]);
                 $orderId = $checkoutService->pushOrder($customerId, $paymentId);
-                for ($i=0; $i < count($items); $i++) { 
+                $index=0;
+                for ($z=0; $z < count($items); $z++) { 
 
-                    $events = $_SESSION["cart"]["items"][$i]["event"];
+                    $count= $_SESSION["cart"]["items"][$z]["count"];
+                    $events = $_SESSION["cart"]["items"][$z]["event"];
+
                     $event = cartService::getInstance()->getEvent($events->id);
-                    $ids[$i]=$checkoutService->pushTicket($event->id, $orderId, $event->price);
-                    $uids[$i]=$checkoutService->getUid($ids[$i]);
-                    
+                    for ($i=0; $i <= count($count); $i++) { 
+                        $ids[$index]=$checkoutService->pushTicket($event->id, $orderId, $event->price);
+                        $uids[$index]=$checkoutService->getUid($ids[$index]);
+                        $index++;
+                    }
                 }
                 $_SESSION["uid"]=$uids;
                 // $_SESSION["id"]=$ids;
