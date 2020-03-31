@@ -10,7 +10,10 @@
     $today = date("Y-m-d H:i:s"); 
     $customerName= $_SESSION["fullName"];
     $customerEmail = $_SESSION["email"];
+    $uid=array();
     $uid=$_SESSION["uid"];
+    // $id=array();
+    // $id=$_SESSION["id"];
     
     if(isset($_SESSION["cart"])) {
         ob_start();
@@ -49,7 +52,8 @@
             $pdf->Cell(55, 5, 'Product Price', 0, 0);
             $pdf->Cell(58, 5, ": $event->price Euros", 0, 1);
             $pdf->Cell(55, 5, 'UID/Barcode', 0, 0);
-            $pdf->Cell(58, 5, ": [$i]$uid ", 0, 1);
+            $pdf->Cell(58, 5, ": $uid[$i] ", 0, 1);
+            // $pdf->Cell(58, 5, ": $id[$i] ", 0, 1);
             $pdf->Line(10, 60, 200, 60);
             $pdf->Ln(10);//Line break
             
