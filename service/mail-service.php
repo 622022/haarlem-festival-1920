@@ -14,8 +14,8 @@
             return !self::$instance ? new mailService() : self::$instance;
         }
 
-        public function sendPdf($doc) {
-			$this->mail->sendPdfMail($doc); 
+        public function sendPdf($doc,$email) {
+			$this->mail->sendPdfMail($doc,$email); 
         }
         
         //use this to send your forget password email and send values accordingly

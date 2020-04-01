@@ -79,7 +79,7 @@
         $qrcode->displayFPDF($pdf, 159, 150, 50);
         $pdfdoc = $pdf->Output('', 'S');
         //use customer email later
-        mailService::getInstance()->sendPdf($pdfdoc);
+        mailService::getInstance()->sendPdf($pdfdoc,$customerEmail);
         $pdf->Output();
         ob_end_flush();
     }else

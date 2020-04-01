@@ -15,7 +15,7 @@
         }
 
         //stuff can be made into a function for easier and better version later
-        public function sendPdfMail($doc){
+        public function sendPdfMail($doc,$email){
             try {
                 //Server settings
                 $mail = new PHPMailer(true);
@@ -30,7 +30,7 @@
                 //using a throwaway acocunt to test for now
                 $mail->setFrom('jumbomumbo399@gmail.com', 'Mailer');
                 //specify users to send to
-                $mail->addAddress('joe@gmail.com', 'Joe User');     // Add a recipient
+                $mail->addAddress($email, 'Joe User');     // Add a recipient
                 
 
                 // Attachments
@@ -40,8 +40,8 @@
                 // Content
                 $mail->isHTML(true);                                  // Set email format to HTML
                 $mail->isHTML(true);                                  // Set email format to HTML
-                $mail->Subject = 'Here is the subject';
-                $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+                $mail->Subject = 'Haarlem festival tickets receipt.';
+                $mail->Body    = 'We wish you a fun time! <b>at Haarlem Festival!</b>';
                 $mail->addStringAttachment($doc,'details.pdf');
                 // $mail->Send();
 
@@ -78,7 +78,7 @@
                 // Content
                 $mail->isHTML(true);                                  // Set email format to HTML
                 $mail->Subject = 'Here is the subject';
-                $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+                $mail->Body    = 'This is the HTML message body';
                 // $mail->addStringAttachment($doc,'details.pdf');
                 $mail->Send();
 
