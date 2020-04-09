@@ -6,6 +6,7 @@
         private $mail;
 
         public function __construct() {
+            self::$instance = $this; 
             $this->mail = Mail::getInstance();
         }
 

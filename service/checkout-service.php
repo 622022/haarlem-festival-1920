@@ -6,6 +6,7 @@
 		private $dal;
 		
 		public function __construct() {
+			self::$instance = $this; 
 			$this->dal = dataLayer::getInstance();
 		}
 
