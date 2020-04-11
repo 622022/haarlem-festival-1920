@@ -6,7 +6,8 @@
         private $pdf;
 
         public function __construct() {
-           $this->pdf = PDF::getInstance();
+            self::$instance = $this; 
+            $this->pdf = PDF::getInstance();
         }
 
         // Initialize instance if not already intitialized. Then returns that instance.

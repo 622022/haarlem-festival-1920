@@ -12,6 +12,7 @@
         private $conn;
 
         public function __construct() {
+            self::$instance = $this;
             $this->conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DB, DB_PORT);
         }
 

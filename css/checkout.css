@@ -158,4 +158,14 @@ input[type=number]::-webkit-outer-spin-button {
 #total-price {
 	margin: 0 auto;
 }
+#aft-checkouth2{
+  margin-left: 650px;
+  margin-top: 80px;
+}
+#aft-checkoutpdf{
+  margin-left: 500px;
+}
+#aft-checkouthome{
+  margin-left: 650px;
+}
 

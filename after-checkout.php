@@ -7,7 +7,8 @@
         <title>Checkout Page</title>
     </head>
     <body>
-        <h2>Payment successfull!</h2>
-        <p>You can generate your PDF by clicking this button <a href="pdf.php">Generate PDF</a></p>
+        <h2 id="aft-checkouth2">Payment successfull!</h2>
+        <p id="aft-checkoutpdf">You can generate your PDF by clicking this button <a href="pdf.php" target="_blank">Generate PDF</a></p>
+        <p id="aft-checkouthome">Go back to homepage. <a href="index.html" target="_blank">Home</a></p>
     </body>
 </html>

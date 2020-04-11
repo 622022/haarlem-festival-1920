@@ -1,6 +1,8 @@
 <?php
     require_once(__DIR__ . "/service/cart-service.php");
     require_once __DIR__ . "/APIs/fpdf/invoice.php";
+    require_once __DIR__ . "/APIs/fpdf/qrcode/qrcode.class.php";
+    require_once(__DIR__ . "/service/mail-service.php");
     session_start();
 
     //$items=[];
@@ -10,7 +12,13 @@
     $today = date("Y-m-d H:i:s"); 
     $customerName= $_SESSION["fullName"];
     $customerEmail = $_SESSION["email"];
+    $uid=array();
     $uid=$_SESSION["uid"];
+    $index=0;
+    $qrcode = new QRcode ("$customerName", 'H'); // error level: L, M, Q, H
+
+    // $id=array();
+    // $id=$_SESSION["id"];
     
     if(isset($_SESSION["cart"])) {
         ob_start();
@@ -38,21 +46,24 @@
             //echo $event->getName();
             $eventName= $event->getName();
             $count= $_SESSION["cart"]["items"][$i]["count"];
-            
-            
-            $pdf->Cell(55, 5, 'Product Id', 0, 0);
-            $pdf->Cell(58, 5, ": $event->id ", 0, 1);
-            $pdf->Cell(55, 5, 'Amount', 0, 0);
-            $pdf->Cell(58, 5, ": $count ", 0, 1);
-            $pdf->Cell(55, 5, 'Product Name', 0, 0);
-            $pdf->Cell(58, 5, ": $eventName ", 0, 1);
-            $pdf->Cell(55, 5, 'Product Price', 0, 0);
-            $pdf->Cell(58, 5, ": $event->price Euros", 0, 1);
-            $pdf->Cell(55, 5, 'UID/Barcode', 0, 0);
-            $pdf->Cell(58, 5, ": [$i]$uid ", 0, 1);
-            $pdf->Line(10, 60, 200, 60);
-            $pdf->Ln(10);//Line break
-            
+            for ($z=0; $z <= count($count); $z++) {
+
+                $pdf->Cell(55, 5, 'Product Id', 0, 0);
+                $pdf->Cell(58, 5, ": $event->id ", 0, 1);
+                // $pdf->Cell(55, 5, 'Amount', 0, 0);
+                // $pdf->Cell(58, 5, ": 1 ", 0, 1);
+                $pdf->Cell(55, 5, 'Product Name', 0, 0);
+                $pdf->Cell(58, 5, ": $eventName ", 0, 1);
+                $pdf->Cell(55, 5, 'Product Price', 0, 0);
+                $pdf->Cell(58, 5, ": $event->price Euros", 0, 1);
+                $pdf->Cell(55, 5, 'UID/Barcode', 0, 0);
+                $pdf->Cell(58, 5, ": $uid[$index] ", 0, 1);
+                // $pdf->Cell(58, 5, ": $id[$i] ", 0, 1);
+                $pdf->Line(10, 60, 200, 60);
+                $pdf->Ln(10);//Line break
+                $index++;
+            }
+
         }
         
         
@@ -65,7 +76,10 @@
         $pdf->Cell(140, 5, '', 0, 0);
         $pdf->Cell(50, 5, ': Signature', 0, 1, 'C');
         
-        
+        $qrcode->displayFPDF($pdf, 159, 150, 50);
+        $pdfdoc = $pdf->Output('', 'S');
+        //use customer email later
+        mailService::getInstance()->sendPdf($pdfdoc,$customerEmail);
         $pdf->Output();
         ob_end_flush();
     }else
