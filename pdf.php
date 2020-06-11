@@ -45,8 +45,10 @@
             $event = cartService::getInstance()->getEvent($events->id);
             //echo $event->getName();
             $eventName= $event->getName();
+            // $count=array();
+            // echo "is " . is_array($count) . "<br>";
             $count= $_SESSION["cart"]["items"][$i]["count"];
-            for ($z=0; $z <= count($count); $z++) {
+            for ($z=0; $z <= count((array)$count); $z++) {
 
                 $pdf->Cell(55, 5, 'Product Id', 0, 0);
                 $pdf->Cell(58, 5, ": $event->id ", 0, 1);
