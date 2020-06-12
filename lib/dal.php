@@ -1,11 +1,11 @@
 <?php
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/config/credentials-example.php");
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/event-model.php"); 
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/programmeItem-model.php");
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/image-model.php");
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/user-model.php");
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/ticket-model.php");
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/invoice-model.php");
+    require_once(__DIR__ . "/../config/credentials.php");
+    require_once(__DIR__ . "/../model/event-model.php"); 
+    require_once(__DIR__ . "/../model/programmeItem-model.php");
+    require_once(__DIR__ . "/../model/image-model.php");
+    require_once(__DIR__ . "/../model/user-model.php");
+    require_once(__DIR__ . "/../model/ticket-model.php");
+    require_once(__DIR__ . "/../model/invoice-model.php");
 
     class dataLayer {
         private static $instance;
