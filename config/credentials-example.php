@@ -8,10 +8,9 @@
     define('DB_PORT', '3308');
     */
 
-    define('DB_HOST', 'hfitteam3.infhaarlem.nl');
-    define('DB_USER', 'hfitteam3_spops');
-    define('DB_DB', 'hfitteam3_haarlemfestival');
-    define('DB_PASSWORD', 'Spoceps1');
+    define('DB_HOST', 'l3855uft9zao23e2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com	');
+    define('DB_USER', 'a7a4zosbz6c8kv0m');
+    define('DB_DB', 'tyyq0rwycwvceory');
+    define('DB_PASSWORD', 'jttzarz0yyx4r70u');
     define('DB_PORT', '3306');
 ?>
-
