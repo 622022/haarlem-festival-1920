@@ -1,7 +1,7 @@
 <?php
-    require_once(__DIR__ . "/../config/credentials.php");
-    require_once(__DIR__ . "/../model/event-model.php"); 
-    require_once (__DIR__ ."/../APIs/PHPmailer/PHPMailerAutoload.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/config/credentials-example.php");
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/model/event-model.php"); 
+    require_once($_SERVER['DOCUMENT_ROOT'] ."/APIs/PHPmailer/PHPMailerAutoload.php");
 
     // needs some cleaning
     
