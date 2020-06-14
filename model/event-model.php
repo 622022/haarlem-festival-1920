@@ -40,7 +40,7 @@
 
         public function getName() {
             if($this->eventTypeId === 1) { // If Dance
-                return strval($this->more["session"]) ? strval($this->more["session"]) . " by " . $this->artist : $this->artist;
+                return strval($this->more->session) ? strval($this->more->session) . " by " . $this->artist : $this->artist;
             } else if ($this->eventTypeId === 2) { // If Jazz
                 return $this->artist;
             }
