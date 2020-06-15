@@ -1,5 +1,6 @@
 <?php 
     class Restaurant {
+        public $id;
         public $name;
         public $price;
         public $address;
@@ -8,7 +9,8 @@
         public $seats;
         public $description;
 
-        public function __construct($name, $price, $address, $firstSession, $stars, $seats, $description) {
+        public function __construct($id, $name, $price, $address, $firstSession, $stars, $seats, $description) {
+            $this->id = $id;
             $this->name = $name;
             $this->price = $price;
             $this->address = $address;

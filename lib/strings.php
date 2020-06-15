@@ -55,6 +55,14 @@
         
         // CMS Restaurant Module Strings
         "cms.restaurants" => "Restaurants",
+        "cms.edit-restaurant" => "Edit Restaurant",
+        "cms.restaurant-name" => "Restaurant Name",
+        "cms.address" => "Address",
+        "cms.first-session" => "First Session",
+        "cms.description" => "Description",
+        "cms.delete-restaurant" => "Delete Restaurant",
+        "cms.restaurant-seats" => "Available Seats",
+        "cms.restaurant-stars" => "Stars",
 
         // CMS Invoice Module Strings
         "cms.invoices" => "Invoices",
@@ -123,6 +131,14 @@
         
         // CMS Restaurant Module Strings
         "cms.restaurants" => "Restaurants",
+        "cms.edit-restaurant" => "Restaurant Bewerken",
+        "cms.restaurant-name" => "Restaurant Naam",
+        "cms.address" => "Adres",
+        "cms.first-session" => "Eerste Sessie",
+        "cms.description" => "Omschrijving",
+        "cms.delete-restaurant" => "Restaurant Verwijderen",
+        "cms.restaurant-seats" => "Plekken Beschikbaar",
+        "cms.restaurant-stars" => "Sterren",
 
         // CMS Invoice Module Strings
         "cms.invoices" => "Facturen",

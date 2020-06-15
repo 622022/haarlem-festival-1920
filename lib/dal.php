@@ -433,7 +433,7 @@
         //     return $this->executeSelectQuery($query, 'ss', $name,$email)[0]["LAST_INSERT_ID()"];
         // }
 
-        public function insertCustomer($name,$email) {
+        public function insertCustomer($name, $email) {
             $query = "
             INSERT INTO `customer` ( `name`, `email`)
             VALUES(?, ?)";
@@ -500,7 +500,7 @@
 
         public function getallRestaurants() {
             $query = "
-                SELECT name, adultPrice, address, firstSession, stars, seats, description
+                SELECT id, name, adultPrice, address, firstSession, stars, seats, description
                 FROM restaurant
             ";
 
@@ -508,6 +508,7 @@
 
             foreach ($this->executeSelectQuery($query, '') as $result) {
                 array_push($restaurants, new Restaurant(
+                    $result['id'],
                     $result['name'],
                     intval($result['adultPrice']),
                     $result['address'],
@@ -521,18 +522,62 @@
             return $restaurants;
         }
 
+        public function getRestaurant($id) {
+            $query = "
+                SELECT id, name, adultPrice, address, firstSession, stars, seats, description
+                FROM restaurant
+                WHERE id = ?
+            ";
+
+            echo $query . "<br>";
+
+            $result = $this->executeSelectQuery($query, 'i', $id)[0];
+           
+            return new Restaurant(
+                $result['id'],
+                $result['name'],
+                intval($result['adultPrice']),
+                $result['address'],
+                $result['firstSession'],
+                intval($result['stars']),
+                intval($result['seats']),
+                $result['description']
+            );
+        }
+
+        public function updateRestaurant($restaurant) {
+            $query = "
+                UPDATE restaurant
+                SET name = ?,
+                    adultPrice = ?,
+                    address = ?,
+                    firstSession = ?,
+                    stars = ?,
+                    seats = ?,
+                    description = ?
+                WHERE id = ?
+            ";
+
+            return $this->executeEditQuery($query, 'sissiisi', $restaurant->name, intval($restaurant->price), $restaurant->address, $restaurant->firstSession, intval($restaurant->stars), intval($restaurant->seats), $restaurant->description, intval($restaurant->id));
+        }
+
+        public function deleteRestaurant($id) {
+            $query = "
+                DELETE FROM restaurant
+                WHERE id = ?
+            ";
+
+            return $this->executeEditQuery($query, 'i', intval($id));
+        }
+
         public function fetchUid($id){
             $query = "
-            SELECT
-            uid
-            FROM
-            `ticket`
-            WHERE
-            id = ?
+                SELECT uid
+                FROM `ticket`
+                WHERE id = ?
             ";
 
             return $this->executeSelectQuery($query, 'i',$id)[0]['uid'];
-
         }
     }
 ?>

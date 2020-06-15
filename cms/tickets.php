@@ -23,7 +23,9 @@
                     <label class="textbox-label"><?= $str['cms.ticket-number'] ?></label>
                     <input type="text" name="ticket-uid" value="<?= $_GET['ticketuid'] ?? '' ?>">
                 </div>
-                <input type="submit" name="confirm-edit-ticket" value="<?= $str['cms.edit-ticket'] ?>">
+                <?php if (isset($_GET['ticketuid'])) { ?>
+                    <input type="submit" name="confirm-edit-ticket" value="<?= $str['cms.edit-ticket'] ?>">
+                <?php } ?>
                 <input type="hidden" name="ticket-uuid-original" value="<?= $_GET['ticketuid'] ?? '' ?>"/>
                 <input type="submit" class="button-right" name="confirm-scan-ticket" value="<?= $str['cms.scan-ticket'] ?>">
                 <?php if (isset($_GET['ticketuid'])) { ?>

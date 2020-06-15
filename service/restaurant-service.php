@@ -18,6 +18,18 @@
 
 		public function getAllRestaurants() {
 			return $this->dal->getAllRestaurants();
-		}
+        }
+        
+        public function getRestaurant($id) {
+            return $this->dal->getRestaurant($id);
+        }
+
+        public function updateRestaurant($restaurant) {
+            return $this->dal->updateRestaurant($restaurant);
+        }
+
+        public function deleteRestaurant($id) {
+            return $this->dal->deleteRestaurant($id);
+        }
 	}
 ?>
